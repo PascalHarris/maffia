@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8B7F5C121DB8C41A00A76310 /* eventhandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E407F0370C79A01F4A231 /* eventhandlers.h */; };
+		8B7F5C131DB8C41A00A76310 /* fire.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40810370C79A01F4A231 /* fire.h */; };
+		8B7F5C141DB8C41A00A76310 /* game.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40830370C79A01F4A231 /* game.h */; };
+		8B7F5C151DB8C41A00A76310 /* graphics.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40850370C79A01F4A231 /* graphics.h */; };
+		8B7F5C161DB8C41A00A76310 /* loading.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40870370C79A01F4A231 /* loading.h */; };
+		8B7F5C171DB8C41A00A76310 /* mafftypes.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40920370C7B401F4A231 /* mafftypes.h */; };
+		8B7F5C181DB8C41A00A76310 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40940370C7B401F4A231 /* main.h */; };
+		8B7F5C191DB8C41A00A76310 /* scores.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40990370C7C701F4A231 /* scores.h */; };
+		8B7F5C1A1DB8C41A00A76310 /* sound.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E409B0370C7C701F4A231 /* sound.h */; };
+		8B7F5C1B1DB8C41A00A76310 /* voting.h in Headers */ = {isa = PBXBuildFile; fileRef = F54099820373A610015F02DD /* voting.h */; };
+		8B7F5C1C1DB8C41A00A76310 /* depthcheck.h in Headers */ = {isa = PBXBuildFile; fileRef = F563777E0377996801768EE7 /* depthcheck.h */; };
+		8B7F5C1E1DB8C41A00A76310 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
+		8B7F5C1F1DB8C41A00A76310 /* CustomInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52E40260370C77E01F4A231 /* CustomInfo.plist */; };
+		8B7F5C201DB8C41A00A76310 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = F52E40280370C77E01F4A231 /* Graphics */; };
+		8B7F5C211DB8C41A00A76310 /* MAFFia.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52E406D0370C77F01F4A231 /* MAFFia.icns */; };
+		8B7F5C221DB8C41A00A76310 /* main.nib in Resources */ = {isa = PBXBuildFile; fileRef = F52E406F0370C77F01F4A231 /* main.nib */; };
+		8B7F5C231DB8C41A00A76310 /* main~.nib in Resources */ = {isa = PBXBuildFile; fileRef = F52E40710370C77F01F4A231 /* main~.nib */; };
+		8B7F5C241DB8C41A00A76310 /* alienplace.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B4A147037E012B01C6A94C /* alienplace.plist */; };
+		8B7F5C251DB8C41A00A76310 /* pasture.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B4A14D037E012B01C6A94C /* pasture.plist */; };
+		8B7F5C261DB8C41A00A76310 /* shrooms.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B4A14E037E012B01C6A94C /* shrooms.plist */; };
+		8B7F5C271DB8C41A00A76310 /* cloisters.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52DA42A03803B3E01E9057F /* cloisters.plist */; };
+		8B7F5C281DB8C41A00A76310 /* dump.plist in Resources */ = {isa = PBXBuildFile; fileRef = F58737E8038095C40169D9D2 /* dump.plist */; };
+		8B7F5C291DB8C41A00A76310 /* road.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5E16CA20381C7DE01588AE2 /* road.plist */; };
+		8B7F5C2A1DB8C41A00A76310 /* aliencloister.plist in Resources */ = {isa = PBXBuildFile; fileRef = F515944B0381DCED01A81442 /* aliencloister.plist */; };
+		8B7F5C2B1DB8C41A00A76310 /* beach.plist in Resources */ = {isa = PBXBuildFile; fileRef = F513BBD8038354CF014038F8 /* beach.plist */; };
+		8B7F5C2D1DB8C41A00A76310 /* eventhandlers.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E407E0370C79A01F4A231 /* eventhandlers.m */; };
+		8B7F5C2E1DB8C41A00A76310 /* fire.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40800370C79A01F4A231 /* fire.m */; };
+		8B7F5C2F1DB8C41A00A76310 /* game.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40820370C79A01F4A231 /* game.m */; };
+		8B7F5C301DB8C41A00A76310 /* graphics.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40840370C79A01F4A231 /* graphics.m */; };
+		8B7F5C311DB8C41A00A76310 /* loading.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40860370C79A01F4A231 /* loading.m */; };
+		8B7F5C321DB8C41A00A76310 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40930370C7B401F4A231 /* main.m */; };
+		8B7F5C331DB8C41A00A76310 /* scores.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40980370C7C701F4A231 /* scores.m */; };
+		8B7F5C341DB8C41A00A76310 /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E409A0370C7C701F4A231 /* sound.m */; };
+		8B7F5C351DB8C41A00A76310 /* voting.m in Sources */ = {isa = PBXBuildFile; fileRef = F54099830373A610015F02DD /* voting.m */; };
+		8B7F5C361DB8C41A00A76310 /* depthcheck.m in Sources */ = {isa = PBXBuildFile; fileRef = F563777F0377996801768EE7 /* depthcheck.m */; };
+		8B7F5C381DB8C41A00A76310 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
+		8B7F5C3A1DB8C41A00A76310 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52E3FEB0370C51401F4A231 /* QuickTime.framework */; };
+		8B7F5C3C1DB8C41A00A76310 /* sound.rsrc in Rez */ = {isa = PBXBuildFile; fileRef = F52E40730370C77F01F4A231 /* sound.rsrc */; };
+		8B9DFBAF2F104FD200FFF56D /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9DFBAE2F104FC900FFF56D /* AppDelegate.h */; };
+		8B9DFBB12F104FDD00FFF56D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9DFBB02F104FDB00FFF56D /* AppDelegate.m */; };
+		8B9DFBB32F10502500FFF56D /* GameView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9DFBB22F10502000FFF56D /* GameView.h */; };
+		8B9DFBB52F10502C00FFF56D /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9DFBB42F10502A00FFF56D /* GameView.m */; };
+		8B9DFC522F10571D00FFF56D /* sound.rsrc in Resources */ = {isa = PBXBuildFile; fileRef = F52E40730370C77F01F4A231 /* sound.rsrc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0867D6ABFE840B52C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		8B7F5C411DB8C41A00A76310 /* Info-MAFFia__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MAFFia__Upgraded_.plist"; sourceTree = "<group>"; };
+		8B7F5C421DB8C41A00A76310 /* MAFFia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MAFFia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9DFBAE2F104FC900FFF56D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8B9DFBB02F104FDB00FFF56D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8B9DFBB22F10502000FFF56D /* GameView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
+		8B9DFBB42F10502A00FFF56D /* GameView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
+		F513BBD8038354CF014038F8 /* beach.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = beach.plist; sourceTree = "<group>"; };
+		F515944B0381DCED01A81442 /* aliencloister.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = aliencloister.plist; sourceTree = "<group>"; };
+		F52DA42A03803B3E01E9057F /* cloisters.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = cloisters.plist; sourceTree = "<group>"; };
+		F52E3FEB0370C51401F4A231 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
+		F52E40270370C77E01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/CustomInfo.plist; sourceTree = "<group>"; };
+		F52E40290370C77E01F4A231 /* English */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = English; path = English.lproj/Graphics; sourceTree = "<group>"; };
+		F52E406E0370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = English; path = English.lproj/MAFFia.icns; sourceTree = "<group>"; };
+		F52E40700370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/main.nib; sourceTree = "<group>"; };
+		F52E40720370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = "English.lproj/main~.nib"; sourceTree = "<group>"; };
+		F52E40740370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = archive.rsrc; name = English; path = English.lproj/sound.rsrc; sourceTree = "<group>"; };
+		F52E407E0370C79A01F4A231 /* eventhandlers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eventhandlers.m; sourceTree = "<group>"; };
+		F52E407F0370C79A01F4A231 /* eventhandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eventhandlers.h; sourceTree = "<group>"; };
+		F52E40800370C79A01F4A231 /* fire.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fire.m; sourceTree = "<group>"; };
+		F52E40810370C79A01F4A231 /* fire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fire.h; sourceTree = "<group>"; };
+		F52E40820370C79A01F4A231 /* game.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = game.m; sourceTree = "<group>"; };
+		F52E40830370C79A01F4A231 /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
+		F52E40840370C79A01F4A231 /* graphics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = graphics.m; sourceTree = "<group>"; };
+		F52E40850370C79A01F4A231 /* graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
+		F52E40860370C79A01F4A231 /* loading.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = loading.m; sourceTree = "<group>"; };
+		F52E40870370C79A01F4A231 /* loading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loading.h; sourceTree = "<group>"; };
+		F52E40920370C7B401F4A231 /* mafftypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mafftypes.h; sourceTree = "<group>"; };
+		F52E40930370C7B401F4A231 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F52E40940370C7B401F4A231 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		F52E40980370C7C701F4A231 /* scores.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = scores.m; sourceTree = "<group>"; };
+		F52E40990370C7C701F4A231 /* scores.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scores.h; sourceTree = "<group>"; };
+		F52E409A0370C7C701F4A231 /* sound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sound.m; sourceTree = "<group>"; };
+		F52E409B0370C7C701F4A231 /* sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
+		F54099820373A610015F02DD /* voting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = voting.h; sourceTree = "<group>"; };
+		F54099830373A610015F02DD /* voting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = voting.m; sourceTree = "<group>"; };
+		F563777E0377996801768EE7 /* depthcheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = depthcheck.h; sourceTree = "<group>"; };
+		F563777F0377996801768EE7 /* depthcheck.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = depthcheck.m; sourceTree = "<group>"; };
+		F58737E8038095C40169D9D2 /* dump.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = dump.plist; sourceTree = "<group>"; };
+		F5B4A147037E012B01C6A94C /* alienplace.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = alienplace.plist; sourceTree = "<group>"; };
+		F5B4A14D037E012B01C6A94C /* pasture.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = pasture.plist; sourceTree = "<group>"; };
+		F5B4A14E037E012B01C6A94C /* shrooms.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = shrooms.plist; sourceTree = "<group>"; };
+		F5E16CA20381C7DE01588AE2 /* road.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = road.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8B9DFBAD2F104D6D00FFF56D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CompilerSupport/CoexistWithCarbon.h,
+				CompilerSupport/filesystem_implementation.hpp,
+				CompilerSupport/filesystem.h,
+				CompilerSupport/span_implementation.hpp,
+				CompilerSupport/span.h,
+				Files/Files.cpp,
+				Files/HostVolume.cpp,
+				Files/HostVolume.h,
+				Files/Resources.cpp,
+				Files/Volume.h,
+				Graphics/ARGBPixmap.cpp,
+				Graphics/Color.cpp,
+				Graphics/ColorManager.cpp,
+				Graphics/Graphics.cpp,
+				Graphics/Icons.cpp,
+				Graphics/PICT.cpp,
+				Graphics/SysFont.h,
+				Graphics/SystemPalettes.cpp,
+				Input/SDLInput.cpp,
+				Memory/Memory.cpp,
+				Platform/Windows/PommeWindows.cpp,
+				Platform/Windows/PommeWindows.h,
+				Pomme.cpp,
+				Pomme.h,
+				PommeDebug.cpp,
+				PommeDebug.h,
+				PommeEnums.h,
+				PommeFiles.h,
+				PommeGraphics.h,
+				PommeInit.h,
+				PommeInput.h,
+				PommeMemory.h,
+				PommeSound.h,
+				PommeTypes.h,
+				PommeVideo.h,
+				QD3D/3DMFInternal.h,
+				QD3D/3DMFParser.cpp,
+				QD3D/QD3D.cpp,
+				QD3D/QD3D.h,
+				QD3D/QD3DMath.cpp,
+				QD3D/QD3DMath.h,
+				SoundFormats/AIFF.cpp,
+				SoundFormats/IMA4.cpp,
+				SoundFormats/MACE.cpp,
+				SoundFormats/Midi.cpp,
+				SoundFormats/minimp3.h,
+				SoundFormats/mp3.cpp,
+				SoundFormats/SoundFormats.cpp,
+				SoundFormats/xlaw.cpp,
+				SoundMixer/ChannelImpl.cpp,
+				SoundMixer/ChannelImpl.h,
+				SoundMixer/cmixer.cpp,
+				SoundMixer/cmixer.h,
+				SoundMixer/SoundManager.cpp,
+				Text/TextUtilities.cpp,
+				Time/TimeManager.cpp,
+				Utilities/bigendianstreams.cpp,
+				Utilities/bigendianstreams.h,
+				Utilities/FixedPool.h,
+				Utilities/GrowablePool.h,
+				Utilities/IEEEExtended.cpp,
+				Utilities/IEEEExtended.h,
+				Utilities/memstream.cpp,
+				Utilities/memstream.h,
+				Utilities/StringUtils.cpp,
+				Utilities/StringUtils.h,
+				Utilities/structpack.cpp,
+				Utilities/structpack.h,
+				Video/Cinepak.cpp,
+				Video/Cinepak.h,
+				Video/moov.cpp,
+			);
+			target = 8B7F5C101DB8C41A00A76310 /* MAFFia */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8B9DFB102F104D4300FFF56D /* Pomme */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8B9DFBAD2F104D6D00FFF56D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Pomme; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8B7F5C371DB8C41A00A76310 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B7F5C381DB8C41A00A76310 /* Carbon.framework in Frameworks */,
+				8B7F5C3A1DB8C41A00A76310 /* QuickTime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8B7F5C421DB8C41A00A76310 /* MAFFia.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20286C29FDCF999611CA2CEA /* MAFFia */ = {
+			isa = PBXGroup;
+			children = (
+				8B9DFB102F104D4300FFF56D /* Pomme */,
+				20286C2AFDCF999611CA2CEA /* Sources */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+				8B7F5C411DB8C41A00A76310 /* Info-MAFFia__Upgraded_.plist */,
+			);
+			name = MAFFia;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8B9DFBB42F10502A00FFF56D /* GameView.m */,
+				8B9DFBB22F10502000FFF56D /* GameView.h */,
+				8B9DFBB02F104FDB00FFF56D /* AppDelegate.m */,
+				8B9DFBAE2F104FC900FFF56D /* AppDelegate.h */,
+				F52E40920370C7B401F4A231 /* mafftypes.h */,
+				F52E40940370C7B401F4A231 /* main.h */,
+				F52E407F0370C79A01F4A231 /* eventhandlers.h */,
+				F52E40870370C79A01F4A231 /* loading.h */,
+				F52E40830370C79A01F4A231 /* game.h */,
+				F52E40850370C79A01F4A231 /* graphics.h */,
+				F52E40810370C79A01F4A231 /* fire.h */,
+				F52E40990370C7C701F4A231 /* scores.h */,
+				F52E409B0370C7C701F4A231 /* sound.h */,
+				F54099820373A610015F02DD /* voting.h */,
+				F563777E0377996801768EE7 /* depthcheck.h */,
+				F52E40930370C7B401F4A231 /* main.m */,
+				F52E407E0370C79A01F4A231 /* eventhandlers.m */,
+				F52E40860370C79A01F4A231 /* loading.m */,
+				F52E40820370C79A01F4A231 /* game.m */,
+				F52E40840370C79A01F4A231 /* graphics.m */,
+				F52E40800370C79A01F4A231 /* fire.m */,
+				F52E40980370C7C701F4A231 /* scores.m */,
+				F52E409A0370C7C701F4A231 /* sound.m */,
+				F54099830373A610015F02DD /* voting.m */,
+				F563777F0377996801768EE7 /* depthcheck.m */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
+				F52E40260370C77E01F4A231 /* CustomInfo.plist */,
+				F52E40280370C77E01F4A231 /* Graphics */,
+				F52E406D0370C77F01F4A231 /* MAFFia.icns */,
+				F52E406F0370C77F01F4A231 /* main.nib */,
+				F52E40710370C77F01F4A231 /* main~.nib */,
+				F52E40730370C77F01F4A231 /* sound.rsrc */,
+				F5B4A146037E012B01C6A94C /* Levels */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F52E3FEB0370C51401F4A231 /* QuickTime.framework */,
+				20286C33FDCF999611CA2CEA /* Carbon.framework */,
+				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
+				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		F5B4A146037E012B01C6A94C /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				F5B4A14D037E012B01C6A94C /* pasture.plist */,
+				F58737E8038095C40169D9D2 /* dump.plist */,
+				F5E16CA20381C7DE01588AE2 /* road.plist */,
+				F513BBD8038354CF014038F8 /* beach.plist */,
+				F5B4A14E037E012B01C6A94C /* shrooms.plist */,
+				F5B4A147037E012B01C6A94C /* alienplace.plist */,
+				F52DA42A03803B3E01E9057F /* cloisters.plist */,
+				F515944B0381DCED01A81442 /* aliencloister.plist */,
+			);
+			name = Levels;
+			path = English.lproj/Levels;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8B7F5C111DB8C41A00A76310 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B7F5C121DB8C41A00A76310 /* eventhandlers.h in Headers */,
+				8B7F5C131DB8C41A00A76310 /* fire.h in Headers */,
+				8B7F5C141DB8C41A00A76310 /* game.h in Headers */,
+				8B7F5C151DB8C41A00A76310 /* graphics.h in Headers */,
+				8B7F5C161DB8C41A00A76310 /* loading.h in Headers */,
+				8B7F5C171DB8C41A00A76310 /* mafftypes.h in Headers */,
+				8B7F5C181DB8C41A00A76310 /* main.h in Headers */,
+				8B7F5C191DB8C41A00A76310 /* scores.h in Headers */,
+				8B7F5C1A1DB8C41A00A76310 /* sound.h in Headers */,
+				8B7F5C1B1DB8C41A00A76310 /* voting.h in Headers */,
+				8B7F5C1C1DB8C41A00A76310 /* depthcheck.h in Headers */,
+				8B9DFBB32F10502500FFF56D /* GameView.h in Headers */,
+				8B9DFBAF2F104FD200FFF56D /* AppDelegate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8B7F5C101DB8C41A00A76310 /* MAFFia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B7F5C3D1DB8C41A00A76310 /* Build configuration list for PBXNativeTarget "MAFFia" */;
+			buildPhases = (
+				8B7F5C111DB8C41A00A76310 /* Headers */,
+				8B7F5C1D1DB8C41A00A76310 /* Resources */,
+				8B7F5C2C1DB8C41A00A76310 /* Sources */,
+				8B7F5C371DB8C41A00A76310 /* Frameworks */,
+				8B7F5C3B1DB8C41A00A76310 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MAFFia;
+			productInstallPath = "$(HOME)/Applications";
+			productName = MAFFia;
+			productReference = 8B7F5C421DB8C41A00A76310 /* MAFFia.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 8B2D261F1DB8B960004D6FFF /* Build configuration list for PBXProject "MAFFia" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				English,
+			);
+			mainGroup = 20286C29FDCF999611CA2CEA /* MAFFia */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8B7F5C101DB8C41A00A76310 /* MAFFia */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8B7F5C1D1DB8C41A00A76310 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9DFC522F10571D00FFF56D /* sound.rsrc in Resources */,
+				8B7F5C1E1DB8C41A00A76310 /* InfoPlist.strings in Resources */,
+				8B7F5C1F1DB8C41A00A76310 /* CustomInfo.plist in Resources */,
+				8B7F5C201DB8C41A00A76310 /* Graphics in Resources */,
+				8B7F5C211DB8C41A00A76310 /* MAFFia.icns in Resources */,
+				8B7F5C221DB8C41A00A76310 /* main.nib in Resources */,
+				8B7F5C231DB8C41A00A76310 /* main~.nib in Resources */,
+				8B7F5C241DB8C41A00A76310 /* alienplace.plist in Resources */,
+				8B7F5C251DB8C41A00A76310 /* pasture.plist in Resources */,
+				8B7F5C261DB8C41A00A76310 /* shrooms.plist in Resources */,
+				8B7F5C271DB8C41A00A76310 /* cloisters.plist in Resources */,
+				8B7F5C281DB8C41A00A76310 /* dump.plist in Resources */,
+				8B7F5C291DB8C41A00A76310 /* road.plist in Resources */,
+				8B7F5C2A1DB8C41A00A76310 /* aliencloister.plist in Resources */,
+				8B7F5C2B1DB8C41A00A76310 /* beach.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8B7F5C3B1DB8C41A00A76310 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B7F5C3C1DB8C41A00A76310 /* sound.rsrc in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8B7F5C2C1DB8C41A00A76310 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B7F5C2D1DB8C41A00A76310 /* eventhandlers.m in Sources */,
+				8B7F5C2E1DB8C41A00A76310 /* fire.m in Sources */,
+				8B7F5C2F1DB8C41A00A76310 /* game.m in Sources */,
+				8B9DFBB52F10502C00FFF56D /* GameView.m in Sources */,
+				8B9DFBB12F104FDD00FFF56D /* AppDelegate.m in Sources */,
+				8B7F5C301DB8C41A00A76310 /* graphics.m in Sources */,
+				8B7F5C311DB8C41A00A76310 /* loading.m in Sources */,
+				8B7F5C321DB8C41A00A76310 /* main.m in Sources */,
+				8B7F5C331DB8C41A00A76310 /* scores.m in Sources */,
+				8B7F5C341DB8C41A00A76310 /* sound.m in Sources */,
+				8B7F5C351DB8C41A00A76310 /* voting.m in Sources */,
+				8B7F5C361DB8C41A00A76310 /* depthcheck.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0867D6ABFE840B52C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F52E40260370C77E01F4A231 /* CustomInfo.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F52E40270370C77E01F4A231 /* English */,
+			);
+			name = CustomInfo.plist;
+			sourceTree = "<group>";
+		};
+		F52E40280370C77E01F4A231 /* Graphics */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F52E40290370C77E01F4A231 /* English */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		F52E406D0370C77F01F4A231 /* MAFFia.icns */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F52E406E0370C77F01F4A231 /* English */,
+			);
+			name = MAFFia.icns;
+			sourceTree = "<group>";
+		};
+		F52E406F0370C77F01F4A231 /* main.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F52E40700370C77F01F4A231 /* English */,
+			);
+			name = main.nib;
+			sourceTree = "<group>";
+		};
+		F52E40710370C77F01F4A231 /* main~.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F52E40720370C77F01F4A231 /* English */,
+			);
+			name = "main~.nib";
+			sourceTree = "<group>";
+		};
+		F52E40730370C77F01F4A231 /* sound.rsrc */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F52E40740370C77F01F4A231 /* English */,
+			);
+			name = sound.rsrc;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8B2D26201DB8B960004D6FFF /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+			};
+			name = Development;
+		};
+		8B2D26211DB8B960004D6FFF /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+			};
+			name = Deployment;
+		};
+		8B2D26221DB8B960004D6FFF /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+			};
+			name = Default;
+		};
+		8B7F5C3E1DB8C41A00A76310 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "Info-MAFFia__Upgraded_.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MAFFia;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-W",
+					"-Wno-unused-parameter",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		8B7F5C3F1DB8C41A00A76310 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "Info-MAFFia__Upgraded_.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MAFFia;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-W",
+					"-Wno-unused-parameter",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		8B7F5C401DB8C41A00A76310 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "Info-MAFFia__Upgraded_.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = "";
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = MAFFia;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-W",
+					"-Wno-unused-parameter",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8B2D261F1DB8B960004D6FFF /* Build configuration list for PBXProject "MAFFia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B2D26201DB8B960004D6FFF /* Development */,
+				8B2D26211DB8B960004D6FFF /* Deployment */,
+				8B2D26221DB8B960004D6FFF /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		8B7F5C3D1DB8C41A00A76310 /* Build configuration list for PBXNativeTarget "MAFFia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B7F5C3E1DB8C41A00A76310 /* Development */,
+				8B7F5C3F1DB8C41A00A76310 /* Deployment */,
+				8B7F5C401DB8C41A00A76310 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}

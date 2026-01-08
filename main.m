@@ -1,111 +1,56 @@
-#include <Carbon/Carbon.h>
+//
+//  main.m
+//  MAFFia
+//
+//  Modern Cocoa entry point - most initialization moved to AppDelegate
+//
 
+#import <Cocoa/Cocoa.h>
+#include "Pomme.h"
+#include "mafftypes.h"
 #include "main.h"
 
-
-
+extern GlobalStuff *g;
 extern void FinishSounds(void);
 extern void RemoveAllLevels(void);
 extern void RemoveAllScenery(void);
-extern void CheckDepth(void);
-extern void ChangeDepthBack(void);
 extern void DumpBackgrounds(void);
+extern void RemoveAllSheep(void);
+extern void RemoveAllScoreEffects(void);
+extern void RemoveAllShotEffects(void);
+extern void RemoveAllWeapons(void);
+extern void UnloadHighScores(void);
 
-int main(int argc, char* argv[])
-{
-    Initialise();
-    
-    InterfaceLoop();
-    
-    CleanUp(FALSE);
-    
-    return 0;
+// Main entry point - uses Cocoa application framework
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        return NSApplicationMain(argc, argv);
+    }
 }
 
-
-
-
-
-void Initialise(void)
-{
-    SInt32 randomSeed;
-    
-    GetDateTime(&randomSeed);
-    SetQDGlobalsRandomSeed(randomSeed);
-    
-    g = (GlobalStuff *)NewPtr(sizeof(GlobalStuff));
-    if (!g) ExitToShell();
-    
-    g->mainBundle = CFBundleGetMainBundle();
-    
-    LoadPreferences();
-    
-    CheckDepth();
-    
-    g->inGame = 0;
-    
-    SetRect(&g->swapBounds, 0, 0, 620, 420);
-    g->fireBounds = g->swapBounds;
-    InsetRect(&g->fireBounds, 1, 1);		// yes, this _is_ right.
-    
-    g->fireSwap = 0;
-    EmptyFireBuffer();
-    
-    g->baseScoreEffect = NULL;
-    g->baseShotEffect = NULL;
-    g->baseSheep = NULL;
-    g->baseWeapon = NULL;
-    g->baseLevel = NULL;
-    g->baseSceneryType = NULL;
-    
-    g->theWeapon = NULL;
-    g->theLevel = NULL;
-    
-    LoadGlobalGraphics();
-    LoadEveryThingElse();
-    
-    LoadInterface();	// that is, windows and meubars.
-    
-    g->windowActive = 1;
-    
-    InstallEventHandlers();
-    
-    if ( g->theWindow != GetUserFocusWindow() )
-        g->windowActive = 0;
+// Stub - initialization handled by AppDelegate
+void Initialise(void) {
+    // Now handled by AppDelegate applicationDidFinishLaunching:
 }
 
-
-
-
-
-
-void InterfaceLoop(void)
-{
-    DrawBorder();
-    
-    DrawGWorldToWindow(g->interfaceBackGWorld, g->theWindow);
-    
-    RunApplicationEventLoop();
+// Stub - event loop handled by Cocoa
+void InterfaceLoop(void) {
+    // Now handled by NSApplicationMain / Cocoa run loop
 }
 
-
+// Cleanup function - called by AppDelegate on termination
 void CleanUp(bool instaQuit)
 {
+    if (!g) {
+        if (instaQuit) exit(1);
+        return;
+    }
+    
     short i = 0;
     
-    if (g->theWindow) DisposeWindow(g->theWindow);
-    if (g->aboutWindow) DisposeWindow(g->aboutWindow);
-    if (g->instructionsWindow) DisposeWindow(g->instructionsWindow);
-    if (g->prefsWindow) DisposeWindow(g->prefsWindow);
-    if (g->highScoreWindow) DisposeWindow(g->highScoreWindow);
-    if (g->gameOverWindow) DisposeWindow(g->gameOverWindow);
-    if (g->highScoresWindow) DisposeWindow(g->highScoresWindow);
-    if (g->levelSelectWindow) DisposeWindow(g->levelSelectWindow);
-    if (g->autoPauseWindow) DisposeWindow(g->autoPauseWindow);
-    if (g->askSwitchWindow) DisposeWindow(g->askSwitchWindow);
+    // Note: Windows are managed by Cocoa now, we don't dispose them manually
     
-    if (g->theTimer) RemoveEventLoopTimer(g->theTimer);
-    
+    // Clean up GWorlds
     if (g->swapGWorld) DisposeGWorld(g->swapGWorld);
     if (g->interfaceBackGWorld) DisposeGWorld(g->interfaceBackGWorld);
     if (g->interfaceButtons) DisposeGWorld(g->interfaceButtons);
@@ -131,8 +76,8 @@ void CleanUp(bool instaQuit)
     if (g->bonusMask) DisposeGWorld(g->bonusMask);
     if (g->chainBonusGWorld) DisposeGWorld(g->chainBonusGWorld);
     if (g->chainBonusMask) DisposeGWorld(g->chainBonusMask);
-    while (i < 5)
-    {
+    
+    while (i < 5) {
         if (g->extraBonusGWorld[i]) DisposeGWorld(g->extraBonusGWorld[i]);
         i++;
     }
@@ -170,7 +115,8 @@ void CleanUp(bool instaQuit)
     if (g->theScoreStuff.multiplierGraphics) DisposeGWorld(g->theScoreStuff.multiplierGraphics);
     if (g->theScoreStuff.scoreMask) DisposeGWorld(g->theScoreStuff.scoreMask);
     
-    ReleaseResource((Handle)g->crosshair);
+    // Cursor is handled differently in Cocoa
+    // ReleaseResource((Handle)g->crosshair);
     
     FinishSounds();
     
@@ -181,15 +127,16 @@ void CleanUp(bool instaQuit)
     RemoveAllWeapons();
     RemoveAllLevels();
     RemoveAllScenery();
-    DumpBackgrounds(); // why not RemoveAll…? search me.
+    DumpBackgrounds();
     
-    ChangeDepthBack();
+    // Depth switching is obsolete
+    // ChangeDepthBack();
     
-    UnloadHighScores(); // Incidentally, writes prefs&highscores to disk
+    UnloadHighScores();
     
     if (g) DisposePtr((Ptr)g);
+    g = NULL;
     
     if (instaQuit)
-        ExitToShell();
+        exit(1);
 }
-

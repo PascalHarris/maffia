@@ -7,7 +7,7 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#include "Pomme.h"
 
 #include "game.h"
 #include "graphics.h"
@@ -716,16 +716,16 @@ void CheckKeys(void)
     
     if (g->windowActive && g->inGame && g->gameState <= kPlaying && !(alphaLock & GetCurrentKeyModifiers()) ) // potentially nasty: <= kPlaying
     {
-        if ((theKeys[0] & 1 << 10) || (((unsigned char *)(theKeys))[(0x53) / 8] & 1 << ((0x53) % 8)))	// either '1' key
+ //       if ((theKeys[0] & 1 << 10) || (((unsigned char *)(theKeys))[(0x53) / 8] & (1 << ((0x53) % 8))))	// either '1' key -PGH Fix
             theWeapon = g->baseWeapon;		
         
-        if ((theKeys[0] & 1 << 11) || (((unsigned char *)(theKeys))[(0x54) / 8] & 1 << ((0x54) % 8)))	// either '2' key
+ //       if ((theKeys[0] & 1 << 11) || (((unsigned char *)(theKeys))[(0x54) / 8] & 1 << ((0x54) % 8)))	// either '2' key
             theWeapon = g->baseWeapon->next;
         
-        if ((theKeys[0] & 1 << 12) || (((unsigned char *)(theKeys))[(0x55) / 8] & 1 << ((0x55) % 8)))	// either '3' key
-            theWeapon = g->baseWeapon->next->next;
+ //       if ((theKeys[0] & 1 << 12) || (((unsigned char *)(theKeys))[(0x55) / 8] & 1 << ((0x55) % 8)))	// either '3' key
+		    theWeapon = g->baseWeapon->next->next;
         
-        if ((theKeys[0] & 1 << 13) || (((unsigned char *)(theKeys))[(0x56) / 8] & 1 << ((0x56) % 8)))	// either '4' key
+ //       if ((theKeys[0] & 1 << 13) || (((unsigned char *)(theKeys))[(0x56) / 8] & 1 << ((0x56) % 8)))	// either '4' key
             theWeapon = g->baseWeapon->next->next->next;
     }
     

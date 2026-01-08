@@ -7,7 +7,7 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#include "Pomme.h"
 
 void DrawInterface (GWorldPtr theGWorld);
 

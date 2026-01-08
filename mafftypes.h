@@ -7,7 +7,17 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "Pomme.h"
+#include "CarbonCompat.h"
+
+// If any types are missing, add them:
+#ifndef nil
+#define nil NULL
+#endif
 
 #ifndef __MAFFTYPES__
 
@@ -440,4 +450,8 @@ typedef struct GlobalStuff
     
 } GlobalStuff;
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif

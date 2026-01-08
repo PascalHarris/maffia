@@ -1,0 +1,40 @@
+~ ~ ~ Compiling MAFFia v1.0.1
+
+16/11/2002
+
+
+~ ~ ~ Contents
+
+~ Requirements
+~ Compiling
+~ Notes on the code
+~ Contact
+
+
+~ ~ ~ Requirements
+
+July 2002 Apple Developer Tools
+
+
+~ ~ ~ Compiling
+
+1: Double-click MAFFia.pbproj to open Project Builder.
+
+2: Press the "Build" button in the top left.
+
+3: Ignore the 6 errors encountered while compiling "loading.c". They don't seem to cause problems. If anyone works out how to stop them, I'd be interested.
+
+4: Enjoy!
+
+
+~ ~ ~ Notes on the code
+
+…all I can say, at the moment, is "look out". It's messy, there are whole sections that almost entirely duplicate each other, a couple of bits may require some head-scratching to work out… Sorry. Watch out for subtly-misleading function names too.
+
+Check back at iDevGames.com for more recent versions of this source code, possibly with some of the above problems slightly alleviated.
+
+
+~ ~ ~ Contact
+
+w_reade@hotmail.com
+

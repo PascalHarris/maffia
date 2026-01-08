@@ -7,23 +7,228 @@
  *
  */
 
-#include <Carbon/Carbon.h>
-#include <QuickTime/QuickTime.h>
-#include <QuickTime/QuickTimeComponents.h>
-#include <CoreServices/CoreServices.h>
+//#include "Pomme.h"
+//#include <QuickTime/QuickTime.h>
+//#include <QuickTime/QuickTimeComponents.h>
+//#include <CoreServices/CoreServices.h>
+//
+//#include "loading.h"
+//#include "mafftypes.h"
+//
+//#define PRF_CUR kCFPreferencesCurrentApplication
+//
+//extern void CleanUp(bool instaQuit);
+//extern GlobalStuff *g;
+//extern void ClearGWorld (GWorldPtr theGWorld, short colour);
+//extern void LoadSounds(void);
+//extern void LoadHighScores(void);
+//extern void WindowSizeHack(Boolean repos);
 
-#include "loading.h"
+#include "Pomme.h"
+#import <Cocoa/Cocoa.h>
 #include "mafftypes.h"
+#include "loading.h"
 
 #define PRF_CUR kCFPreferencesCurrentApplication
 
-extern void CleanUp(bool instaQuit);
 extern GlobalStuff *g;
-extern void ClearGWorld (GWorldPtr theGWorld, short colour);
-extern void LoadSounds(void);
+extern void CleanUp(bool instaQuit);
+extern void ClearGWorld(GWorldPtr theGWorld, short colour);
 extern void LoadHighScores(void);
 extern void WindowSizeHack(Boolean repos);
 
+void LoadPicture(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
+{
+    // Get URL for resource
+    CFURLRef url = CFBundleCopyResourceURL(g->mainBundle, name, CFSTR("tif"), CFSTR("Graphics"));
+    if (!url) {
+        NSLog(@"LoadPicture: Failed to find resource %@", name);
+        CleanUp(TRUE);
+        return;
+    }
+    
+    // Load image using NSImage
+    NSImage *image = [[NSImage alloc] initWithContentsOfURL:(__bridge NSURL *)url];
+    CFRelease(url);
+    
+    if (!image) {
+        NSLog(@"LoadPicture: Failed to load image %@", name);
+        CleanUp(TRUE);
+        return;
+    }
+    
+    NSSize size = [image size];
+    int width = (int)size.width;
+    int height = (int)size.height;
+    
+    // Create 32-bit GWorld (Pomme's native format)
+    Rect bounds = {0, 0, (short)height, (short)width};
+    OSErr err = NewGWorld(theGWorld, 32, &bounds, NULL, NULL, 0);
+    if (err) {
+        NSLog(@"LoadPicture: Failed to create GWorld for %@", name);
+        CleanUp(TRUE);
+        return;
+    }
+    
+    // Get the pixel buffer from Pomme
+    PixMapHandle pixMap = GetGWorldPixMap(*theGWorld);
+    LockPixels(pixMap);
+    
+    UInt32 *destPixels = (UInt32 *)GetPixBaseAddr(pixMap);
+    
+    // Create NSBitmapImageRep to render the image
+    NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc]
+                                initWithBitmapDataPlanes:NULL
+                                pixelsWide:width
+                                pixelsHigh:height
+                                bitsPerSample:8
+                                samplesPerPixel:4
+                                hasAlpha:YES
+                                isPlanar:NO
+                                colorSpaceName:NSDeviceRGBColorSpace
+                                bytesPerRow:width * 4
+                                bitsPerPixel:32];
+    
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
+    [NSGraphicsContext setCurrentContext:ctx];
+    
+    // Handle horizontal flipping
+    if (flipped) {
+        NSAffineTransform *transform = [NSAffineTransform transform];
+        [transform translateXBy:width yBy:0];
+        [transform scaleXBy:-1 yBy:1];
+        [transform concat];
+    }
+    
+    // Draw image into bitmap
+    [image drawInRect:NSMakeRect(0, 0, width, height)
+             fromRect:NSZeroRect
+            operation:NSCompositingOperationCopy
+             fraction:1.0];
+    
+    [NSGraphicsContext restoreGraphicsState];
+    
+    // Copy RGBA bitmap data to Pomme's ARGB format
+    unsigned char *srcData = [bitmap bitmapData];
+    
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            int srcOffset = (y * width + x) * 4;
+            int destOffset = y * width + x;
+            
+            unsigned char r = srcData[srcOffset + 0];
+            unsigned char g = srcData[srcOffset + 1];
+            unsigned char b = srcData[srcOffset + 2];
+            unsigned char a = srcData[srcOffset + 3];
+            
+            // Pomme expects ARGB format
+            // On little-endian systems, store as BGRA for correct byte order
+            destPixels[destOffset] = (a << 24) | (r << 16) | (g << 8) | b;
+        }
+    }
+    
+    UnlockPixels(pixMap);
+}
+
+void LoadMask(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
+{
+    // Get URL for resource
+    CFURLRef url = CFBundleCopyResourceURL(g->mainBundle, name, CFSTR("tif"), CFSTR("Graphics"));
+    if (!url) {
+        NSLog(@"LoadMask: Failed to find resource %@", name);
+        CleanUp(TRUE);
+        return;
+    }
+    
+    NSImage *image = [[NSImage alloc] initWithContentsOfURL:(__bridge NSURL *)url];
+    CFRelease(url);
+    
+    if (!image) {
+        NSLog(@"LoadMask: Failed to load image %@", name);
+        CleanUp(TRUE);
+        return;
+    }
+    
+    NSSize size = [image size];
+    int width = (int)size.width;
+    int height = (int)size.height;
+    
+    // For masks, we still create a 1-bit GWorld for compatibility with CopyMask
+    Rect bounds = {0, 0, (short)height, (short)width};
+    OSErr err = NewGWorld(theGWorld, 1, &bounds, NULL, NULL, 0);
+    if (err) {
+        NSLog(@"LoadMask: Failed to create GWorld for %@", name);
+        CleanUp(TRUE);
+        return;
+    }
+    
+    // Get the pixel buffer
+    PixMapHandle pixMap = GetGWorldPixMap(*theGWorld);
+    LockPixels(pixMap);
+    
+    Ptr destAddr = GetPixBaseAddr(pixMap);
+    PixMap *pm = *pixMap;
+    int destRowBytes = (pm->rowBytes & 0x3FFF);
+    
+    // Create bitmap to render image
+    NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc]
+                                initWithBitmapDataPlanes:NULL
+                                pixelsWide:width
+                                pixelsHigh:height
+                                bitsPerSample:8
+                                samplesPerPixel:4
+                                hasAlpha:YES
+                                isPlanar:NO
+                                colorSpaceName:NSDeviceRGBColorSpace
+                                bytesPerRow:width * 4
+                                bitsPerPixel:32];
+    
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
+    [NSGraphicsContext setCurrentContext:ctx];
+    
+    if (flipped) {
+        NSAffineTransform *transform = [NSAffineTransform transform];
+        [transform translateXBy:width yBy:0];
+        [transform scaleXBy:-1 yBy:1];
+        [transform concat];
+    }
+    
+    [image drawInRect:NSMakeRect(0, 0, width, height)
+             fromRect:NSZeroRect
+            operation:NSCompositingOperationCopy
+             fraction:1.0];
+    
+    [NSGraphicsContext restoreGraphicsState];
+    
+    // Convert to 1-bit: threshold based on brightness
+    unsigned char *srcData = [bitmap bitmapData];
+    
+    // Clear destination first
+    memset(destAddr, 0, destRowBytes * height);
+    
+    for (int y = 0; y < height; y++) {
+        unsigned char *destRow = (unsigned char *)(destAddr + y * destRowBytes);
+        
+        for (int x = 0; x < width; x++) {
+            int srcOffset = (y * width + x) * 4;
+            
+            // Get grayscale value (use red channel or average)
+            unsigned char gray = srcData[srcOffset];  // Red channel
+            
+            // Set bit if pixel is "white" (above threshold)
+            // Masks typically have white = transparent, black = opaque
+            if (gray > 128) {
+                int byteIndex = x / 8;
+                int bitIndex = 7 - (x % 8);  // MSB first
+                destRow[byteIndex] |= (1 << bitIndex);
+            }
+        }
+    }
+    
+    UnlockPixels(pixMap);
+}
 
 void LoadInterface(void)
 {
@@ -768,64 +973,64 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
 }
 
 
-
-
-void LoadPicture(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
-{
-    CFURLRef	backURL = NULL;
-    FSRef	backFSR;
-    FSSpec	backFSS;
-    OSErr	err;
-    
-    backURL = 	CFBundleCopyResourceURL( g->mainBundle,
-                name, 
-                CFSTR("tif"), 
-                CFSTR("Graphics") );
-    
-    if ( !CFURLGetFSRef(backURL, &backFSR))
-        CleanUp(TRUE);
-    
-    err = FSGetCatalogInfo( &backFSR,
-                            kFSCatInfoNone,
-                            NULL,
-                            NULL,
-                            &backFSS,
-                            NULL);
-    if (err) CleanUp(TRUE);
-    
-    DrawPictureToNewGWorld(&backFSS, theGWorld, flipped);
-    
-    CFRelease(backURL);
-}
-
-void LoadMask(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
-{
-    CFURLRef	backURL = NULL;
-    FSRef	backFSR;
-    FSSpec	backFSS;
-    OSErr	err;
-    
-    backURL = 	CFBundleCopyResourceURL( g->mainBundle,
-                name, 
-                CFSTR("tif"), 
-                CFSTR("Graphics") );
-    
-    if ( !CFURLGetFSRef(backURL, &backFSR))
-        CleanUp(TRUE);
-    
-    err = FSGetCatalogInfo( &backFSR,
-                            kFSCatInfoNone,
-                            NULL,
-                            NULL,
-                            &backFSS,
-                            NULL);
-    if (err) CleanUp(TRUE);
-    
-    DrawMaskToNewGWorld(&backFSS, theGWorld, flipped);
-    
-    CFRelease(backURL);
-}
-
+//
+//
+//void LoadPicture(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
+//{
+//    CFURLRef	backURL = NULL;
+//    FSRef	backFSR;
+//    FSSpec	backFSS;
+//    OSErr	err;
+//    
+//    backURL = 	CFBundleCopyResourceURL( g->mainBundle,
+//                name, 
+//                CFSTR("tif"), 
+//                CFSTR("Graphics") );
+//    
+//    if ( !CFURLGetFSRef(backURL, &backFSR))
+//        CleanUp(TRUE);
+//    
+//    err = FSGetCatalogInfo( &backFSR,
+//                            kFSCatInfoNone,
+//                            NULL,
+//                            NULL,
+//                            &backFSS,
+//                            NULL);
+//    if (err) CleanUp(TRUE);
+//    
+//    DrawPictureToNewGWorld(&backFSS, theGWorld, flipped);
+//    
+//    CFRelease(backURL);
+//}
+//
+//void LoadMask(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
+//{
+//    CFURLRef	backURL = NULL;
+//    FSRef	backFSR;
+//    FSSpec	backFSS;
+//    OSErr	err;
+//    
+//    backURL = 	CFBundleCopyResourceURL( g->mainBundle,
+//                name, 
+//                CFSTR("tif"), 
+//                CFSTR("Graphics") );
+//    
+//    if ( !CFURLGetFSRef(backURL, &backFSR))
+//        CleanUp(TRUE);
+//    
+//    err = FSGetCatalogInfo( &backFSR,
+//                            kFSCatInfoNone,
+//                            NULL,
+//                            NULL,
+//                            &backFSS,
+//                            NULL);
+//    if (err) CleanUp(TRUE);
+//    
+//    DrawMaskToNewGWorld(&backFSS, theGWorld, flipped);
+//    
+//    CFRelease(backURL);
+//}
+//
 
 
 void DrawPictureToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
@@ -836,7 +1041,7 @@ void DrawPictureToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
     Rect			boundsRect, flipRect;
     OSErr			err;
 
-    GetGraphicsImporterForFile(fss, &gi);
+    GetGraphicsImporterForFile(fss, &gi);
     
     GraphicsImportGetNaturalBounds(gi, &boundsRect);
     
@@ -864,9 +1069,8 @@ void DrawPictureToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
         flipRect.right = boundsRect.left;
         GraphicsImportSetBoundsRect(gi, &flipRect);
     }
-    
-    GraphicsImportDraw(gi);
-    CloseComponent(gi);
+    GraphicsImportDraw(gi);
+    CloseComponent(gi);
     
     SetGWorld(storePort, storeDevice);
 }
@@ -879,7 +1083,7 @@ void DrawMaskToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
     Rect			boundsRect, flipRect;
     OSErr			err;
 
-    GetGraphicsImporterForFile(fss, &gi);
+    GetGraphicsImporterForFile(fss, &gi);
     
     GraphicsImportGetNaturalBounds(gi, &boundsRect);
 //    GraphicsImportSetBoundsRect(gi, boundsRect);
@@ -910,8 +1114,8 @@ void DrawMaskToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
         GraphicsImportSetBoundsRect(gi, &flipRect);
     }
     
-    GraphicsImportDraw(gi);
-    CloseComponent(gi);
+    GraphicsImportDraw(gi);
+    CloseComponent(gi);
     
     SetGWorld(storePort, storeDevice);
 }

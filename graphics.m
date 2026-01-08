@@ -7,7 +7,7 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#include "Pomme.h"
 
 #include "graphics.h"
 #include "mafftypes.h"

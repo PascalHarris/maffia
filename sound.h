@@ -7,7 +7,7 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#include "Pomme.h"
 #include "mafftypes.h"
 
 void LoadSounds(void);

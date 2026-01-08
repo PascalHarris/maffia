@@ -7,24 +7,30 @@
  *
  */
 
+#import <Cocoa/Cocoa.h>
 
-#include <Carbon/Carbon.h>
-
-#include "mafftypes.h"
-
-#include "loading.h"
-#include "graphics.h"
-#include "eventhandlers.h"
-#include "game.h"
-#include "scores.h"
-
-
-void Initialise(void);
-
-void InterfaceLoop(void);
-
-void CleanUp(bool instaQuit);
-
-
-GlobalStuff		*g;
-
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        return NSApplicationMain(argc, argv);
+    }
+}
+//#include "Pomme.h"
+//
+//#include "mafftypes.h"
+//
+//#include "loading.h"
+//#include "graphics.h"
+//#include "eventhandlers.h"
+//#include "game.h"
+//#include "scores.h"
+//
+//
+//void Initialise(void);
+//
+//void InterfaceLoop(void);
+//
+//void CleanUp(bool instaQuit);
+//
+//
+//GlobalStuff		*g;
+//

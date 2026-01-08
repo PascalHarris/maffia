@@ -7,7 +7,7 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#include "Pomme.h"
 
 #define FIRE_COLOUR_HI (unsigned char)124
 #define FIRE_COLOUR_LO (unsigned char)0

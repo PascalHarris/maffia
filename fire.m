@@ -7,7 +7,7 @@
  *
  */
 
-#include <Carbon/Carbon.h>
+#include "Pomme.h"
 #include "fire.h"
 #include "mafftypes.h"
 #include "game.h"
