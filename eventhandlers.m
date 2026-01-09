@@ -1,13 +1,19 @@
 /*
- *  eventhandlers.c
+ *  eventhandlers.m
  *  nibMAFF
  *
- *  Created by wibble on Tue Sep 10 2002.
+ *  Originally created by wibble on Tue Sep 10 2002.
  *  Copyright (c) 2002 William Reade. All rights reserved.
  *
+ *  Updated 2026 for modern macOS using Cocoa instead of Carbon Events.
+ *  Event handling is now done through:
+ *  - NSTimer for game loop (in AppDelegate)
+ *  - NSNotificationCenter for window events
+ *  - GameView for mouse/keyboard input
  */
 
 #include "Pomme.h"
+#import <Cocoa/Cocoa.h>
 #include "mafftypes.h"
 #include "graphics.h"
 #include "game.h"
@@ -24,208 +30,67 @@ extern void FinishSounds(void);
 extern void UpdateHighScores(void);
 extern void UnloadHighScores(void);
 extern void DefaultHighScores(void);
-extern void ProcessAndDrawFire (GWorldPtr theGWorld);
+extern void ProcessAndDrawFire(GWorldPtr theGWorld);
 extern void PlaySound(short channel, Handle sound);
 extern void ChangeDepth(void);
 extern void ChangeDepthBack(void);
 
+// ============================================================================
+// Timer/Event Loop Setup
+// ============================================================================
+
+// Note: Timer installation is now handled by AppDelegate using NSTimer
+// These functions are kept as stubs for code compatibility
+
 void InstallEventHandlers(void)
 {
-    OSErr		err;
-    EventTypeSpec	eventType[5];
-    EventHandlerUPP	theUPP;
+    // Event handlers are now set up in AppDelegate and GameView
+    // This function is called from legacy initialization code but is now a no-op
+    // The actual event handling is done via:
+    // - NSApplicationDelegate methods in AppDelegate
+    // - NSWindowDelegate methods in AppDelegate  
+    // - NSView event methods in GameView
     
-    // main window level:
-    
-    eventType[0].eventClass = kEventClassWindow;
-    eventType[0].eventKind = kEventWindowClose;
-    theUPP = NewEventHandlerUPP(DoCloseMainWindow);
-    err = InstallWindowEventHandler(g->theWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassWindow;
-    eventType[0].eventKind = kEventWindowDeactivated;
-    eventType[1].eventClass = kEventClassWindow;
-    eventType[1].eventKind = kEventWindowCollapsed;
-    eventType[2].eventClass = kEventClassWindow;
-    eventType[2].eventKind = kEventWindowHidden;
-    eventType[3].eventClass = kEventClassWindow;
-    eventType[3].eventKind = kEventWindowDragStarted;
-    eventType[4].eventClass = kEventClassMenu;
-    eventType[4].eventKind = kEventMenuBeginTracking;
-    theUPP = NewEventHandlerUPP(DeactivateMyWindow);
-    err = InstallWindowEventHandler(g->theWindow, theUPP, 5, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassWindow;
-    eventType[0].eventKind = kEventWindowActivated;
-    eventType[1].eventClass = kEventClassWindow;
-    eventType[1].eventKind = kEventWindowExpanded;
-    eventType[2].eventClass = kEventClassWindow;
-    eventType[2].eventKind = kEventWindowShown;
-    eventType[3].eventClass = kEventClassWindow;
-    eventType[3].eventKind = kEventWindowDragCompleted;
-    eventType[4].eventClass = kEventClassMenu;
-    eventType[4].eventKind = kEventMenuEndTracking;
-    theUPP = NewEventHandlerUPP(ActivateMyWindow);
-    err = InstallWindowEventHandler(g->theWindow, theUPP, 5, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassWindow;
-    eventType[0].eventKind = kEventWindowUpdate;
-    theUPP = NewEventHandlerUPP(DrawMainWindow);
-    err = InstallWindowEventHandler(g->theWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // display switcher
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(AskSwitchHandleCommand);
-    err = InstallWindowEventHandler(g->askSwitchWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    
-    // prefs window:
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(PrefsHandleCommand);
-    err = InstallWindowEventHandler(g->prefsWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // high scores window
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(HighScoresHandleCommand);
-    err = InstallWindowEventHandler(g->highScoresWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    
-    
-    // level select window:
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(LevelSelectHandleCommand);
-    err = InstallWindowEventHandler(g->levelSelectWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // about window
-    
-    eventType[0].eventClass = kEventClassMouse;
-    eventType[0].eventKind = kEventMouseUp;
-    theUPP = NewEventHandlerUPP(AboutHandleMouse);
-    err = InstallWindowEventHandler(g->aboutWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassWindow;
-    eventType[0].eventKind = kEventWindowUpdate;
-    theUPP = NewEventHandlerUPP(DrawAboutWindow);
-    err = InstallWindowEventHandler(g->aboutWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // instruct window
-    
-    eventType[0].eventClass = kEventClassMouse;
-    eventType[0].eventKind = kEventMouseUp;
-    theUPP = NewEventHandlerUPP(InstructionsHandleMouse);
-    err = InstallWindowEventHandler(g->instructionsWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassWindow;
-    eventType[0].eventKind = kEventWindowUpdate;
-    theUPP = NewEventHandlerUPP(DrawInstructionsWindow);
-    err = InstallWindowEventHandler(g->instructionsWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // high score dialog
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(HighScoreHandleCommand);
-    err = InstallWindowEventHandler(g->highScoreWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // game over dialog
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(GameOverHandleCommand);
-    err = InstallWindowEventHandler(g->gameOverWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // autopause window
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(AutoPauseHandleCommand);
-    err = InstallWindowEventHandler(g->autoPauseWindow, theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    // application level:
-    
-    eventType[0].eventClass = kEventClassCommand;
-    eventType[0].eventKind = kEventCommandProcess;
-    theUPP = NewEventHandlerUPP(HandleCommand);
-    err = InstallApplicationEventHandler(theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassMenu;
-    eventType[0].eventKind = kEventMenuEndTracking;
-    theUPP = NewEventHandlerUPP(HandleMenu);
-    err = InstallApplicationEventHandler(theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    eventType[0].eventClass = kEventClassApplication;
-    eventType[0].eventKind = kEventAppActivated;
-    theUPP = NewEventHandlerUPP(AutoPauseIfInGame);
-    err = InstallApplicationEventHandler(theUPP, 1, &eventType[0], NULL, NULL);
-    if (err) CleanUp(TRUE);
-    
-    StartTimer();
+    // Start the timer (now handled by AppDelegate)
+    // StartTimer();
 }
 
 void StartTimer(void)
 {
-    EventLoopRef	mainLoop;
-    EventLoopTimerUPP	timerUPP;
-    double		frameTime;
-    
-    if (g->pref.turbo)
-        frameTime = 0.01667 * kEventDurationSecond;
-    else
-        frameTime = 0.03333 * kEventDurationSecond;
-    
-    mainLoop = GetMainEventLoop();
-    timerUPP = NewEventLoopTimerUPP(DoFrame);
-    InstallEventLoopTimer(mainLoop, 0, frameTime, timerUPP, NULL, &g->theTimer);
+    // Timer is now managed by AppDelegate using NSTimer
+    // See AppDelegate's startGameTimer method
 }
 
-void ReStartTimer(void) // call when g->pref.turbo changes
+void ReStartTimer(void)
 {
-    if (g->theTimer) RemoveEventLoopTimer(g->theTimer);
+    // Called when g->pref.turbo changes
+    // Notify AppDelegate to restart timer with new interval
     
-    StartTimer();
+    // Get the app delegate and call restartTimer
+    id appDelegate = [[NSApplication sharedApplication] delegate];
+    if ([appDelegate respondsToSelector:@selector(restartTimer)]) {
+        [appDelegate performSelector:@selector(restartTimer)];
+    }
 }
 
-//(const AppleEvent *appleEvt, AppleEvent* reply, UInt32 refcon)
+// ============================================================================
+// Window Event Handlers (Now just helper functions)
+// ============================================================================
+
+// These were Carbon event handlers, now they're just regular functions
+// called from AppDelegate or stubs
 
 OSStatus DoCloseMainWindow(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    QuitApplicationEventLoop();
-    
+    [NSApp terminate:nil];
     return noErr;
 }
 
 OSStatus AutoPauseIfInGame(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    AutoPause(); // the ifInGame bit is checked inside AutoPause()
-    
+    AutoPause();
     return noErr;
 }
-
 
 OSStatus ActivateMyWindow(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
@@ -242,459 +107,232 @@ OSStatus ActivateMyWindow(EventHandlerCallRef nextHandler, EventRef theEvent, vo
 OSStatus DeactivateMyWindow(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
     g->windowActive = 0;
-    
     return noErr;
 }
 
 OSStatus DrawMainWindow(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    BeginUpdate(g->theWindow);
-    
+    // Drawing is now handled by GameView's drawRect:
+    // Just trigger a redraw
     DrawBorder();
-    
     DrawGWorldToWindow(g->swapGWorld, g->theWindow);
-    
-    EndUpdate(g->theWindow);
-    
-    return eventNotHandledErr;
+    return noErr;
 }
 
 OSStatus DrawInstructionsWindow(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    BeginUpdate(g->instructionsWindow);
-    
     DrawGWorldToWindow(g->instructionsGWorld, g->instructionsWindow);
-    
-    EndUpdate(g->instructionsWindow);
-    
-    return eventNotHandledErr;
+    return noErr;
 }
 
 OSStatus DrawAboutWindow(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    BeginUpdate(g->aboutWindow);
-    
     DrawGWorldToWindow(g->aboutGWorld, g->aboutWindow);
-    
-    EndUpdate(g->aboutWindow);
-    
-    return eventNotHandledErr;
+    return noErr;
 }
 
-// depth check
-
+// ============================================================================
+// Dialog Command Handlers (Simplified - need UI hookup)
+// ============================================================================
 
 OSStatus AskSwitchHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand		commandStruct;
-    bool		somethingHappened;
-    
-    ControlID		cntlid;
-    ControlRef		theControl;
-    
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'chan':
-            g->pref.switchDepth = TRUE;
-            somethingHappened = TRUE;
-            break;
-        
-        case 'nooo':
-            g->pref.switchDepth = FALSE;
-            somethingHappened = TRUE;
-            break;
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
-    if (somethingHappened)
-    {
-        cntlid.signature = 'alwa';
-        cntlid.id = 1;
-        GetControlByID(g->askSwitchWindow, &cntlid, &theControl);
-        
-        if ( GetControl32BitValue(theControl) )
-        {
-            if (g->pref.switchDepth)
-                CFPreferencesSetAppValue(CFSTR("switchDepth"), kCFBooleanTrue, PRF_CUR);
-            else
-                CFPreferencesSetAppValue(CFSTR("switchDepth"), kCFBooleanFalse, PRF_CUR);
-        }
-        
-        if (g->pref.switchDepth == TRUE)
-            ChangeDepth();
-        
-        HideWindow(g->askSwitchWindow);
-        SelectWindow(g->theWindow);
-    }
-    
+    // Depth switching is obsolete on modern macOS
+    // This dialog can be removed or simplified
+    HideWindow(g->askSwitchWindow);
+    SelectWindow(g->theWindow);
     return noErr;
 }
-
-
-
-
-
-// prefs window
-
-
 
 OSStatus PrefsHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand	commandStruct;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'ok  ':
-            SetPrefs();		// this function must load/finish sounds if "sound" changes.
-            HideWindow(g->prefsWindow);
-            SelectWindow(g->theWindow);
-            AutoPause();
-            break;
-        
-        case 'not!':
-            HideWindow(g->prefsWindow);
-            SelectWindow(g->theWindow);
-            AutoPause();
-            break;
-            
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
+    // This needs to be connected to UI buttons
+    // For now, just provide the handler functions
     return noErr;
 }
 
-// hiscores window
+// Helper functions to be called from Cocoa UI
+void PrefsOK(void)
+{
+    SetPrefs();
+    HideWindow(g->prefsWindow);
+    SelectWindow(g->theWindow);
+    AutoPause();
+}
+
+void PrefsCancel(void)
+{
+    HideWindow(g->prefsWindow);
+    SelectWindow(g->theWindow);
+    AutoPause();
+}
 
 OSStatus HighScoresHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand	commandStruct;
-    bool	redraw = FALSE;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'ok  ':
-            HideWindow(g->highScoresWindow);
-            SelectWindow(g->theWindow);
-            
-            if (g->startNewGameImmediately)
-            {
-                NewGame(g->startNewGameImmediately);
-                g->startNewGameImmediately = 0;
-            }
-            else
-                AutoPause();
-            break;
-        
-        case 'rese':
-            UnloadHighScores();
-            DefaultHighScores(); // also saves new values
-            HighScores();
-            SysBeep(1);
-            break;
-        
-        case 'hisc':
-            g->scores.lastLookedAt = 1;
-            redraw = TRUE;
-            HighScores();
-            break;
-        
-        case 'moki':
-            g->scores.lastLookedAt = 2;
-            redraw = TRUE;
-            HighScores();
-            break;
-        
-        case 'moch':
-            g->scores.lastLookedAt = 3;
-            redraw = TRUE;
-            HighScores();
-            break;
-        
-        case 'loju':
-            g->scores.lastLookedAt = 4;
-            redraw = TRUE;
-            HighScores();
-            break;
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
-    if (!redraw)
-        return noErr;
-    else
-        return eventNotHandledErr;
-}
-
-// level select window
-
-OSStatus LevelSelectHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)///////////////////////
-{
-    ControlID		cntlid;
-    ControlRef		theControl;
-    unsigned char	theString[255];
-    CFStringRef		theCFString = NULL;
-    Size		theSize, outSize;
-    HICommand		commandStruct;
-    short		levelNumber;
-    short		i;
-    Level		*theLevel;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'ok  ':
-            
-            ///////////////////////////////////////////////////////////////////////////////////////////////
-            
-            // parse input, determine level
-            
-            cntlid.signature = 'levl';
-            cntlid.id = 0;
-            GetControlByID(g->levelSelectWindow, &cntlid, &theControl);
-            
-            GetControlDataSize(theControl, kControlEditTextPart, kControlEditTextTextTag, &theSize);
-            
-            if (theSize > 255)
-                theSize = 255;
-            
-            GetControlData(theControl, kControlEditTextPart, kControlEditTextTextTag, theSize, theString, &outSize);
-            
-            if (outSize < 255)
-                theString[outSize] = 0;
-            else
-                theString[254] = 0;
-            
-            if (outSize == 0)
-            {
-                SetKeyboardFocus(g->levelSelectWindow, theControl, kControlEditTextPart);
-                SysBeep(1);
-            }
-            else
-            {
-                theCFString = CFStringCreateWithCString(NULL, theString, GetApplicationTextEncoding());
-                levelNumber = CFStringGetIntValue(theCFString);
-                CFRelease(theCFString);
-                
-                i = 1;
-                theLevel = g->baseLevel;
-                
-                while (i < levelNumber && theLevel)
-                {
-                    i++;
-                    theLevel = theLevel->next;
-                }
-                
-                if (theLevel && levelNumber >= 1)
-                {
-                    EndGame(FALSE);
-                    g->startNewGameImmediately = levelNumber;
-                    
-                    HideWindow(g->autoPauseWindow);
-                    HideWindow(g->prefsWindow);
-                    HideWindow(g->highScoresWindow);
-                    HideWindow(g->gameOverWindow);
-                    HideWindow(g->levelSelectWindow);
-                    HideWindow(g->instructionsWindow);
-                    HideWindow(g->aboutWindow);
-                    HideWindow(g->instructionsWindow);
-                    
-                    SelectWindow(g->theWindow);
-                }
-                else
-                {
-                    SetKeyboardFocus(g->levelSelectWindow, theControl, kControlEditTextPart);
-                    SysBeep(1);
-                }
-            }
-            break;
-        
-        case 'not!':
-            HideWindow(g->levelSelectWindow);
-            SelectWindow(g->theWindow);
-            AutoPause();
-            break;
-            
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
     return noErr;
-    
 }
 
+void HighScoresOK(void)
+{
+    HideWindow(g->highScoresWindow);
+    SelectWindow(g->theWindow);
+    
+    if (g->startNewGameImmediately) {
+        NewGame(g->startNewGameImmediately);
+        g->startNewGameImmediately = 0;
+    } else {
+        AutoPause();
+    }
+}
 
-// about box
+void HighScoresReset(void)
+{
+    UnloadHighScores();
+    DefaultHighScores();
+    HighScores();
+    SysBeep(1);
+}
+
+OSStatus LevelSelectHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
+{
+    return noErr;
+}
+
+void LevelSelectOK(int levelNumber)
+{
+    Level *theLevel = g->baseLevel;
+    int i = 1;
+    
+    while (i < levelNumber && theLevel) {
+        i++;
+        theLevel = theLevel->next;
+    }
+    
+    if (theLevel && levelNumber >= 1) {
+        EndGame(FALSE);
+        g->startNewGameImmediately = levelNumber;
+        
+        HideWindow(g->autoPauseWindow);
+        HideWindow(g->prefsWindow);
+        HideWindow(g->highScoresWindow);
+        HideWindow(g->gameOverWindow);
+        HideWindow(g->levelSelectWindow);
+        HideWindow(g->instructionsWindow);
+        HideWindow(g->aboutWindow);
+        
+        SelectWindow(g->theWindow);
+    } else {
+        SysBeep(1);
+    }
+}
+
+void LevelSelectCancel(void)
+{
+    HideWindow(g->levelSelectWindow);
+    SelectWindow(g->theWindow);
+    AutoPause();
+}
 
 OSStatus AboutHandleMouse(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    if (GetCurrentEventTime() - g->lastAboutStyleWindowTime <= 0.25)
-        return noErr;
-    
-    if (g->firstRunDoAbout)
-    {
-        Instructions();
-        g->firstRunDoAbout = FALSE;
-    }
-    else
-    {
-        HideWindow(g->aboutWindow);
-        ShowWindow(g->theWindow);
-        SelectWindow(g->theWindow);
-    }
-    
     return noErr;
 }
 
-// instructions
+void AboutClick(void)
+{
+    if (GetCurrentEventTime() - g->lastAboutStyleWindowTime > 0.5) {
+        HideWindow(g->aboutWindow);
+        SelectWindow(g->theWindow);
+        AutoPause();
+    }
+}
 
 OSStatus InstructionsHandleMouse(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    if (GetCurrentEventTime() - g->lastAboutStyleWindowTime <= 0.25)
-        return noErr;
-    
-    HideWindow(g->instructionsWindow);
-    SelectWindow(g->theWindow);
-    AutoPause();
-    
     return noErr;
 }
 
-// high score dialog
+void InstructionsClick(void)
+{
+    if (GetCurrentEventTime() - g->lastAboutStyleWindowTime > 0.5) {
+        HideWindow(g->instructionsWindow);
+        SelectWindow(g->theWindow);
+        
+        if (g->firstRunDoAbout)
+            g->firstRunDoAbout = FALSE;
+        
+        AutoPause();
+    }
+}
 
 OSStatus HighScoreHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand	commandStruct;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'ok  ':
-            UpdateHighScores(); // get name, insert names and scores into HighScoreList, save HighScoreList.
-            
-            HideWindow(g->highScoreWindow);
-            HighScores();
-            break;
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
     return noErr;
 }
 
-// high score dialog
+void HighScoreOK(CFStringRef playerName)
+{
+    if (playerName) {
+        if (g->scores.lastName)
+            CFRelease(g->scores.lastName);
+        g->scores.lastName = CFStringCreateCopy(NULL, playerName);
+    }
+    
+    UpdateHighScores();
+    
+    HideWindow(g->highScoreWindow);
+    
+    g->startNewGameImmediately = 1;
+    HighScores();
+}
 
 OSStatus GameOverHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand	commandStruct;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'ok  ':
-            
-            g->theScoreStuff.score = 0;
-            g->theScoreStuff.highestMultiplier = 0;
-            g->theScoreStuff.longestJuggle = 0;
-            g->theScoreStuff.sheepKilledTotal = 0;
-            
-            HideWindow(g->gameOverWindow);
-            SelectWindow(g->theWindow);
-            break;
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
     return noErr;
 }
 
-// autopause
+void GameOverOK(void)
+{
+    HideWindow(g->gameOverWindow);
+    SelectWindow(g->theWindow);
+    AutoPause();
+}
 
-
+void GameOverNewGame(void)
+{
+    HideWindow(g->gameOverWindow);
+    SelectWindow(g->theWindow);
+    g->startNewGameImmediately = 1;
+}
 
 OSStatus AutoPauseHandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand	commandStruct;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
-    {
-        case 'ok  ':
-            g->alreadyAutoPaused = TRUE;
-            HideWindow(g->autoPauseWindow);
-            SelectWindow(g->theWindow);
-            break;
-        
-        default:
-            return eventNotHandledErr;
-            break;
-    }
-    
     return noErr;
 }
 
-
-
-
-
-// Application-level
-
-OSStatus HandleMenu(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
+void AutoPauseResume(void)
 {
-    SetCursor(*g->crosshair);
-    return eventNotHandledErr;
+    HideWindow(g->autoPauseWindow);
+    SelectWindow(g->theWindow);
 }
-
-
-
 
 OSStatus HandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
 {
-    HICommand	commandStruct;
-    
-    GetEventParameter(theEvent, kEventParamDirectObject, 
-                    typeHICommand, NULL, sizeof(HICommand), 
-                    NULL, &commandStruct);
-    
-    switch (commandStruct.commandID)
+    return noErr;
+}
+
+OSStatus HandleMenu(EventHandlerCallRef nextHandler, EventRef theEvent, void *data)
+{
+    return noErr;
+}
+
+// ============================================================================
+// Menu Command Processing
+// ============================================================================
+
+void ProcessMenuCommand(UInt32 commandID)
+{
+    switch (commandID)
     {
         case 'abou':
             About();
@@ -713,7 +351,6 @@ OSStatus HandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void 
             HideWindow(g->levelSelectWindow);
             HideWindow(g->instructionsWindow);
             HideWindow(g->aboutWindow);
-            HideWindow(g->instructionsWindow);
             g->startNewGameImmediately = 1;
             break;
         
@@ -730,8 +367,7 @@ OSStatus HandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void 
             break;
         
         case 'endg':
-            if (g->inGame)
-            {
+            if (g->inGame) {
                 g->alreadyAutoPaused = TRUE;
                 HideWindow(g->autoPauseWindow);
                 HideWindow(g->prefsWindow);
@@ -740,41 +376,32 @@ OSStatus HandleCommand(EventHandlerCallRef nextHandler, EventRef theEvent, void 
                 HideWindow(g->levelSelectWindow);
                 HideWindow(g->instructionsWindow);
                 HideWindow(g->aboutWindow);
-                HideWindow(g->instructionsWindow);
                 EndGame(FALSE);
             }
             break;
         
         case 'mini':
-            // 'mini' command should be generated after the kEventMenuEndTracking or whatever it is that AutoPauses
-            
             g->alreadyAutoPaused = TRUE;
             HideWindow(g->autoPauseWindow);
-            
-            return eventNotHandledErr;
-            break;
-            
-        default:
-            return eventNotHandledErr;
             break;
     }
-    
-    return noErr;
 }
 
+// ============================================================================
+// DoFrame - Main Game Loop (called by NSTimer in AppDelegate)
+// ============================================================================
 
-pascal void DoFrame (EventLoopTimerRef  theTimer, void *userData)
+void DoFrame(void)
 {
-    static EventTime lastTime, thisTime;
-//    Str255 string;				// fps counter
+    static EventTime lastTime = 0;
+    static EventTime thisTime = 0;
     
     lastTime = thisTime;
     thisTime = GetCurrentEventTime();
     
     if (g->windowActive)
     {
-        if (g->startNewGameImmediately)
-        {
+        if (g->startNewGameImmediately) {
             NewGame(g->startNewGameImmediately);
             g->startNewGameImmediately = 0;
         }
@@ -788,66 +415,50 @@ pascal void DoFrame (EventLoopTimerRef  theTimer, void *userData)
             switch (g->gameState)
             {
                 case kLevelStart:
-                    
                     DrawBackground(g->swapGWorld);
                     DrawStuff(g->swapGWorld);
                     DrawScore(g->swapGWorld);
-                    
                     DrawLevelStartStuff(g->swapGWorld);
                     g->bonusChainLength = 0;
-                    
                     break;
                 
                 case kPlaying:
-                    
-                    if (! (alphaLock & GetCurrentKeyModifiers()) )
+                    if (!(alphaLock & GetCurrentKeyModifiers()))
                         OneFrame();
                     else
                         DrawPausedStuff(g->swapGWorld);
                     break;
                 
                 case kLevelEnd:
-                    
                     DrawBackground(g->swapGWorld);
                     DrawStuff(g->swapGWorld);
                     DrawScore(g->swapGWorld);
-                    
                     DrawLevelEndStuff(g->swapGWorld);
                     break;
                 
                 case kGameOverScreen:
-                    
                     g->frameTime = GetCurrentEventTime();
-                    
                     ProcessSheep();
                     ProcessScoreEffects();
                     RemoveDeadStuff();
-                    
                     DrawBackground(g->swapGWorld);
                     DrawStuff(g->swapGWorld);
-                    
                     if (g->pref.fire == kOn)
                         ProcessAndDrawFire(g->swapGWorld);
-                    
                     DrawScoreEffects(g->swapGWorld);
                     DrawScore(g->swapGWorld);
                     DrawBonus(g->swapGWorld);
-                    
                     DrawGameOverScreenStuff(g->swapGWorld);
                     break;
                 
                 case kCompletedScreen:
-                    
                     DrawBackground(g->swapGWorld);
                     DrawStuff(g->swapGWorld);
-                    
                     if (g->pref.fire == kOn)
                         ProcessAndDrawFire(g->swapGWorld);
-                    
                     DrawScoreEffects(g->swapGWorld);
                     DrawScore(g->swapGWorld);
                     DrawBonus(g->swapGWorld);
-                    
                     DrawCompletedScreenStuff(g->swapGWorld);
                     break;
             }
@@ -865,31 +476,25 @@ pascal void DoFrame (EventLoopTimerRef  theTimer, void *userData)
         }
     }
     
-    CheckKeys(); // should trap for any presses of [esc] - brings up instructions
+    CheckKeys();
     
-    DrawGWorldToWindow(g->swapGWorld, g->theWindow);
+    // Note: Actual drawing to window happens via GameView's drawRect:
+    // which is triggered by setNeedsDisplay:YES in AppDelegate's doFrame
     
-    g->fps = 1/(thisTime - lastTime);
-//    NumToString(g->fps, &string[0]);			// fps counter
-//    MoveTo(20,60);					// fps counter
-//    DrawString(string);					// fps counter (like graph)
-//    MoveTo(10,70);LineTo(10 * (g->fps+1), 70);		// fps counter (like graph)
+    if (lastTime > 0) {
+        g->fps = 1.0 / (thisTime - lastTime);
+    }
 }
 
-// in the way
+// ============================================================================
+// Interface Mouse Handling
+// ============================================================================
 
 void InterfaceMousePos(void)
 {
-    Point		mouseLoc;
-    GWorldPtr		currentPort;
-    GDHandle		currentDevice;
+    Point mouseLoc;
     
-    if (!g->windowActive) // leave this in, I might still need it
-        return;
-    
-    GetGWorld(&currentPort, &currentDevice);
-    
-    if (GetWindowPort(g->theWindow) != currentPort)
+    if (!g->windowActive)
         return;
     
     GetCompensatedMouse(&mouseLoc);
@@ -898,571 +503,233 @@ void InterfaceMousePos(void)
     {
         if (mouseLoc.v >= 110 && mouseLoc.v < 330)
         {
-            if ( !Button() && (g->mouseOverOption != (1 + (mouseLoc.v - 110) / 55)) )
-            {
-                PlaySound(kBleepChannel, g->sounds.weaponSwitch);
-            }
-            g->mouseOverOption = 1 + (mouseLoc.v - 110) / 55;
+            short row = (mouseLoc.v - 110) / 55;
+            g->mouseOverOption = row + 1;
+            return;
         }
-        else
-            g->mouseOverOption = 0;
     }
-    else
-        g->mouseOverOption = 0;
     
-    if (!g->clickedOnOption)
+    g->mouseOverOption = 0;
+}
+
+// Called from GameView on mouse click
+void HandleInterfaceClick(int x, int y)
+{
+    if (!g->inGame)
     {
-        if (Button() && g->mouseOverOption && (g->mouseOverOption == (1 + (mouseLoc.v - 110) / 55)))
+        if (x >= 210 && x < 410 && y >= 110 && y < 330)
         {
-            g->clickedOnOption = g->mouseOverOption;
-            PlaySound(kBleepChannel, g->sounds.weaponSwitch);
-        }
-    }
-    if(g->clickedOnOption)
-    {
-        if (!Button())
-        {
-            if (g->clickedOnOption == g->mouseOverOption)
-            {
-                switch (g->clickedOnOption)
-                {
-                    case kNewGame:
-                        NewGame(1);
-                        PlaySound(kBleepChannel, g->sounds.weaponSwitch);
-                        break;
-                    
-                    case kHighScores:
-                        HighScores();
-                        PlaySound(kBleepChannel, g->sounds.weaponSwitch);
-                        break;
-                    
-                    case kPreferences:
-                        Prefs();
-                        PlaySound(kBleepChannel, g->sounds.weaponSwitch);
-                        break;
-                    
-                    case kQuit:
-                        QuitApplicationEventLoop();
-                        PlaySound(kBleepChannel, g->sounds.weaponSwitch);
-                        break;
-                    
-                    default:
-                        break;
-                }
-            }
-            g->clickedOnOption = 0;
+            short row = (y - 110) / 55;
+            short option = row + 1;
+            
+            g->clickedOnOption = option;
         }
     }
 }
 
-void Prefs(void)//////////////////////////////////////////////////////////////////////
+// Called from GameView on mouse up
+void HandleInterfaceRelease(int x, int y)
 {
-    ControlID		cntlid;
-    ControlRef		theControl;
-    
-    Boolean		value, valid;
-    
-    Point		pos;
-    
-    pos = GetSubMainWindowPos(g->prefsWindow, 100);
-    
-    MoveWindow(g->prefsWindow, pos.h, pos.v, FALSE);
-    
-    cntlid.signature = 'blud';
-    cntlid.id = 1;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if (!IsValidControlHandle(theControl)) SysBeep(1);
-    
-    if (g->pref.blood == TRUE)
-        SetControl32BitValue(theControl, 1);
-    else
-        SetControl32BitValue(theControl, 0);
-    
-    cntlid.signature = 'fire';
-    cntlid.id = 2;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if (g->pref.fire == TRUE)
-        SetControl32BitValue(theControl, 1);
-    else
-        SetControl32BitValue(theControl, 0);
-    
-    cntlid.signature = 'soun';
-    cntlid.id = 3;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if (g->pref.sound == TRUE)
-        SetControl32BitValue(theControl, 1);
-    else
-        SetControl32BitValue(theControl, 0);
-    
-    cntlid.signature = 'turb';
-    cntlid.id = 4;
-    GetControlByID (g->prefsWindow, &cntlid, &theControl);
-    
-    if (g->pref.turbo == TRUE)
-        SetControl32BitValue(theControl, 1);
-    else
-        SetControl32BitValue(theControl, 0);
-    
-    cntlid.signature = 'shot';
-    cntlid.id = 6;
-    GetControlByID (g->prefsWindow, &cntlid, &theControl);
-    
-    if (g->pref.shotFX == TRUE)
-        SetControl32BitValue(theControl, 1);
-    else
-        SetControl32BitValue(theControl, 0);
-    
-    cntlid.signature = 'bord';
-    cntlid.id = 0;
-    GetControlByID (g->prefsWindow, &cntlid, &theControl);
-    
-    if (g->pref.border == TRUE)
-        SetControl32BitValue(theControl, 1);
-    else
-        SetControl32BitValue(theControl, 0);
-    
-    cntlid.signature = 'swit';
-    cntlid.id = 5;
-    GetControlByID (g->prefsWindow, &cntlid, &theControl);
-    
-    value = CFPreferencesGetAppBooleanValue(CFSTR("switchDepth"), PRF_CUR, &valid);
-    
-    if (valid)
+    if (!g->inGame && g->clickedOnOption)
     {
-        if (value == TRUE)
-            SetControl32BitValue(theControl, 1);
-        else
-            SetControl32BitValue(theControl, 0);
+        short currentOption = 0;
+        
+        if (x >= 210 && x < 410 && y >= 110 && y < 330)
+        {
+            short row = (y - 110) / 55;
+            currentOption = row + 1;
+        }
+        
+        if (currentOption == g->clickedOnOption)
+        {
+            // Execute the option
+            switch (g->clickedOnOption)
+            {
+                case kNewGame:
+                    g->startNewGameImmediately = 1;
+                    break;
+                case kHighScores:
+                    HighScores();
+                    break;
+                case kPreferences:
+                    Prefs();
+                    break;
+                case kQuit:
+                    [NSApp terminate:nil];
+                    break;
+            }
+        }
+        
+        g->clickedOnOption = 0;
     }
+}
+
+// ============================================================================
+// Keyboard Handling
+// ============================================================================
+
+void CheckKeys(void)
+{
+    // Keyboard is now handled by GameView's keyDown:
+    // This function can check for global key states if needed
+}
+
+// Called from GameView
+void HandleKeyPress(unichar key)
+{
+    if (g->inGame)
+    {
+        switch (key)
+        {
+            case '1':
+                SelectWeapon(kUzi);
+                break;
+            case '2':
+                SelectWeapon(kMagnum);
+                break;
+            case '3':
+                SelectWeapon(kShotgun);
+                break;
+            case '4':
+                SelectWeapon(kFlamer);
+                break;
+            case 'p':
+            case 'P':
+                TogglePause();
+                break;
+            case 27: // Escape
+                EndGame(FALSE);
+                break;
+        }
+    }
+    else
+    {
+        // In interface mode
+        switch (key)
+        {
+            case 27: // Escape
+                Instructions();
+                break;
+        }
+    }
+}
+
+// ============================================================================
+// Game Actions
+// ============================================================================
+
+void SelectWeapon(short weaponID)
+{
+    if (g->gameState <= kPlaying)
+    {
+        Weapon *theWeapon = g->baseWeapon;
+        while (theWeapon && theWeapon->weaponID != weaponID)
+            theWeapon = theWeapon->next;
+        
+        if (theWeapon && theWeapon != g->theWeapon)
+        {
+            g->theWeapon = theWeapon;
+            PlaySound(kBleepChannel, g->sounds.weaponSwitch);
+        }
+    }
+}
+
+void TogglePause(void)
+{
+    // Pause is handled by caps lock key in the original
+    // This function can be used for explicit pause toggle
+}
+
+// ============================================================================
+// Dialog Display Functions
+// ============================================================================
+
+void About(void)
+{
+    g->lastAboutStyleWindowTime = GetCurrentEventTime();
+    ShowWindow(g->aboutWindow);
+    SelectWindow(g->aboutWindow);
+}
+
+void Instructions(void)
+{
+    g->lastAboutStyleWindowTime = GetCurrentEventTime();
+    ShowWindow(g->instructionsWindow);
+    SelectWindow(g->instructionsWindow);
+}
+
+void Prefs(void)
+{
+    // Set up preferences controls based on current prefs
+    // This requires connecting UI controls
     
-    DrawControls(g->prefsWindow);
     ShowWindow(g->prefsWindow);
     SelectWindow(g->prefsWindow);
 }
 
 void SetPrefs(void)
 {
-    ControlID		cntlid;
-    ControlRef		theControl;
+    // Read preferences from UI controls and apply them
+    // This requires connecting UI controls
     
-    cntlid.signature = 'blud';
-    cntlid.id = 1;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
+    // Check if sound preference changed
+    // if (soundChanged) { FinishSounds(); LoadSounds(); }
     
-    if ( GetControl32BitValue(theControl) )
-        g->pref.blood = TRUE;
-    else
-        g->pref.blood = FALSE;
-    
-    cntlid.signature = 'fire';
-    cntlid.id = 2;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if ( GetControl32BitValue(theControl) )
-        g->pref.fire = TRUE;
-    else
-        g->pref.fire = FALSE;
-    
-    cntlid.signature = 'soun';
-    cntlid.id = 3;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if ( GetControl32BitValue(theControl) )
-        g->pref.sound = TRUE;
-    else
-        g->pref.sound = FALSE;
-    
-    cntlid.signature = 'turb';
-    cntlid.id = 4;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if ( GetControl32BitValue(theControl) )
-        g->pref.turbo = TRUE;
-    else
-        g->pref.turbo = FALSE;
-    
-    ReStartTimer();
-    
-    cntlid.signature = 'shot';
-    cntlid.id = 6;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if ( GetControl32BitValue(theControl) )
-        g->pref.shotFX = TRUE;
-    else
-        g->pref.shotFX = FALSE;
-    
-    cntlid.signature = 'bord';
-    cntlid.id = 0;
-    GetControlByID(g->prefsWindow, &cntlid, &theControl);
-    
-    if ( GetControl32BitValue(theControl) )
-        g->pref.border = TRUE;
-    else
-        g->pref.border = FALSE;
-    
-    WindowSizeHack(FALSE);
-    
-    cntlid.signature = 'swit';
-    cntlid.id = 5;
-    GetControlByID (g->prefsWindow, &cntlid, &theControl);
-    
-    switch ( GetControl32BitValue(theControl) )
-    {
-        case 0:
-            CFPreferencesSetAppValue(CFSTR("switchDepth"), kCFBooleanFalse, PRF_CUR);
-            g->pref.switchDepth = FALSE;
-            break;
-        case 1:
-            CFPreferencesSetAppValue(CFSTR("switchDepth"), kCFBooleanTrue, PRF_CUR);
-            g->pref.switchDepth = TRUE;
-            break;
-        default:
-            break;// leave indeterminate if nothing chosen
-    }
+    // Check if turbo preference changed
+    // if (turboChanged) ReStartTimer();
     
     SavePreferences();
 }
 
-void HighScores()
+void HighScores(void)
 {
-    ControlID		cntlid;
-    ControlRef		theControl;
-    short		i = 0;
-    CFStringRef		*strings = NULL, numberString;
-    unsigned long	*scores = NULL;
-    short		lastOne = -1;
-    Str255		intermediateString;
-    ControlFontStyleRec	fontStyle;
+    // Set up high scores display
+    // This requires connecting UI controls
     
-    Point		pos;
-    
-    pos = GetSubMainWindowPos(g->highScoresWindow, 20);
-    
-    MoveWindow(g->highScoresWindow, pos.h, pos.v, FALSE);
-    
-    cntlid.signature = 'tpmn';
-    cntlid.id = 0;
-    GetControlByID(g->highScoresWindow, &cntlid, &theControl);
-    
-    SetControl32BitValue(theControl, g->scores.lastLookedAt);
-    
-    switch (g->scores.lastLookedAt)
-    {
-        case 1:
-            strings = &(g->scores.scoreName[0]);
-            scores = &(g->scores.score[0]);
-            lastOne = g->scores.lastScoreIndex;
-            break;
-        
-        case 2:
-            strings = &(g->scores.killedName[0]);
-            scores = &(g->scores.sheepKilled[0]);
-            lastOne = g->scores.lastKilledIndex;
-            break;
-        
-        case 3:
-            strings = &(g->scores.multName[0]);
-            scores = &(g->scores.highestMultiplier[0]);
-            lastOne = g->scores.lastMultIndex;
-            break;
-        
-        case 4:
-            strings = &(g->scores.juggleName[0]);
-            scores = &(g->scores.longestJuggle[0]);
-            lastOne = g->scores.lastJuggleIndex;
-            break;
-        
-        default:
-            SysBeep(1);
-            break;
-    }
-    
-    while(i < 10)
-    {
-        if (lastOne == i)
-        {
-            fontStyle.flags = kControlUseFaceMask;
-            fontStyle.style = 1;
-        }
-        else
-            fontStyle.flags = 0;
-        
-        cntlid.signature = 'name';
-        cntlid.id = i;
-        GetControlByID(g->highScoresWindow, &cntlid, &theControl);
-        SetControlFontStyle(theControl, &fontStyle);
-   //     SetControlTitleWithCFString(theControl, strings[i]);
-        SetControlData(theControl, 0, kControlStaticTextCFStringTag, sizeof(CFStringRef), &strings[i]);
-        
-        NumToString(scores[i], intermediateString);
-        numberString = CFStringCreateWithPascalString(NULL, intermediateString, GetApplicationTextEncoding());
-        
-        cntlid.signature = 'scor';
-        cntlid.id = i;
-        GetControlByID(g->highScoresWindow, &cntlid, &theControl);
-        SetControlFontStyle(theControl, &fontStyle);
-   //     SetControlTitleWithCFString(theControl, numberString);
-        SetControlData(theControl, 0, kControlStaticTextCFStringTag, sizeof(CFStringRef), &numberString);
-        CFRelease(numberString);
-        
-        i++;
-    }
-    
-    DrawControls(g->highScoresWindow);
     ShowWindow(g->highScoresWindow);
     SelectWindow(g->highScoresWindow);
 }
 
-void About(void)
-{
-    Point  	pos;
-    
-    HideWindow(g->autoPauseWindow);
-    
-    pos = GetSubMainWindowPos(g->aboutWindow, 68);
-    
-    MoveWindow(g->aboutWindow, pos.h, pos.v, FALSE);
-    
-    ShowWindow(g->aboutWindow);
-    DrawGWorldToWindow(g->aboutGWorld, g->aboutWindow);
-    SelectWindow(g->aboutWindow);
-    
-    g->lastAboutStyleWindowTime = GetCurrentEventTime();
-}
-
-void Instructions(void)
-{
-    Point		pos;
-    
-    HideWindow(g->autoPauseWindow);
-    
-    if (g->firstRunDoAbout)
-    {
-        g->firstRunDoAbout = FALSE;
-    }
-    
-    pos = GetSubMainWindowPos(g->aboutWindow, 68);
-    
-    MoveWindow(g->aboutWindow, pos.h, pos.v, FALSE);
-    
-    ShowWindow(g->aboutWindow);
-    DrawGWorldToWindow(g->instructionsGWorld, g->aboutWindow);
-    SelectWindow(g->aboutWindow);
-    
-    g->lastAboutStyleWindowTime = GetCurrentEventTime();
-}
-
 void LevelSelect(void)
 {
-    ControlID		cntlid;
-    ControlRef		theControl;
-    
-    Point		pos;
-    
-    pos = GetSubMainWindowPos(g->levelSelectWindow, 90);
-    
-    MoveWindow(g->levelSelectWindow, pos.h, pos.v, FALSE);
-    
-    cntlid.signature = 'levl';
-    cntlid.id = 0;
-    GetControlByID(g->levelSelectWindow, &cntlid, &theControl);
-    SetKeyboardFocus(g->levelSelectWindow, theControl, kControlEditTextPart);
-    
     ShowWindow(g->levelSelectWindow);
     SelectWindow(g->levelSelectWindow);
 }
 
 void HighScore(void)
 {
-    ControlID		cntlid;
-    ControlRef		theControl;
-    Str255		theString;
-    
-    ControlFontStyleRec	boldStyle, plainStyle;
-    
-    Point		pos;
-    
-    plainStyle.flags = 0;
-    boldStyle.flags = kControlUseFaceMask;
-    boldStyle.style = 1;
-    
     PlaySound(kBonusChannel, g->sounds.SCBonus);
     
-    pos = GetSubMainWindowPos(g->highScoreWindow, 20);
+    // Set up high score entry dialog
+    // This requires connecting UI controls
     
-    MoveWindow(g->highScoreWindow, pos.h, pos.v, FALSE);
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 128;
-    GetControlByID(g->highScoreWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.score, theString);
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    if (g->theScoreStuff.score > g->scores.score[9])
-        SetControlFontStyle(theControl, &boldStyle);
-    else
-        SetControlFontStyle(theControl, &plainStyle);
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 129;
-    GetControlByID(g->highScoreWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.sheepKilledTotal, theString);
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    if (g->theScoreStuff.sheepKilledTotal > g->scores.sheepKilled[9])
-        SetControlFontStyle(theControl, &boldStyle);
-    else
-        SetControlFontStyle(theControl, &plainStyle);
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 130;
-    GetControlByID(g->highScoreWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.longestJuggle, theString);
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    if (g->theScoreStuff.longestJuggle > g->scores.longestJuggle[9])
-        SetControlFontStyle(theControl, &boldStyle);
-    else
-        SetControlFontStyle(theControl, &plainStyle);
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 131;
-    GetControlByID(g->highScoreWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.highestMultiplier, theString);
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    if (g->theScoreStuff.highestMultiplier > g->scores.highestMultiplier[9])
-        SetControlFontStyle(theControl, &boldStyle);
-    else
-        SetControlFontStyle(theControl, &plainStyle);
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 132;
-    GetControlByID(g->highScoreWindow, &cntlid, &theControl);
-    
-    CFStringGetPascalString(g->scores.lastName, theString, 255, GetApplicationTextEncoding());
-    
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    SetKeyboardFocus(g->highScoreWindow, theControl, kControlEditTextPart);
-    
-    DrawControls(g->highScoreWindow);
     ShowWindow(g->highScoreWindow);
     SelectWindow(g->highScoreWindow);
 }
 
 void GameOver(void)
 {
-    ControlID		cntlid;
-    ControlRef		theControl;
-    Str255		theString;
-    
-    Point		pos;
-    
     PlaySound(kBonusChannel, g->sounds.baa);
-    
-    pos = GetSubMainWindowPos(g->gameOverWindow, 20);
-    
-    MoveWindow(g->gameOverWindow, pos.h, pos.v, FALSE);
     
     g->scores.lastScoreIndex = -1;
     g->scores.lastKilledIndex = -1;
     g->scores.lastMultIndex = -1;
     g->scores.lastJuggleIndex = -1;
     
-    cntlid.signature = 'blob';
-    cntlid.id = 128;
-    GetControlByID(g->gameOverWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.score, theString);
+    // Set up game over dialog
+    // This requires connecting UI controls
     
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 129;
-    GetControlByID(g->gameOverWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.sheepKilledTotal, theString);
-    
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 130;
-    GetControlByID(g->gameOverWindow, &cntlid, &theControl);
-    NumToString(g->theScoreStuff.longestJuggle, theString);
-    
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    cntlid.signature = 'blob';
-    cntlid.id = 131;
-    GetControlByID(g->gameOverWindow, &cntlid, &theControl);
-    if (g->theScoreStuff.score)						// no points => no sheep ever airborne
-        NumToString(g->theScoreStuff.highestMultiplier, theString);
-    else
-    {
-        theString[0] = 1;
-        theString[1] = '0';
-    }
-    
-    SetControlData( theControl,
-                    kControlEditTextPart,
-                    kControlEditTextTextTag,
-                    theString[0],
-                    (theString + 1));
-    
-    DrawControls(g->gameOverWindow);
     ShowWindow(g->gameOverWindow);
     SelectWindow(g->gameOverWindow);
 }
 
-
 void AutoPause(void)
-{    
-    Point		pos;
-    
-    pos = GetSubMainWindowPos(g->autoPauseWindow, 90);
-    
-    MoveWindow(g->autoPauseWindow, pos.h, pos.v, FALSE);
-
+{
     if (g->theWindow == FrontNonFloatingWindow())
     {
         if (g->inGame)
         {
-            if (! (alphaLock & GetCurrentKeyModifiers()) )
+            if (!(alphaLock & GetCurrentKeyModifiers()))
             {
                 ShowWindow(g->autoPauseWindow);
                 SelectWindow(g->autoPauseWindow);
@@ -1470,86 +737,118 @@ void AutoPause(void)
         }
     }
 }
-                     
+
 void AskSwitchDepth(void)
 {
-    Point		pos;
-    
-    pos = GetSubMainWindowPos(g->askSwitchWindow, 100);
-    
-    MoveWindow(g->askSwitchWindow, pos.h, pos.v, FALSE);
-    
-    ShowWindow(g->askSwitchWindow);
-    SelectWindow(g->askSwitchWindow);
-    
+    // Depth switching is obsolete on modern macOS
+    // Just mark it as handled
     g->askSwitchDepthPreferences = FALSE;
 }
 
+// ============================================================================
+// Mouse Position Helpers
+// ============================================================================
 
 void GetCompensatedMouse(Point *pt)
 {
-    GetMouse(pt);
+    // Get mouse position in window coordinates
+    // This is now handled by GameView, but we provide this for compatibility
     
-    if (g->pref.border)
-    {
-        pt->h -= BORDER_WIDTH;
-        pt->v -= BORDER_HEIGHT;
+    NSPoint mouseLocation = [NSEvent mouseLocation];
+    NSWindow *window = (__bridge NSWindow *)g->theWindow;
+    
+    if (window) {
+        NSRect windowFrame = [window frame];
+        NSRect contentRect = [window contentRectForFrameRect:windowFrame];
+        
+        pt->h = (short)(mouseLocation.x - contentRect.origin.x);
+        pt->v = (short)(contentRect.size.height - (mouseLocation.y - contentRect.origin.y));
+        
+        if (g->pref.border) {
+            pt->h -= BORDER_WIDTH;
+            pt->v -= BORDER_HEIGHT;
+        }
+    } else {
+        pt->h = 0;
+        pt->v = 0;
     }
 }
 
 void WindowSizeHack(Boolean repos)
 {
-    OSStatus err;
+    if (!g->theWindow) return;
+    
+    NSWindow *window = (__bridge NSWindow *)g->theWindow;
+    NSSize size;
     
     if (g->pref.border)
-        SizeWindow(g->theWindow, 620 + BORDER_WIDTH * 2, 420 + BORDER_HEIGHT * 2, TRUE);
+        size = NSMakeSize(620 + BORDER_WIDTH * 2, 420 + BORDER_HEIGHT * 2);
     else
-        SizeWindow(g->theWindow, 620, 420, TRUE);
+        size = NSMakeSize(620, 420);
+    
+    [window setContentSize:size];
     
     if (repos)
-    {
-        err = RepositionWindow(g->theWindow, NULL, kWindowCenterOnMainScreen);
-        if (err != noErr)
-            CleanUp(TRUE);
-    }
+        [window center];
     
     DrawBorder();
-    
     DrawGWorldToWindow(g->swapGWorld, g->theWindow);
 }
 
-
 Point GetSubMainWindowPos(WindowRef theWindow, short stdHeightBelowMain)
 {
-    Point		pos;
-    Rect		mainWinRect, thisWinRect;
+    Point pos;
     
-    GetWindowBounds(g->theWindow, kWindowGlobalPortRgn, &mainWinRect);
-    GetWindowBounds(theWindow, kWindowGlobalPortRgn, &thisWinRect);
+    NSWindow *mainWin = (__bridge NSWindow *)g->theWindow;
+    NSWindow *thisWin = (__bridge NSWindow *)theWindow;
     
-    pos.h = mainWinRect.left + (g->pref.border?BORDER_WIDTH:0) + 310 - (thisWinRect.right - thisWinRect.left)/2;
-    pos.v = mainWinRect.top + (g->pref.border?BORDER_HEIGHT:0) + stdHeightBelowMain;
+    if (mainWin && thisWin) {
+        NSRect mainFrame = [mainWin frame];
+        NSRect thisFrame = [thisWin frame];
+        
+        pos.h = (short)(mainFrame.origin.x + (g->pref.border ? BORDER_WIDTH : 0) + 310 - thisFrame.size.width / 2);
+        pos.v = (short)([[NSScreen mainScreen] frame].size.height - mainFrame.origin.y - mainFrame.size.height + (g->pref.border ? BORDER_HEIGHT : 0) + stdHeightBelowMain);
+    } else {
+        pos.h = 100;
+        pos.v = 100;
+    }
     
     return pos;
 }
 
+// ============================================================================
+// Stub functions for functions called from other files
+// ============================================================================
 
+short GetInterfaceOption(int x, int y)
+{
+    if (x >= 210 && x < 410 && y >= 110 && y < 330) {
+        return (y - 110) / 55 + 1;
+    }
+    return 0;
+}
 
+void DoShot(int x, int y)
+{
+    if (g->inGame && g->gameState == kPlaying) {
+        // Process weapon shot at coordinates
+        Shot(x, y);
+    }
+}
 
+void HandleMouseUp(int x, int y)
+{
+    HandleInterfaceRelease(x, y);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void HandleMouseMoved(int x, int y)
+{
+    // Update mouse tracking for interface
+    if (!g->inGame) {
+        if (x >= 210 && x < 410 && y >= 110 && y < 330) {
+            g->mouseOverOption = (y - 110) / 55 + 1;
+        } else {
+            g->mouseOverOption = 0;
+        }
+    }
+}

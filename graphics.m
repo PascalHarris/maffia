@@ -8,6 +8,7 @@
  */
 
 #include "Pomme.h"
+#import <Cocoa/Cocoa.h>
 
 #include "graphics.h"
 #include "mafftypes.h"
@@ -19,6 +20,33 @@ extern GlobalStuff *g;
 extern void PlaySound(short channel, Handle sound);
 extern bool InVotingPeriod(void);
 extern short GetChainLevel(void);
+
+// ============================================================================
+// Compatibility functions for APIs not in Pomme
+// ============================================================================
+
+// Get bounds from a PixMap
+static void GetPixBounds(PixMapHandle pm, Rect *bounds) {
+    if (pm && *pm) {
+        *bounds = (*pm)->bounds;
+    } else {
+        SetRect(bounds, 0, 0, 0, 0);
+    }
+}
+
+// Get port's pixmap - for GWorld this is the same as GetGWorldPixMap
+static PixMapHandle GetPortPixMap(CGrafPtr port) {
+    return GetGWorldPixMap((GWorldPtr)port);
+}
+
+// Get main device - stub, not really used in modern macOS
+static GDHandle GetMainDevice(void) {
+    return NULL;
+}
+
+// ============================================================================
+// Drawing Functions
+// ============================================================================
 
 void DrawInterface (GWorldPtr theGWorld)
 {
@@ -189,59 +217,27 @@ void InitSheepGWorld (GWorldPtr *srcGWorld, GWorldPtr *dstGWorld)
 
 void DrawGWorldToWindow (GWorldPtr theGWorld, WindowRef theWindow)
 {
-	PixMapHandle		srcPixMap, dstPixMap;
-        CGrafPtr		winPort, storePort;
-        GDHandle		winDevice, storeDevice;
-	Rect			srcBounds, dstBounds;
-	
-	srcPixMap = GetGWorldPixMap(theGWorld);
-	GetPixBounds(srcPixMap, &srcBounds);
-	LockPixels(srcPixMap);
-        
-        dstBounds = srcBounds;
-        if (g->pref.border && theWindow == g->theWindow)
-            OffsetRect(&dstBounds, BORDER_WIDTH, BORDER_HEIGHT);
-        
-        winPort = GetWindowPort(theWindow);
-        dstPixMap = GetPortPixMap(winPort);
-        LockPixels(dstPixMap);
-        
-        winDevice = GetMainDevice();
-        
-        GetGWorld(&storePort, &storeDevice);
-        SetGWorld(winPort, winDevice);
-        
-	CopyBits((BitMap *)*srcPixMap,
-                (BitMap *)*dstPixMap,
-                &srcBounds,
-                &dstBounds,
-                srcCopy,
-                NULL);
-	UnlockPixels(srcPixMap);
-        UnlockPixels(dstPixMap);
-        
-        SetGWorld(storePort, storeDevice);
+    // In the modern Cocoa implementation, drawing to window is handled by GameView's drawRect:
+    // This function now just marks the view as needing display.
+    // The actual drawing happens in GameView.m using Core Graphics.
+    
+    // For secondary windows (about, instructions), we need to trigger their redraw too
+    if (theWindow && theWindow != g->theWindow) {
+        NSWindow *nsWindow = (__bridge NSWindow *)theWindow;
+        if (nsWindow) {
+            [[nsWindow contentView] setNeedsDisplay:YES];
+        }
+    }
+    
+    // Main window redraw is triggered by the timer in AppDelegate
+    // No need to do anything here for the main window
 }
 
 void DrawBorder(void)
 {
-    CGrafPtr		storePort;
-    GDHandle		storeDevice;
-    Rect		boundsRect;
-    
-    if (g->pref.border)
-    {
-        GetGWorld(&storePort, &storeDevice);
-        SetPortWindowPort(g->theWindow);
-        
-        GetWindowBounds(g->theWindow, kWindowContentRgn, &boundsRect);
-        OffsetRect(&boundsRect, -boundsRect.left, -boundsRect.top);
-        
-        ForeColor(blackColor);
-        PaintRect(&boundsRect);
-        
-        SetGWorld(storePort, storeDevice);
-    }
+    // Border drawing is now handled in GameView's drawRect: method
+    // The border is drawn as a black rectangle around the game area when g->pref.border is true
+    // This function is kept for compatibility but no longer needs to do direct drawing
 }
 
 void ClearGWorld (GWorldPtr theGWorld, short colour)

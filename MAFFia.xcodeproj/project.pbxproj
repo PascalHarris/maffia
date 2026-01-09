@@ -22,8 +22,6 @@
 		8B7F5C1F1DB8C41A00A76310 /* CustomInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52E40260370C77E01F4A231 /* CustomInfo.plist */; };
 		8B7F5C201DB8C41A00A76310 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = F52E40280370C77E01F4A231 /* Graphics */; };
 		8B7F5C211DB8C41A00A76310 /* MAFFia.icns in Resources */ = {isa = PBXBuildFile; fileRef = F52E406D0370C77F01F4A231 /* MAFFia.icns */; };
-		8B7F5C221DB8C41A00A76310 /* main.nib in Resources */ = {isa = PBXBuildFile; fileRef = F52E406F0370C77F01F4A231 /* main.nib */; };
-		8B7F5C231DB8C41A00A76310 /* main~.nib in Resources */ = {isa = PBXBuildFile; fileRef = F52E40710370C77F01F4A231 /* main~.nib */; };
 		8B7F5C241DB8C41A00A76310 /* alienplace.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B4A147037E012B01C6A94C /* alienplace.plist */; };
 		8B7F5C251DB8C41A00A76310 /* pasture.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B4A14D037E012B01C6A94C /* pasture.plist */; };
 		8B7F5C261DB8C41A00A76310 /* shrooms.plist in Resources */ = {isa = PBXBuildFile; fileRef = F5B4A14E037E012B01C6A94C /* shrooms.plist */; };
@@ -44,12 +42,12 @@
 		8B7F5C361DB8C41A00A76310 /* depthcheck.m in Sources */ = {isa = PBXBuildFile; fileRef = F563777F0377996801768EE7 /* depthcheck.m */; };
 		8B7F5C381DB8C41A00A76310 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
 		8B7F5C3A1DB8C41A00A76310 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52E3FEB0370C51401F4A231 /* QuickTime.framework */; };
-		8B7F5C3C1DB8C41A00A76310 /* sound.rsrc in Rez */ = {isa = PBXBuildFile; fileRef = F52E40730370C77F01F4A231 /* sound.rsrc */; };
 		8B9DFBAF2F104FD200FFF56D /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9DFBAE2F104FC900FFF56D /* AppDelegate.h */; };
 		8B9DFBB12F104FDD00FFF56D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9DFBB02F104FDB00FFF56D /* AppDelegate.m */; };
 		8B9DFBB32F10502500FFF56D /* GameView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9DFBB22F10502000FFF56D /* GameView.h */; };
 		8B9DFBB52F10502C00FFF56D /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9DFBB42F10502A00FFF56D /* GameView.m */; };
 		8B9DFC522F10571D00FFF56D /* sound.rsrc in Resources */ = {isa = PBXBuildFile; fileRef = F52E40730370C77F01F4A231 /* sound.rsrc */; };
+		8BFF89E82F10F85D00B8FDFE /* main.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BFF89E62F10F85D00B8FDFE /* main.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +61,7 @@
 		8B9DFBB02F104FDB00FFF56D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8B9DFBB22F10502000FFF56D /* GameView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
 		8B9DFBB42F10502A00FFF56D /* GameView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
+		8BFF89E72F10F85D00B8FDFE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/main.xib; sourceTree = "<group>"; };
 		F513BBD8038354CF014038F8 /* beach.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = beach.plist; sourceTree = "<group>"; };
 		F515944B0381DCED01A81442 /* aliencloister.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = aliencloister.plist; sourceTree = "<group>"; };
 		F52DA42A03803B3E01E9057F /* cloisters.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = cloisters.plist; sourceTree = "<group>"; };
@@ -70,8 +69,6 @@
 		F52E40270370C77E01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/CustomInfo.plist; sourceTree = "<group>"; };
 		F52E40290370C77E01F4A231 /* English */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = English; path = English.lproj/Graphics; sourceTree = "<group>"; };
 		F52E406E0370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = English; path = English.lproj/MAFFia.icns; sourceTree = "<group>"; };
-		F52E40700370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/main.nib; sourceTree = "<group>"; };
-		F52E40720370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = "English.lproj/main~.nib"; sourceTree = "<group>"; };
 		F52E40740370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = archive.rsrc; name = English; path = English.lproj/sound.rsrc; sourceTree = "<group>"; };
 		F52E407E0370C79A01F4A231 /* eventhandlers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eventhandlers.m; sourceTree = "<group>"; };
 		F52E407F0370C79A01F4A231 /* eventhandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eventhandlers.h; sourceTree = "<group>"; };
@@ -258,10 +255,9 @@
 				F52E40260370C77E01F4A231 /* CustomInfo.plist */,
 				F52E40280370C77E01F4A231 /* Graphics */,
 				F52E406D0370C77F01F4A231 /* MAFFia.icns */,
-				F52E406F0370C77F01F4A231 /* main.nib */,
-				F52E40710370C77F01F4A231 /* main~.nib */,
 				F52E40730370C77F01F4A231 /* sound.rsrc */,
 				F5B4A146037E012B01C6A94C /* Levels */,
+				8BFF89E62F10F85D00B8FDFE /* main.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -327,7 +323,6 @@
 				8B7F5C1D1DB8C41A00A76310 /* Resources */,
 				8B7F5C2C1DB8C41A00A76310 /* Sources */,
 				8B7F5C371DB8C41A00A76310 /* Frameworks */,
-				8B7F5C3B1DB8C41A00A76310 /* Rez */,
 			);
 			buildRules = (
 			);
@@ -373,9 +368,8 @@
 				8B7F5C1E1DB8C41A00A76310 /* InfoPlist.strings in Resources */,
 				8B7F5C1F1DB8C41A00A76310 /* CustomInfo.plist in Resources */,
 				8B7F5C201DB8C41A00A76310 /* Graphics in Resources */,
+				8BFF89E82F10F85D00B8FDFE /* main.xib in Resources */,
 				8B7F5C211DB8C41A00A76310 /* MAFFia.icns in Resources */,
-				8B7F5C221DB8C41A00A76310 /* main.nib in Resources */,
-				8B7F5C231DB8C41A00A76310 /* main~.nib in Resources */,
 				8B7F5C241DB8C41A00A76310 /* alienplace.plist in Resources */,
 				8B7F5C251DB8C41A00A76310 /* pasture.plist in Resources */,
 				8B7F5C261DB8C41A00A76310 /* shrooms.plist in Resources */,
@@ -388,17 +382,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXRezBuildPhase section */
-		8B7F5C3B1DB8C41A00A76310 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B7F5C3C1DB8C41A00A76310 /* sound.rsrc in Rez */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8B7F5C2C1DB8C41A00A76310 /* Sources */ = {
@@ -431,6 +414,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		8BFF89E62F10F85D00B8FDFE /* main.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8BFF89E72F10F85D00B8FDFE /* English */,
+			);
+			name = main.xib;
+			sourceTree = "<group>";
+		};
 		F52E40260370C77E01F4A231 /* CustomInfo.plist */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -453,22 +444,6 @@
 				F52E406E0370C77F01F4A231 /* English */,
 			);
 			name = MAFFia.icns;
-			sourceTree = "<group>";
-		};
-		F52E406F0370C77F01F4A231 /* main.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F52E40700370C77F01F4A231 /* English */,
-			);
-			name = main.nib;
-			sourceTree = "<group>";
-		};
-		F52E40710370C77F01F4A231 /* main~.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F52E40720370C77F01F4A231 /* English */,
-			);
-			name = "main~.nib";
 			sourceTree = "<group>";
 		};
 		F52E40730370C77F01F4A231 /* sound.rsrc */ = {
@@ -518,10 +493,11 @@
 		8B7F5C3E1DB8C41A00A76310 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7ATZZYL3EC;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -538,8 +514,10 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.45rpmsoftware.MAFFia;
 				PRODUCT_NAME = MAFFia;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -554,10 +532,11 @@
 		8B7F5C3F1DB8C41A00A76310 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 7ATZZYL3EC;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -572,8 +551,10 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.45rpmsoftware.MAFFia;
 				PRODUCT_NAME = MAFFia;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -588,9 +569,10 @@
 		8B7F5C401DB8C41A00A76310 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7ATZZYL3EC;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -604,8 +586,10 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.45rpmsoftware.MAFFia;
 				PRODUCT_NAME = MAFFia;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
 					"-Wall",
