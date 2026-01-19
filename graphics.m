@@ -18,7 +18,7 @@ extern void NextLevel(void);
 extern void EndGame(bool showNonHighScore);
 extern GlobalStuff *g;
 extern void PlaySound(short channel, Handle sound);
-extern bool InVotingPeriod(void);
+//extern bool InVotingPeriod(void);
 extern short GetChainLevel(void);
 
 // ============================================================================
@@ -94,35 +94,35 @@ void DrawInterface (GWorldPtr theGWorld)
     
     // that was the background + basic buttons, now the voting reminder
     
-    if (InVotingPeriod())
-    {
-        srcPixMap = GetGWorldPixMap(g->voteGWorld);
-        
-        GetPixBounds(srcPixMap, &srcBounds);
-        dstBounds = srcBounds;
-        OffsetRect(&dstBounds, 458, 10);
-        
-        LockPixels(srcPixMap);
-        
-        CopyBits(   (BitMap *)*srcPixMap,
-                    (BitMap *)*dstPixMap,
-                    &srcBounds,
-                    &dstBounds,
-                    srcCopy,
-                    NULL);
-        
-        dstBounds = srcBounds;
-        OffsetRect(&dstBounds, 10, 10);
-        
-        CopyBits(   (BitMap *)*srcPixMap,
-                    (BitMap *)*dstPixMap,
-                    &srcBounds,
-                    &dstBounds,
-                    srcCopy,
-                    NULL);
-        
-        UnlockPixels(srcPixMap);
-    }
+//    if (InVotingPeriod())
+//    {
+//        srcPixMap = GetGWorldPixMap(g->voteGWorld);
+//        
+//        GetPixBounds(srcPixMap, &srcBounds);
+//        dstBounds = srcBounds;
+//        OffsetRect(&dstBounds, 458, 10);
+//        
+//        LockPixels(srcPixMap);
+//        
+//        CopyBits(   (BitMap *)*srcPixMap,
+//                    (BitMap *)*dstPixMap,
+//                    &srcBounds,
+//                    &dstBounds,
+//                    srcCopy,
+//                    NULL);
+//        
+//        dstBounds = srcBounds;
+//        OffsetRect(&dstBounds, 10, 10);
+//        
+//        CopyBits(   (BitMap *)*srcPixMap,
+//                    (BitMap *)*dstPixMap,
+//                    &srcBounds,
+//                    &dstBounds,
+//                    srcCopy,
+//                    NULL);
+//        
+//        UnlockPixels(srcPixMap);
+//    }
     
     // and now the fancy button stuff
     
@@ -894,41 +894,41 @@ void DrawBonus (GWorldPtr theGWorld)
             case kLambChopBonus:
                 
                 srcPixMap = GetGWorldPixMap(g->LCBonusGWorld);
-                nothingSet = FALSE;
+                nothingSet = false;
                 break;
             
             case kSwissCheeseBonus:
                 
                 srcPixMap = GetGWorldPixMap(g->SCBonusGWorld);
-                nothingSet = FALSE;
+                nothingSet = false;
                 break;
             
             case kShishKebabBonus:
                 
                 srcPixMap = GetGWorldPixMap(g->SKBonusGWorld);
-                nothingSet = FALSE;
+                nothingSet = false;
                 break;
             
             case kHighFlierBonus:
                 
                 srcPixMap = GetGWorldPixMap(g->HFBonusGWorld);
-                nothingSet = FALSE;
+                nothingSet = false;
                 break;
             
             case kJammyDodgerBonus:
                 
                 srcPixMap = GetGWorldPixMap(g->JDBonusGWorld);
-                nothingSet = FALSE;
+                nothingSet = false;
                 break;
             
             case kChainUpBonus:
                 
                 srcPixMap = GetGWorldPixMap(g->CUBonusGWorld);
-                nothingSet = FALSE;
+                nothingSet = false;
                 break;
             
             default:
-                nothingSet = TRUE;
+                nothingSet = true;
                 break;
         }
         
@@ -939,7 +939,7 @@ void DrawBonus (GWorldPtr theGWorld)
             actualTicks = (short)((g->frameTime - g->lastBonusTime) * 30);
             
             if ( actualTicks > 60 && (actualTicks & 1) )
-                nothingSet = TRUE;
+                nothingSet = true;
         }
         
         
@@ -1236,7 +1236,7 @@ void DrawGameOverScreenStuff(GWorldPtr theGWorld)
     
     if ( (Button() && GetCurrentEventTime() - g->lastStateSwitchTime > 2.2 * kEventDurationSecond)
             || GetCurrentEventTime() - g->lastStateSwitchTime > 10 * kEventDurationSecond )
-        EndGame(TRUE);
+        EndGame(true);
     
     
     
@@ -1281,7 +1281,7 @@ void DrawCompletedScreenStuff(GWorldPtr theGWorld)
     
     if ( (Button() && GetCurrentEventTime() - g->lastStateSwitchTime > 1.5 * kEventDurationSecond)
             || GetCurrentEventTime() - g->lastStateSwitchTime > 10 * kEventDurationSecond )
-        EndGame(TRUE);
+        EndGame(true);
     
 }
 

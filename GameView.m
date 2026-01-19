@@ -158,7 +158,7 @@ extern GlobalStuff *g;
             break;
         case 27:  // Escape
             if (g->inGame) {
-                EndGame(FALSE);
+                EndGame(false);
             }
             break;
         default:

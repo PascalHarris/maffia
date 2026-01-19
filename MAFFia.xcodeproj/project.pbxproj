@@ -16,7 +16,6 @@
 		8B7F5C181DB8C41A00A76310 /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40940370C7B401F4A231 /* main.h */; };
 		8B7F5C191DB8C41A00A76310 /* scores.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E40990370C7C701F4A231 /* scores.h */; };
 		8B7F5C1A1DB8C41A00A76310 /* sound.h in Headers */ = {isa = PBXBuildFile; fileRef = F52E409B0370C7C701F4A231 /* sound.h */; };
-		8B7F5C1B1DB8C41A00A76310 /* voting.h in Headers */ = {isa = PBXBuildFile; fileRef = F54099820373A610015F02DD /* voting.h */; };
 		8B7F5C1C1DB8C41A00A76310 /* depthcheck.h in Headers */ = {isa = PBXBuildFile; fileRef = F563777E0377996801768EE7 /* depthcheck.h */; };
 		8B7F5C1E1DB8C41A00A76310 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
 		8B7F5C1F1DB8C41A00A76310 /* CustomInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F52E40260370C77E01F4A231 /* CustomInfo.plist */; };
@@ -38,10 +37,7 @@
 		8B7F5C321DB8C41A00A76310 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40930370C7B401F4A231 /* main.m */; };
 		8B7F5C331DB8C41A00A76310 /* scores.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E40980370C7C701F4A231 /* scores.m */; };
 		8B7F5C341DB8C41A00A76310 /* sound.m in Sources */ = {isa = PBXBuildFile; fileRef = F52E409A0370C7C701F4A231 /* sound.m */; };
-		8B7F5C351DB8C41A00A76310 /* voting.m in Sources */ = {isa = PBXBuildFile; fileRef = F54099830373A610015F02DD /* voting.m */; };
 		8B7F5C361DB8C41A00A76310 /* depthcheck.m in Sources */ = {isa = PBXBuildFile; fileRef = F563777F0377996801768EE7 /* depthcheck.m */; };
-		8B7F5C381DB8C41A00A76310 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
-		8B7F5C3A1DB8C41A00A76310 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F52E3FEB0370C51401F4A231 /* QuickTime.framework */; };
 		8B9DFBAF2F104FD200FFF56D /* AppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9DFBAE2F104FC900FFF56D /* AppDelegate.h */; };
 		8B9DFBB12F104FDD00FFF56D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9DFBB02F104FDB00FFF56D /* AppDelegate.m */; };
 		8B9DFBB32F10502500FFF56D /* GameView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9DFBB22F10502000FFF56D /* GameView.h */; };
@@ -69,7 +65,7 @@
 		F52E40270370C77E01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/CustomInfo.plist; sourceTree = "<group>"; };
 		F52E40290370C77E01F4A231 /* English */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = English; path = English.lproj/Graphics; sourceTree = "<group>"; };
 		F52E406E0370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = English; path = English.lproj/MAFFia.icns; sourceTree = "<group>"; };
-		F52E40740370C77F01F4A231 /* English */ = {isa = PBXFileReference; lastKnownFileType = archive.rsrc; name = English; path = English.lproj/sound.rsrc; sourceTree = "<group>"; };
+		F52E40740370C77F01F4A231 /* English */ = {isa = PBXFileReference; explicitFileType = compiled; name = English; path = English.lproj/sound.rsrc; sourceTree = "<group>"; };
 		F52E407E0370C79A01F4A231 /* eventhandlers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eventhandlers.m; sourceTree = "<group>"; };
 		F52E407F0370C79A01F4A231 /* eventhandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eventhandlers.h; sourceTree = "<group>"; };
 		F52E40800370C79A01F4A231 /* fire.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fire.m; sourceTree = "<group>"; };
@@ -87,8 +83,6 @@
 		F52E40990370C7C701F4A231 /* scores.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scores.h; sourceTree = "<group>"; };
 		F52E409A0370C7C701F4A231 /* sound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sound.m; sourceTree = "<group>"; };
 		F52E409B0370C7C701F4A231 /* sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
-		F54099820373A610015F02DD /* voting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = voting.h; sourceTree = "<group>"; };
-		F54099830373A610015F02DD /* voting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = voting.m; sourceTree = "<group>"; };
 		F563777E0377996801768EE7 /* depthcheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = depthcheck.h; sourceTree = "<group>"; };
 		F563777F0377996801768EE7 /* depthcheck.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = depthcheck.m; sourceTree = "<group>"; };
 		F58737E8038095C40169D9D2 /* dump.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = dump.plist; sourceTree = "<group>"; };
@@ -187,8 +181,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B7F5C381DB8C41A00A76310 /* Carbon.framework in Frameworks */,
-				8B7F5C3A1DB8C41A00A76310 /* QuickTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +224,6 @@
 				F52E40810370C79A01F4A231 /* fire.h */,
 				F52E40990370C7C701F4A231 /* scores.h */,
 				F52E409B0370C7C701F4A231 /* sound.h */,
-				F54099820373A610015F02DD /* voting.h */,
 				F563777E0377996801768EE7 /* depthcheck.h */,
 				F52E40930370C7B401F4A231 /* main.m */,
 				F52E407E0370C79A01F4A231 /* eventhandlers.m */,
@@ -242,7 +233,6 @@
 				F52E40800370C79A01F4A231 /* fire.m */,
 				F52E40980370C7C701F4A231 /* scores.m */,
 				F52E409A0370C7C701F4A231 /* sound.m */,
-				F54099830373A610015F02DD /* voting.m */,
 				F563777F0377996801768EE7 /* depthcheck.m */,
 			);
 			name = Sources;
@@ -305,7 +295,6 @@
 				8B7F5C181DB8C41A00A76310 /* main.h in Headers */,
 				8B7F5C191DB8C41A00A76310 /* scores.h in Headers */,
 				8B7F5C1A1DB8C41A00A76310 /* sound.h in Headers */,
-				8B7F5C1B1DB8C41A00A76310 /* voting.h in Headers */,
 				8B7F5C1C1DB8C41A00A76310 /* depthcheck.h in Headers */,
 				8B9DFBB32F10502500FFF56D /* GameView.h in Headers */,
 				8B9DFBAF2F104FD200FFF56D /* AppDelegate.h in Headers */,
@@ -398,7 +387,6 @@
 				8B7F5C321DB8C41A00A76310 /* main.m in Sources */,
 				8B7F5C331DB8C41A00A76310 /* scores.m in Sources */,
 				8B7F5C341DB8C41A00A76310 /* sound.m in Sources */,
-				8B7F5C351DB8C41A00A76310 /* voting.m in Sources */,
 				8B7F5C361DB8C41A00A76310 /* depthcheck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,6 +448,7 @@
 		8B2D26201DB8B960004D6FFF /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
 					ppc,
 					i386,
@@ -471,6 +460,7 @@
 		8B2D26211DB8B960004D6FFF /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
 					ppc,
 					i386,
@@ -482,6 +472,7 @@
 		8B2D26221DB8B960004D6FFF /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
 					ppc,
 					i386,
@@ -493,6 +484,7 @@
 		8B7F5C3E1DB8C41A00A76310 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -532,6 +524,7 @@
 		8B7F5C3F1DB8C41A00A76310 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -569,6 +562,7 @@
 		8B7F5C401DB8C41A00A76310 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

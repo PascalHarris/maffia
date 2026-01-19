@@ -83,7 +83,7 @@ void NextLevel(void)
     	StateSwitch(kLevelStart);
     }
     else
-        EndGame(TRUE);
+        EndGame(true);
     
     g->lastBonus = kNoBonus;
     g->bonusChainLength = 0;
@@ -118,7 +118,7 @@ void OneFrame(void)
         return;
     
     g->frameTime = GetCurrentEventTime();
-    g->bonusAlreadyThisFrame = FALSE;
+    g->bonusAlreadyThisFrame = false;
     
     CheckKeys();
     ProcessSheep();
@@ -256,7 +256,7 @@ void NewSheep (short layer, float posx, float posy, float velx, float vely)
                     NULL,
                     NULL,
                     0);
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
     err = NewGWorld(&newSheep->deadSpriteMaskWithoutOutline,
                     1,
@@ -264,7 +264,7 @@ void NewSheep (short layer, float posx, float posy, float velx, float vely)
                     NULL,
                     NULL,
                     0);
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
     err = NewGWorld(&newSheep->deadSpriteMaskWithOutline,
                     1,
@@ -272,7 +272,7 @@ void NewSheep (short layer, float posx, float posy, float velx, float vely)
                     NULL,
                     NULL,
                     0);
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
     err = NewGWorld(&newSheep->burnMask,
                     1,
@@ -280,7 +280,7 @@ void NewSheep (short layer, float posx, float posy, float velx, float vely)
                     NULL,
                     NULL,
                     0);
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     ClearGWorld(newSheep->burnMask, whiteColor);
     
     
@@ -495,9 +495,9 @@ void AddShotEffect (Point where, short type)
     
     newShot = (ShotEffect *)NewPtr(sizeof(ShotEffect));
     if (!newShot)
-        CleanUp(TRUE);
+        CleanUp(true);
     
-    newShot->readyToDie = FALSE;
+    newShot->readyToDie = false;
     newShot->type = type;
     newShot->position = where;
     newShot->animationFrame = 0;
@@ -1354,7 +1354,7 @@ void SplitSheep (SheepToken *theSheep)
                             NULL,
                             NULL,
                             0);
-            if (err) CleanUp(TRUE);
+            if (err) CleanUp(true);
             
             err = NewGWorld(&newSheep->deadSpriteMaskWithoutOutline,
                             1,
@@ -1362,7 +1362,7 @@ void SplitSheep (SheepToken *theSheep)
                             NULL,
                             NULL,
                             0);
-            if (err) CleanUp(TRUE);
+            if (err) CleanUp(true);
     
             err = NewGWorld(&newSheep->deadSpriteMaskWithOutline,
                             1,
@@ -1370,7 +1370,7 @@ void SplitSheep (SheepToken *theSheep)
                             NULL,
                             NULL,
                             0);
-            if (err) CleanUp(TRUE);
+            if (err) CleanUp(true);
             
             err = NewGWorld(&newSheep->burnMask,
                             1,
@@ -1378,7 +1378,7 @@ void SplitSheep (SheepToken *theSheep)
                             NULL,
                             NULL,
                             0);
-            if (err) CleanUp(TRUE);
+            if (err) CleanUp(true);
             
             ClearGWorld(newSheep->deadSprite, whiteColor);
             ClearGWorld(newSheep->deadSpriteMaskWithoutOutline, whiteColor);
@@ -1685,7 +1685,7 @@ void BreakBonusChain(void)
     g->bonusChainLength = 0;
     g->lastBonus = kNoBonus;
     g->lastBonusData = 0;
-    g->lastBonusDataLife = FALSE;
+    g->lastBonusDataLife = false;
 }
     
 
@@ -1708,29 +1708,29 @@ void ChainUpBonus(void)
 
 void LambChopBonus(void)
 {
-    bool chainUp = FALSE;
+    bool chainUp = false;
     
     g->theScoreStuff.livesLeft++;
     
     if (g->frameTime - g->lastBonusTime < BONUS_TIME_LENGTH)
     {
-        chainUp = TRUE;
+        chainUp = true;
         g->lastBonusData += 0;
         g->theScoreStuff.score += g->lastBonusData;
-        g->lastBonusDataLife = TRUE;
+        g->lastBonusDataLife = true;
     }
     else
     {
         g->bonusChainLength = 0;
         g->lastBonusData = 0;
-        g->lastBonusDataLife = TRUE;
+        g->lastBonusDataLife = true;
     }
     
     g->lastBonusTime = g->frameTime;
     g->lastBonus = kLambChopBonus;
     
     PlaySound(kBonusChannel, g->sounds.LCBonus);
-    g->bonusAlreadyThisFrame = TRUE;
+    g->bonusAlreadyThisFrame = true;
     
     if (chainUp)
         ChainLengthUp();
@@ -1738,11 +1738,11 @@ void LambChopBonus(void)
 
 void DoPointsBonus(UInt32 bonus, short bonusTypeConstant)
 {
-    bool chainUp = FALSE;
+    bool chainUp = false;
     
     if (g->frameTime - g->lastBonusTime < BONUS_TIME_LENGTH)
     {
-        chainUp = TRUE;
+        chainUp = true;
         g->lastBonusData += bonus;
         if (g->lastBonusDataLife)
             g->theScoreStuff.livesLeft++;
@@ -1751,7 +1751,7 @@ void DoPointsBonus(UInt32 bonus, short bonusTypeConstant)
     {
         g->bonusChainLength = 0;
         g->lastBonusData = bonus;
-        g->lastBonusDataLife = FALSE;
+        g->lastBonusDataLife = false;
     }
     
     g->theScoreStuff.score += g->lastBonusData;
@@ -1766,7 +1766,7 @@ void DoPointsBonus(UInt32 bonus, short bonusTypeConstant)
         else
             PlaySound(kBonusChannel, g->sounds.SCBonus);
         
-        g->bonusAlreadyThisFrame = TRUE;
+        g->bonusAlreadyThisFrame = true;
     }
     
     if (chainUp)

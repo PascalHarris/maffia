@@ -26,7 +26,7 @@ void LoadSounds(void)
         err = SndNewChannel(&(g->sndChannel[i]), sampledSynth, initMono, NULL);
         
         if (err != noErr)
-            CleanUp(TRUE);
+            CleanUp(true);
         
         i++;
     }
@@ -34,58 +34,58 @@ void LoadSounds(void)
     theWeapon = g->baseWeapon;
     theWeapon->shotSoundHandle = GetNamedResource('snd ', "\puzi");
     if (!theWeapon->shotSoundHandle)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     theWeapon = theWeapon->next;
     theWeapon->shotSoundHandle = GetNamedResource('snd ', "\pmagnum");
     if (!theWeapon->shotSoundHandle)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     theWeapon = theWeapon->next;
     theWeapon->shotSoundHandle = GetNamedResource('snd ', "\pshotgun");
     if (!theWeapon->shotSoundHandle)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     theWeapon = theWeapon->next;
     theWeapon->shotSoundHandle = GetNamedResource('snd ', "\pflamer");
     if (!theWeapon->shotSoundHandle)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.SCBonus = GetNamedResource('snd ', "\pscbonus");
     if (!g->sounds.SCBonus)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.LCBonus = GetNamedResource('snd ', "\plcbonus");
     if (!g->sounds.SCBonus)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.lastLife = GetNamedResource('snd ', "\plastlife");
     if (!g->sounds.lastLife)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.splat = GetNamedResource('snd ', "\psplat");
     if (!g->sounds.splat)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.stateSwitch = GetNamedResource('snd ', "\pstateswitch");
     if (!g->sounds.stateSwitch)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.weaponSwitch = GetNamedResource('snd ', "\pweaponswitch");
     if (!g->sounds.weaponSwitch)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.baa = GetNamedResource('snd ', "\pbaa");
     if (!g->sounds.baa)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.clank = GetNamedResource('snd ', "\pclank");
     if (!g->sounds.baa)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     g->sounds.breakchain = GetNamedResource('snd ', "\pbreakchain");
     if (!g->sounds.baa)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     
 }
@@ -105,7 +105,7 @@ void FinishSounds(void)
         if (g->sndChannel[i])
         {
             SndDoImmediate(g->sndChannel[i], &shutUp);
-            SndDisposeChannel(g->sndChannel[i], FALSE);
+            SndDisposeChannel(g->sndChannel[i], false);
         }
         
         i++;

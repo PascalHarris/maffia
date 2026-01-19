@@ -149,7 +149,7 @@ GlobalStuff *g = NULL;
     [self.gameTimer invalidate];
     self.gameTimer = nil;
     
-    CleanUp(FALSE);
+    CleanUp(false);
     Pomme::Shutdown();
 }
 

@@ -97,7 +97,7 @@ OSStatus ActivateMyWindow(EventHandlerCallRef nextHandler, EventRef theEvent, vo
     g->windowActive = 1;
     
     if (g->alreadyAutoPaused)
-        g->alreadyAutoPaused = FALSE;
+        g->alreadyAutoPaused = false;
     else
         AutoPause();
     
@@ -209,7 +209,7 @@ void LevelSelectOK(int levelNumber)
     }
     
     if (theLevel && levelNumber >= 1) {
-        EndGame(FALSE);
+        EndGame(false);
         g->startNewGameImmediately = levelNumber;
         
         HideWindow(g->autoPauseWindow);
@@ -259,7 +259,7 @@ void InstructionsClick(void)
         SelectWindow(g->theWindow);
         
         if (g->firstRunDoAbout)
-            g->firstRunDoAbout = FALSE;
+            g->firstRunDoAbout = false;
         
         AutoPause();
     }
@@ -343,7 +343,7 @@ void ProcessMenuCommand(UInt32 commandID)
             break;
         
         case 'newg':
-            EndGame(FALSE);
+            EndGame(false);
             HideWindow(g->autoPauseWindow);
             HideWindow(g->prefsWindow);
             HideWindow(g->highScoresWindow);
@@ -368,7 +368,7 @@ void ProcessMenuCommand(UInt32 commandID)
         
         case 'endg':
             if (g->inGame) {
-                g->alreadyAutoPaused = TRUE;
+                g->alreadyAutoPaused = true;
                 HideWindow(g->autoPauseWindow);
                 HideWindow(g->prefsWindow);
                 HideWindow(g->highScoresWindow);
@@ -376,12 +376,12 @@ void ProcessMenuCommand(UInt32 commandID)
                 HideWindow(g->levelSelectWindow);
                 HideWindow(g->instructionsWindow);
                 HideWindow(g->aboutWindow);
-                EndGame(FALSE);
+                EndGame(false);
             }
             break;
         
         case 'mini':
-            g->alreadyAutoPaused = TRUE;
+            g->alreadyAutoPaused = true;
             HideWindow(g->autoPauseWindow);
             break;
     }
@@ -598,7 +598,7 @@ void HandleKeyPress(unichar key)
                 TogglePause();
                 break;
             case 27: // Escape
-                EndGame(FALSE);
+                EndGame(false);
                 break;
         }
     }
@@ -742,7 +742,7 @@ void AskSwitchDepth(void)
 {
     // Depth switching is obsolete on modern macOS
     // Just mark it as handled
-    g->askSwitchDepthPreferences = FALSE;
+    g->askSwitchDepthPreferences = false;
 }
 
 // ============================================================================

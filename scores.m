@@ -179,14 +179,14 @@ void DefaultHighScores(void)
     long		killedMax = 400;	// 401 totalÉ?
     short		multMax = 20;
     short		juggleMax = 250;
-    bool		scoreFive = FALSE;
+    bool		scoreFive = false;
     
     theName = CFSTR("Wibble");
     
     g->scores.lastName = CFStringCreateCopy(NULL, theName);
     
     if (!g->scores.lastName)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     while (i < 10)
     {
@@ -226,18 +226,18 @@ void DefaultHighScores(void)
 bool NewHighScore(void)
 {
     if (g->theScoreStuff.score > g->scores.score[9])
-        return TRUE;
+        return true;
     
     if (g->theScoreStuff.sheepKilledTotal > g->scores.sheepKilled[9])
-        return TRUE;
+        return true;
     
     if (g->theScoreStuff.highestMultiplier > g->scores.highestMultiplier[9])
-        return TRUE;
+        return true;
     
     if (g->theScoreStuff.longestJuggle > g->scores.longestJuggle[9])
-        return TRUE;
+        return true;
     
-    return FALSE;
+    return false;
 }
 
 void UpdateHighScores(void)

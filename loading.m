@@ -43,7 +43,7 @@ void LoadPicture(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
     CFURLRef url = CFBundleCopyResourceURL(g->mainBundle, name, CFSTR("tif"), CFSTR("Graphics"));
     if (!url) {
         NSLog(@"LoadPicture: Failed to find resource %@", name);
-        CleanUp(TRUE);
+        CleanUp(true);
         return;
     }
     
@@ -53,7 +53,7 @@ void LoadPicture(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
     
     if (!image) {
         NSLog(@"LoadPicture: Failed to load image %@", name);
-        CleanUp(TRUE);
+        CleanUp(true);
         return;
     }
     
@@ -66,7 +66,7 @@ void LoadPicture(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
     OSErr err = NewGWorld(theGWorld, 32, &bounds, NULL, NULL, 0);
     if (err) {
         NSLog(@"LoadPicture: Failed to create GWorld for %@", name);
-        CleanUp(TRUE);
+        CleanUp(true);
         return;
     }
     
@@ -137,7 +137,7 @@ void LoadMask(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
     CFURLRef url = CFBundleCopyResourceURL(g->mainBundle, name, CFSTR("tif"), CFSTR("Graphics"));
     if (!url) {
         NSLog(@"LoadMask: Failed to find resource %@", name);
-        CleanUp(TRUE);
+        CleanUp(true);
         return;
     }
     
@@ -146,7 +146,7 @@ void LoadMask(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
     
     if (!image) {
         NSLog(@"LoadMask: Failed to load image %@", name);
-        CleanUp(TRUE);
+        CleanUp(true);
         return;
     }
     
@@ -159,7 +159,7 @@ void LoadMask(CFStringRef name, GWorldPtr *theGWorld, bool flipped)
     OSErr err = NewGWorld(theGWorld, 1, &bounds, NULL, NULL, 0);
     if (err) {
         NSLog(@"LoadMask: Failed to create GWorld for %@", name);
-        CleanUp(TRUE);
+        CleanUp(true);
         return;
     }
     
@@ -238,37 +238,37 @@ void LoadInterface(void)
     // Create a Nib reference passing the name of the nib file (without the .nib extension)
     // CreateNibReference only searches into the application bundle.
     err = CreateNibReference(CFSTR("main"), &nibRef);
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
     err = SetMenuBarFromNib(nibRef, CFSTR("MenuBar"));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
     EnableMenuCommand(NULL, kHICommandPreferences);
     
     
     err = CreateWindowFromNib(nibRef, CFSTR("MainWindow"), &(g->theWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
-    WindowSizeHack(TRUE);
+    WindowSizeHack(true);
     
     err = CreateWindowFromNib(nibRef, CFSTR("AboutWindow"), &(g->aboutWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("InstructionsWindow"), &(g->instructionsWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("PrefsWindow"), &(g->prefsWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("HighScoreWindow"), &(g->highScoreWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("NewGameOverWindow"), &(g->gameOverWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("HighScoresWindow"), &(g->highScoresWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("LevelSelectWindow"), &(g->levelSelectWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("AutoPauseWindow"), &(g->autoPauseWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     err = CreateWindowFromNib(nibRef, CFSTR("AskSwitchWindow"), &(g->askSwitchWindow));
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
 
     // We don't need the nib reference anymore.
     DisposeNibReference(nibRef);
@@ -293,13 +293,13 @@ void LoadPreferences(void)
     
     if (!valid)
     {
-        g->firstRunDoAbout = TRUE;
+        g->firstRunDoAbout = true;
         
         DefaultPrefs();
     }
     else
     {
-        g->firstRunDoAbout = FALSE;
+        g->firstRunDoAbout = false;
         
         g->pref.fire = CFPreferencesGetAppBooleanValue(CFSTR("fire"), PRF_CUR, &valid);
         g->pref.sound = CFPreferencesGetAppBooleanValue(CFSTR("sound"), PRF_CUR, &valid);
@@ -307,7 +307,7 @@ void LoadPreferences(void)
         g->pref.shotFX = CFPreferencesGetAppBooleanValue(CFSTR("shotFX"), PRF_CUR, &valid);
         g->pref.border = CFPreferencesGetAppBooleanValue(CFSTR("shotFX"), PRF_CUR, &valid);
         if (!valid)
-            g->pref.border = TRUE;	// old versions did not have this pref
+            g->pref.border = true;	// old versions did not have this pref
     }
     
     LoadHighScores();
@@ -315,12 +315,12 @@ void LoadPreferences(void)
 
 void DefaultPrefs(void)
 {
-    g->pref.blood = TRUE;
-    g->pref.fire  = TRUE;
-    g->pref.sound = TRUE;
-    g->pref.turbo = FALSE;
-    g->pref.shotFX = TRUE;
-    g->pref.border = TRUE;
+    g->pref.blood = true;
+    g->pref.fire  = true;
+    g->pref.sound = true;
+    g->pref.turbo = false;
+    g->pref.shotFX = true;
+    g->pref.border = true;
     
     // no default for septh switch
     
@@ -371,69 +371,69 @@ void LoadGlobalGraphics(void)
     PixMapHandle	map;
     OSErr		err;
     
-    LoadPicture(CFSTR("interfaceBack"), &g->interfaceBackGWorld, FALSE);
-    LoadPicture(CFSTR("interfaceButtons"), &g->interfaceButtons, FALSE);
-    LoadPicture(CFSTR("interfaceRollover"), &g->interfaceRollover, FALSE);
-    LoadPicture(CFSTR("interfaceClick"), &g->interfaceClick, FALSE);
-    LoadPicture(CFSTR("about"), &g->aboutGWorld, FALSE);
-    LoadPicture(CFSTR("instructions"), &g->instructionsGWorld, FALSE);
-    LoadPicture(CFSTR("vote"), &g->voteGWorld, FALSE);
+    LoadPicture(CFSTR("interfaceBack"), &g->interfaceBackGWorld, false);
+    LoadPicture(CFSTR("interfaceButtons"), &g->interfaceButtons, false);
+    LoadPicture(CFSTR("interfaceRollover"), &g->interfaceRollover, false);
+    LoadPicture(CFSTR("interfaceClick"), &g->interfaceClick, false);
+    LoadPicture(CFSTR("about"), &g->aboutGWorld, false);
+    LoadPicture(CFSTR("instructions"), &g->instructionsGWorld, false);
+    LoadPicture(CFSTR("vote"), &g->voteGWorld, false);
     
-    LoadPicture(CFSTR("guns"), &g->gunsPictGWorld, FALSE);
-    LoadMask(CFSTR("gunsMask"), &g->gunsPictMask, FALSE);
-    LoadPicture(CFSTR("rose"), &g->lifePictGWorld, FALSE);
-    LoadMask(CFSTR("roseMask"), &g->lifePictMask, FALSE);
-    LoadPicture(CFSTR("arrow"), &g->sheepArrowGWorld, FALSE);
-    LoadMask(CFSTR("arrowMask"), &g->sheepArrowMask, FALSE);
+    LoadPicture(CFSTR("guns"), &g->gunsPictGWorld, false);
+    LoadMask(CFSTR("gunsMask"), &g->gunsPictMask, false);
+    LoadPicture(CFSTR("rose"), &g->lifePictGWorld, false);
+    LoadMask(CFSTR("roseMask"), &g->lifePictMask, false);
+    LoadPicture(CFSTR("arrow"), &g->sheepArrowGWorld, false);
+    LoadMask(CFSTR("arrowMask"), &g->sheepArrowMask, false);
     
-    LoadPicture(CFSTR("swissCheese"), &g->SCBonusGWorld, FALSE);
-    LoadPicture(CFSTR("shishKebab"), &g->SKBonusGWorld, FALSE);
-    LoadPicture(CFSTR("lambChop"), &g->LCBonusGWorld, FALSE);
-    LoadPicture(CFSTR("highFlier"), &g->HFBonusGWorld, FALSE);
-    LoadPicture(CFSTR("jammyDodger"), &g->JDBonusGWorld, FALSE);
-    LoadPicture(CFSTR("chainUp"), &g->CUBonusGWorld, FALSE);
-    LoadMask(CFSTR("bonusMask"), &g->bonusMask, FALSE);
-    LoadPicture(CFSTR("chainBonus"), &g->chainBonusGWorld, FALSE);
-    LoadMask(CFSTR("chainBonusMask"), &g->chainBonusMask, FALSE);
+    LoadPicture(CFSTR("swissCheese"), &g->SCBonusGWorld, false);
+    LoadPicture(CFSTR("shishKebab"), &g->SKBonusGWorld, false);
+    LoadPicture(CFSTR("lambChop"), &g->LCBonusGWorld, false);
+    LoadPicture(CFSTR("highFlier"), &g->HFBonusGWorld, false);
+    LoadPicture(CFSTR("jammyDodger"), &g->JDBonusGWorld, false);
+    LoadPicture(CFSTR("chainUp"), &g->CUBonusGWorld, false);
+    LoadMask(CFSTR("bonusMask"), &g->bonusMask, false);
+    LoadPicture(CFSTR("chainBonus"), &g->chainBonusGWorld, false);
+    LoadMask(CFSTR("chainBonusMask"), &g->chainBonusMask, false);
     
-    LoadPicture(CFSTR("mega"), &g->extraBonusGWorld[0], FALSE);
-    LoadPicture(CFSTR("ultra"), &g->extraBonusGWorld[1], FALSE);
-    LoadPicture(CFSTR("super"), &g->extraBonusGWorld[2], FALSE);
-    LoadPicture(CFSTR("extra"), &g->extraBonusGWorld[3], FALSE);
-    LoadPicture(CFSTR("double"), &g->extraBonusGWorld[4], FALSE);
+    LoadPicture(CFSTR("mega"), &g->extraBonusGWorld[0], false);
+    LoadPicture(CFSTR("ultra"), &g->extraBonusGWorld[1], false);
+    LoadPicture(CFSTR("super"), &g->extraBonusGWorld[2], false);
+    LoadPicture(CFSTR("extra"), &g->extraBonusGWorld[3], false);
+    LoadPicture(CFSTR("double"), &g->extraBonusGWorld[4], false);
     
-    LoadPicture(CFSTR("levelStart"), &g->msgLevelStartGWorld, FALSE);
-    LoadMask(CFSTR("levelStartMask"), &g->msgLevelStartMask, FALSE);
-    LoadPicture(CFSTR("levelEnd"), &g->msgLevelEndGWorld, FALSE);
-    LoadMask(CFSTR("levelEndMask"), &g->msgLevelEndMask, FALSE);
-    LoadPicture(CFSTR("gameOver"), &g->msgGameOverGWorld, FALSE);
-    LoadMask(CFSTR("gameOverMask"), &g->msgGameOverMask, FALSE);
-    LoadPicture(CFSTR("completed"), &g->msgCompletedGWorld, FALSE);
-    LoadMask(CFSTR("completedMask"), &g->msgCompletedMask, FALSE);
-    LoadPicture(CFSTR("paused"), &g->msgPausedGWorld, FALSE);
-    LoadMask(CFSTR("pausedMask"), &g->msgPausedMask, FALSE);
+    LoadPicture(CFSTR("levelStart"), &g->msgLevelStartGWorld, false);
+    LoadMask(CFSTR("levelStartMask"), &g->msgLevelStartMask, false);
+    LoadPicture(CFSTR("levelEnd"), &g->msgLevelEndGWorld, false);
+    LoadMask(CFSTR("levelEndMask"), &g->msgLevelEndMask, false);
+    LoadPicture(CFSTR("gameOver"), &g->msgGameOverGWorld, false);
+    LoadMask(CFSTR("gameOverMask"), &g->msgGameOverMask, false);
+    LoadPicture(CFSTR("completed"), &g->msgCompletedGWorld, false);
+    LoadMask(CFSTR("completedMask"), &g->msgCompletedMask, false);
+    LoadPicture(CFSTR("paused"), &g->msgPausedGWorld, false);
+    LoadMask(CFSTR("pausedMask"), &g->msgPausedMask, false);
     
-    LoadPicture(CFSTR("runRightA"), &g->theSheepType.liveSpriteRunRightA, FALSE);
-    LoadMask(CFSTR("runRightMaskA"), &g->theSheepType.liveSpriteRunRightMaskA, FALSE);
-    LoadPicture(CFSTR("runRightB"), &g->theSheepType.liveSpriteRunRightB, FALSE);
-    LoadMask(CFSTR("runRightMaskB"), &g->theSheepType.liveSpriteRunRightMaskB, FALSE);
+    LoadPicture(CFSTR("runRightA"), &g->theSheepType.liveSpriteRunRightA, false);
+    LoadMask(CFSTR("runRightMaskA"), &g->theSheepType.liveSpriteRunRightMaskA, false);
+    LoadPicture(CFSTR("runRightB"), &g->theSheepType.liveSpriteRunRightB, false);
+    LoadMask(CFSTR("runRightMaskB"), &g->theSheepType.liveSpriteRunRightMaskB, false);
     
-    LoadPicture(CFSTR("runRightA"), &g->theSheepType.liveSpriteRunLeftA, TRUE);
-    LoadMask(CFSTR("runRightMaskA"), &g->theSheepType.liveSpriteRunLeftMaskA, TRUE);
-    LoadPicture(CFSTR("runRightB"), &g->theSheepType.liveSpriteRunLeftB, TRUE);
-    LoadMask(CFSTR("runRightMaskB"), &g->theSheepType.liveSpriteRunLeftMaskB, TRUE);
+    LoadPicture(CFSTR("runRightA"), &g->theSheepType.liveSpriteRunLeftA, true);
+    LoadMask(CFSTR("runRightMaskA"), &g->theSheepType.liveSpriteRunLeftMaskA, true);
+    LoadPicture(CFSTR("runRightB"), &g->theSheepType.liveSpriteRunLeftB, true);
+    LoadMask(CFSTR("runRightMaskB"), &g->theSheepType.liveSpriteRunLeftMaskB, true);
     
-    LoadPicture(CFSTR("deadRight"), &g->theSheepType.originalDeadSpriteRight, FALSE);
-    LoadMask(CFSTR("deadRightMaskThin"), &g->theSheepType.originalDeadSpriteRightMaskWithoutOutline, FALSE);
-    LoadMask(CFSTR("deadRightMaskFat"), &g->theSheepType.originalDeadSpriteRightMaskWithOutline, FALSE);
+    LoadPicture(CFSTR("deadRight"), &g->theSheepType.originalDeadSpriteRight, false);
+    LoadMask(CFSTR("deadRightMaskThin"), &g->theSheepType.originalDeadSpriteRightMaskWithoutOutline, false);
+    LoadMask(CFSTR("deadRightMaskFat"), &g->theSheepType.originalDeadSpriteRightMaskWithOutline, false);
     
-    LoadPicture(CFSTR("deadRight"), &g->theSheepType.originalDeadSpriteLeft, TRUE);
-    LoadMask(CFSTR("deadRightMaskThin"), &g->theSheepType.originalDeadSpriteLeftMaskWithoutOutline, TRUE);
-    LoadMask(CFSTR("deadRightMaskFat"), &g->theSheepType.originalDeadSpriteLeftMaskWithOutline, TRUE);
+    LoadPicture(CFSTR("deadRight"), &g->theSheepType.originalDeadSpriteLeft, true);
+    LoadMask(CFSTR("deadRightMaskThin"), &g->theSheepType.originalDeadSpriteLeftMaskWithoutOutline, true);
+    LoadMask(CFSTR("deadRightMaskFat"), &g->theSheepType.originalDeadSpriteLeftMaskWithOutline, true);
     
-    LoadPicture(CFSTR("numbers"), &g->theScoreStuff.scoreGraphics, FALSE);
-    LoadPicture(CFSTR("numbersGold"), &g->theScoreStuff.multiplierGraphics, FALSE);
-    LoadMask(CFSTR("numbersMask"), &g->theScoreStuff.scoreMask, FALSE);
+    LoadPicture(CFSTR("numbers"), &g->theScoreStuff.scoreGraphics, false);
+    LoadPicture(CFSTR("numbersGold"), &g->theScoreStuff.multiplierGraphics, false);
+    LoadMask(CFSTR("numbersMask"), &g->theScoreStuff.scoreMask, false);
     
     SetRect(&g->theScoreStuff.numberRect, 0, 0, 12, 17);
     
@@ -447,7 +447,7 @@ void LoadGlobalGraphics(void)
                     NULL,
                     0);
     if (err)
-        CleanUp(TRUE);
+        CleanUp(true);
         
     ClearGWorld(g->theSheepType.splitMask, whiteColor);
     
@@ -456,7 +456,7 @@ void LoadGlobalGraphics(void)
                     &g->swapBounds,
                     NULL, NULL, 0);
     if (err)
-        CleanUp(TRUE);
+        CleanUp(true);
     
 }
 
@@ -468,7 +468,7 @@ void LoadEveryThingElse(void)
     
     LoadSounds();
     
-    g->alreadyAutoPaused = FALSE;
+    g->alreadyAutoPaused = false;
     
     g->crosshair = GetCursor(128);
     SetCursor(*g->crosshair);
@@ -507,7 +507,7 @@ void LoadLevel(CFStringRef theLevelName)
     if (!CFURLCreateDataAndPropertiesFromResource(  kCFAllocatorDefault,
                                                     theURL,
                                                     &theData,
-                                                    NULL,NULL,NULL)) CleanUp(TRUE);
+                                                    NULL,NULL,NULL)) CleanUp(true);
     
     CFRelease(theURL);
     
@@ -521,7 +521,7 @@ void LoadLevel(CFStringRef theLevelName)
     if (errorString || !theDict)
     {
         CFRelease(errorString);
-        CleanUp(TRUE);
+        CleanUp(true);
     }
     
     // ok, we've got the dictionary. time to fill in the level data
@@ -610,11 +610,11 @@ Background *GetBackgroundWithName(CFStringRef theName)
     
     newBackground = (Background *)NewPtr(sizeof(Background));
     if (!newBackground)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     CFRetain(theName);
     newBackground->name = theName;
-    LoadPicture(theName, &newBackground->theGWorld, FALSE);
+    LoadPicture(theName, &newBackground->theGWorld, false);
     newBackground->next = NULL;
     
     theBackground = g->baseBackground;
@@ -753,7 +753,7 @@ void AddScenery(Level *theLevel, CFStringRef sceneryName, pointFloat position, s
         newSToken->type = LoadSceneryType(sceneryName);
     
     if (!newSToken->type)
-        CleanUp(TRUE);
+        CleanUp(true);
     
     lastSToken = theLevel->baseSceneryToken;
     
@@ -804,12 +804,12 @@ SceneryType *LoadSceneryType(CFStringRef sceneryName)
     
     newSceneryType->sceneryName = sceneryName;
     
-    LoadPicture(sceneryName, &newSceneryType->spriteGWorld, FALSE);
+    LoadPicture(sceneryName, &newSceneryType->spriteGWorld, false);
     
     maskName = CFStringCreateMutableCopy(NULL, 0, sceneryName);
     CFStringAppend(maskName, CFSTR("Mask"));
     
-    LoadMask(maskName, &newSceneryType->maskGWorld, FALSE);
+    LoadMask(maskName, &newSceneryType->maskGWorld, false);
     
     pixMap = GetGWorldPixMap(newSceneryType->maskGWorld);
     GetPixBounds(pixMap, &newSceneryType->bounds);
@@ -936,7 +936,7 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
                     NULL,
                     NULL,
                     0);
-    if (err) CleanUp(TRUE);
+    if (err) CleanUp(true);
     
     maskWith = CFStringCreateMutableCopy(NULL, 0, name);
     maskWithout = CFStringCreateMutableCopy(NULL, 0, name);
@@ -946,10 +946,10 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
     CFStringAppend(maskWithout, CFSTR("HoleThin"));
     CFStringAppend(maskDraw, CFSTR("DrawMask"));
     
-    LoadPicture(name, &newWeapon->holeSprite, FALSE);
-    LoadMask(maskWithout, &newWeapon->holeSpriteMaskWithoutOutline, FALSE);
-    LoadMask(maskWith, &newWeapon->holeSpriteMaskWithOutline, FALSE);
-    LoadMask(maskDraw, &newWeapon->holeSpriteDrawMask, FALSE);
+    LoadPicture(name, &newWeapon->holeSprite, false);
+    LoadMask(maskWithout, &newWeapon->holeSpriteMaskWithoutOutline, false);
+    LoadMask(maskWith, &newWeapon->holeSpriteMaskWithOutline, false);
+    LoadMask(maskDraw, &newWeapon->holeSpriteDrawMask, false);
     
     newWeapon->next = NULL;
     
@@ -988,7 +988,7 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
 //                CFSTR("Graphics") );
 //    
 //    if ( !CFURLGetFSRef(backURL, &backFSR))
-//        CleanUp(TRUE);
+//        CleanUp(true);
 //    
 //    err = FSGetCatalogInfo( &backFSR,
 //                            kFSCatInfoNone,
@@ -996,7 +996,7 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
 //                            NULL,
 //                            &backFSS,
 //                            NULL);
-//    if (err) CleanUp(TRUE);
+//    if (err) CleanUp(true);
 //    
 //    DrawPictureToNewGWorld(&backFSS, theGWorld, flipped);
 //    
@@ -1016,7 +1016,7 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
 //                CFSTR("Graphics") );
 //    
 //    if ( !CFURLGetFSRef(backURL, &backFSR))
-//        CleanUp(TRUE);
+//        CleanUp(true);
 //    
 //    err = FSGetCatalogInfo( &backFSR,
 //                            kFSCatInfoNone,
@@ -1024,7 +1024,7 @@ void LoadWeapon (short ID, float reload, float recoil, float scoreMultiplier, sh
 //                            NULL,
 //                            &backFSS,
 //                            NULL);
-//    if (err) CleanUp(TRUE);
+//    if (err) CleanUp(true);
 //    
 //    DrawMaskToNewGWorld(&backFSS, theGWorld, flipped);
 //    
@@ -1054,7 +1054,7 @@ void DrawPictureToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
     if (err)
     {
         CloseComponent(gi);
-        CleanUp(TRUE);
+        CleanUp(true);
     }
     
     GetGWorld(&storePort, &storeDevice);
@@ -1098,7 +1098,7 @@ void DrawMaskToNewGWorld(FSSpec *fss, GWorldPtr *theGWorld, bool flipped)
     if (err)
     {
         CloseComponent(gi);
-        CleanUp(TRUE);
+        CleanUp(true);
     }
     
     GetGWorld(&storePort, &storeDevice);

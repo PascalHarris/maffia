@@ -19,8 +19,8 @@ void CheckDepth(void)
 {
     // Display depth switching is obsolete on modern macOS
     // Always assume we're running at the correct depth
-    g->depthChanged = FALSE;
-    g->askSwitchDepthPreferences = FALSE;
+    g->depthChanged = false;
+    g->askSwitchDepthPreferences = false;
     g->wasDepth = 32;  // Modern Macs use 32-bit color
 }
 
