@@ -116,6 +116,7 @@
             <connections>
                 <outlet property="delegate" destination="AppDelegateID" id="mainWindowDelegateConnection"/>
             </connections>
+            <point key="canvasLocation" x="139" y="-155"/>
         </window>
         <window title="About MAFFia" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="1000000071">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -125,6 +126,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="300"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
+            <point key="canvasLocation" x="-387" y="-638"/>
         </window>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="1000000075">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -200,6 +202,7 @@
                     </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-1439" y="-698"/>
         </window>
         <window title="High Score!" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="1000000095">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -246,6 +249,7 @@
                     </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="-913" y="-668"/>
         </window>
         <window title="High Scores" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="1000000125">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>

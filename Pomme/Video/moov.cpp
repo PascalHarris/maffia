@@ -1,9 +1,10 @@
-#include "Video/Cinepak.h"
+#include "Cinepak.h"
 #include "PommeVideo.h"
 #include "PommeSound.h"
-#include "Utilities/bigendianstreams.h"
+#include "bigendianstreams.h"
 #include "PommeDebug.h"
 
+#include <string>
 #include <iostream>
 #include <sstream>
 
@@ -336,7 +337,7 @@ static void Parse_mdia_soun(Pomme::BigEndianIStream& f, Movie& movie)
 	{
 		auto outBytes = 2 * totalSamples * movie.audioNChannels;
 		auto outSpan = movie.audioStream.GetBuffer(outBytes);
-		auto inSpan = std::span(compressedSoundData.data(), compressedLength);
+		auto inSpan = std::span<char>(compressedSoundData.data(), compressedLength);
 		codec->Decode(movie.audioNChannels, inSpan, outSpan);
 		movie.audioStream.Init(movie.audioSampleRate, 16, movie.audioNChannels, false, outSpan);
 	}

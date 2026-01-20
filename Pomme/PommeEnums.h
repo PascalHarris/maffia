@@ -1,216 +1,242 @@
 #pragma once
 
-//-----------------------------------------------------------------------------
-// Filesystem permission char
+/*
+ * PommeEnums.h - Mac OS Enumeration Definitions for Pomme Compatibility Layer
+ * 
+ * This header provides classic Mac OS enumerations and constants.
+ * Like PommeTypes.h, it handles coexistence with system headers.
+ */
+
+/*
+ * Check if system Mac errors have already been defined.
+ * If __MACERRORS__ is defined, system headers were included first.
+ */
+#ifndef __MACERRORS__
+
+/* Set guard to prevent system MacErrors.h from being included later */
+#define __MACERRORS__
+
+/*=============================================================================
+ * FILE SYSTEM PERMISSION CONSTANTS
+ *============================================================================*/
 
 enum EFSPermissions
 {
-    fsCurPerm = 0,
-    fsRdPerm = 1,
-    fsWrPerm = 2,
-    fsRdWrPerm = 3,
+    fsCurPerm   = 0,
+    fsRdPerm    = 1,
+    fsWrPerm    = 2,
+    fsRdWrPerm  = 3,
 };
 
-//-----------------------------------------------------------------------------
-// Position mode constants
+/*=============================================================================
+ * FILE POSITION MODE CONSTANTS
+ *============================================================================*/
 
 enum {
-	fsAtMark = 0,
-	fsFromStart = 1,
-	fsFromLEOF = 2,
-	fsFromMark = 3
+    fsAtMark    = 0,
+    fsFromStart = 1,
+    fsFromLEOF  = 2,
+    fsFromMark  = 3
 };
 
-//-----------------------------------------------------------------------------
-// Folder types
+/*=============================================================================
+ * FOLDER TYPE CONSTANTS
+ *============================================================================*/
 
 enum
 {
-    kSystemFolderType                   = 'macs',
-    kDesktopFolderType                  = 'desk',
-    kSystemDesktopFolderType            = 'sdsk',
-    kTrashFolderType                    = 'trsh',
-    kSystemTrashFolderType              = 'strs',
-    kWhereToEmptyTrashFolderType        = 'empt',
-    kPrintMonitorDocsFolderType         = 'prnt',
-    kStartupFolderType                  = 'strt',
-    kShutdownFolderType                 = 'shdf',
-    kAppleMenuFolderType                = 'amnu',
-    kControlPanelFolderType             = 'ctrl',
-    kSystemControlPanelFolderType       = 'sctl',
-    kExtensionFolderType                = 'extn',
-    kFontsFolderType                    = 'font',
-    kPreferencesFolderType              = 'pref',
-    kSystemPreferencesFolderType        = 'sprf',
-    kTemporaryFolderType                = 'temp'
+    kSystemFolderType               = 'macs',
+    kDesktopFolderType              = 'desk',
+    kSystemDesktopFolderType        = 'sdsk',
+    kTrashFolderType                = 'trsh',
+    kSystemTrashFolderType          = 'strs',
+    kWhereToEmptyTrashFolderType    = 'empt',
+    kPrintMonitorDocsFolderType     = 'prnt',
+    kStartupFolderType              = 'strt',
+    kShutdownFolderType             = 'shdf',
+    kAppleMenuFolderType            = 'amnu',
+    kControlPanelFolderType         = 'ctrl',
+    kSystemControlPanelFolderType   = 'sctl',
+    kExtensionFolderType            = 'extn',
+    kFontsFolderType                = 'font',
+    kPreferencesFolderType          = 'pref',
+    kSystemPreferencesFolderType    = 'sprf',
+    kTemporaryFolderType            = 'temp'
 };
 
+/*=============================================================================
+ * VOLUME/DOMAIN CONSTANTS
+ *============================================================================*/
+
 enum {
-    kOnSystemDisk                       = -32768L,
-    kOnAppropriateDisk                  = -32767,
-    kSystemDomain                       = -32766,
-    kLocalDomain                        = -32765,
-    kNetworkDomain                      = -32764,
-    kUserDomain                         = -32763,
-    kClassicDomain                      = -32762
+    kOnSystemDisk       = -32768L,
+    kOnAppropriateDisk  = -32767,
+    kSystemDomain       = -32766,
+    kLocalDomain        = -32765,
+    kNetworkDomain      = -32764,
+    kUserDomain         = -32763,
+    kClassicDomain      = -32762
 };
 
 #define kCreateFolder       true
 #define kDontCreateFolder   false
+#define kInvalidID          0
 
-//-----------------------------------------------------------------------------
-// Error codes (OSErr)
+/*=============================================================================
+ * ERROR CODES (OSErr)
+ *============================================================================*/
 
 enum EErrors
 {
-    noErr           = 0,
+    noErr               = 0,
 
-    unimpErr        = -4, // unimplemented core routine
+    unimpErr            = -4,
 
-    controlErr      = -17, // I/O System Errors
-    statusErr       = -18, // I/O System Errors
-    readErr         = -19, // I/O System Errors
-    writErr         = -20, // I/O System Errors
-    badUnitErr      = -21, // I/O System Errors
-    unitEmptyErr    = -22, // I/O System Errors
-    openErr         = -23, // I/O System Errors
-    closErr         = -24, // I/O System Errors
+    controlErr          = -17,
+    statusErr           = -18,
+    readErr             = -19,
+    writErr             = -20,
+    badUnitErr          = -21,
+    unitEmptyErr        = -22,
+    openErr             = -23,
+    closErr             = -24,
 
-    abortErr        = -27, // IO call aborted by KillIO
-    notOpenErr      = -28, // Couldn't rd/wr/ctl/sts cause driver not opened
-    dirFulErr       = -33, // File directory full
-    dskFulErr       = -34, // Disk or volume full
-    nsvErr          = -35, // Volume doesn't exist
-    ioErr           = -36, // I/O error
-    bdNamErr        = -37, // Bad file or volume name
-    fnOpnErr        = -38, // File not open
-    eofErr          = -39, // End-of-file reached
-    posErr          = -40, // Attempt to position mark before start of file
-    mFulErr         = -41, // Memory full (open) or file won't fit (load)
-    tmfoErr         = -42, // Too many files open
-    fnfErr          = -43, // File not found (FSSpec is still valid)
-    wPrErr          = -44, // Volume is hardware-locked
-    fLckdErr        = -45, // File is locked
-    vLckdErr        = -46, // Volume is software-locked
-    fBsyErr         = -47, // File is busy
-    dupFNErr        = -48, // Duplicate filename
-    opWrErr         = -49, // File already open for writing
-    paramErr        = -50, // Invalid value passed in parameter
-    rfNumErr        = -51, // Invalid reference number
-    gfpErr          = -52, // Error during a GetFPos family function
-    volOffLinErr    = -53, // Volume is offline
-    permErr         = -54, // Permission error
-    volOnLinErr     = -55, // Volume already online
-    nsDrvErr        = -56, // No such Drive
-    noMacDskErr     = -57, // Foreign disk
-    extFSErr        = -58, // Volume belongs to external file system
-    fsRnErr         = -59, // Couldn't rename
-    badMDBErr       = -60, // Bad master directory block
-    wrPermErr       = -61, // Read/write permission doesn't allow writing
-    
-    memROZWarn      = -99,  // soft error in ROZ
-    memROZError     = -99,  // hard error in ROZ
-    memROZErr       = -99,  // hard error in ROZ
-    memFullErr      = -108, // Not enough room in heap zone
-    nilHandleErr    = -109, // Master Pointer was NIL in HandleZone or other
-    memWZErr        = -111, // WhichZone failed (applied to free block)
-    memPurErr       = -112, // trying to purge a locked or non-purgeable block
-    memAdrErr       = -110, // address was odd; or out of range
-    memAZErr        = -113, // Address in zone check failed
-    memPCErr        = -114, // Pointer Check failed
-    memBCErr        = -115, // Block Check failed
-    memSCErr        = -116, // Size Check failed
-    memLockedErr    = -117, // trying to move a locked block (MoveHHi)
+    abortErr            = -27,
+    notOpenErr          = -28,
 
-    dirNFErr        = -120, // Directory not found
-    tmwdoErr        = -121, // Too many working directories open
-    badMovErr       = -122, // Couldn't move
-    wrgVolTypErr    = -123, // Unrecognized volume (not HFS)
-    volGoneErr      = -124, // Server volume disconnected
-    fsDSIntErr      = -127, // Non-hardware internal file system error
+    dirFulErr           = -33,
+    dskFulErr           = -34,
+    nsvErr              = -35,
+    ioErr               = -36,
+    bdNamErr            = -37,
+    fnOpnErr            = -38,
+    eofErr              = -39,
+    posErr              = -40,
+    mFulErr             = -41,
+    tmfoErr             = -42,
+    fnfErr              = -43,
+    wPrErr              = -44,
+    fLckdErr            = -45,
+    vLckdErr            = -46,
+    fBsyErr             = -47,
+    dupFNErr            = -48,
+    opWrErr             = -49,
+    paramErr            = -50,
+    rfNumErr            = -51,
+    gfpErr              = -52,
+    volOffLinErr        = -53,
+    permErr             = -54,
+    volOnLinErr         = -55,
+    nsDrvErr            = -56,
+    noMacDskErr         = -57,
+    extFSErr            = -58,
+    fsRnErr             = -59,
+    badMDBErr           = -60,
+    wrPermErr           = -61,
 
-    userCanceledErr = -128,
+    memROZWarn          = -99,
+    memROZError         = -99,
+    memROZErr           = -99,
+    memFullErr          = -108,
+    nilHandleErr        = -109,
+    memAdrErr           = -110,
+    memWZErr            = -111,
+    memPurErr           = -112,
+    memAZErr            = -113,
+    memPCErr            = -114,
+    memBCErr            = -115,
+    memSCErr            = -116,
+    memLockedErr        = -117,
 
-    badExtResource  = -185, // extended resource has a bad format
-    CantDecompress  = -186, // resource bent ("the bends") - can't decompress a compressed resource
-    resourceInMemory= -188, // Resource already in memory
-    writingPastEnd  = -189, // Writing past end of file
-    inputOutOfBounds= -190, // Offset of Count out of bounds
-    resNotFound     = -192, // Resource not found
-    resFNotFound    = -193, // Resource file not found
-    addResFailed    = -194, // AddResource failed
-    addRefFailed    = -195, // AddReference failed
-    rmvResFailed    = -196, // RmveResource failed
-    rmvRefFailed    = -197, // RmveReference failed
-    resAttrErr      = -198, // attribute inconsistent with operation
-    mapReadErr      = -199, // map inconsistent with operation
+    dirNFErr            = -120,
+    tmwdoErr            = -121,
+    badMovErr           = -122,
+    wrgVolTypErr        = -123,
+    volGoneErr          = -124,
+    fsDSIntErr          = -127,
 
-    // Sound Manager error codes
+    userCanceledErr     = -128,
+
+    badExtResource      = -185,
+    CantDecompress      = -186,
+    resourceInMemory    = -188,
+    writingPastEnd      = -189,
+    inputOutOfBounds    = -190,
+    resNotFound         = -192,
+    resFNotFound        = -193,
+    addResFailed        = -194,
+    addRefFailed        = -195,
+    rmvResFailed        = -196,
+    rmvRefFailed        = -197,
+    resAttrErr          = -198,
+    mapReadErr          = -199,
 
     notEnoughHardwareErr    = -201,
     queueFull               = -203,
     resProblem              = -204,
-    badChannel              = -205, // channel is corrupt or unusable
-    badFormat               = -206, // resource is corrupt or unusable
-    notEnoughBufferSpace    = -207, // insufficient memory available
-    badFileFormat           = -208, // file is corrupt or unusable, or not AIFF or AIFF-C
+    badChannel              = -205,
+    badFormat               = -206,
+    notEnoughBufferSpace    = -207,
+    badFileFormat           = -208,
     channelBusy             = -209,
     buffersTooSmall         = -210,
     siInvalidCompression    = -223,
 };
 
-
-//-----------------------------------------------------------------------------
-// Script Manager enums
+/*=============================================================================
+ * SCRIPT MANAGER ENUMS
+ *============================================================================*/
 
 enum EScriptManager
 {
-	// Implicit script codes
-	smSystemScript		= -1,
-	smCurrentScript		= -2,
-	smAllScripts		= -3,
+    smSystemScript      = -1,
+    smCurrentScript     = -2,
+    smAllScripts        = -3,
 
-	// Explicit script codes
-	smRoman				= 0,
+    smRoman             = 0,
 
-	// Language codes
-	langEnglish			= 0,	// smRoman script
-	langFrench			= 1,	// smRoman script
-	langGerman			= 2,	// smRoman script
-	langItalian			= 3,	// smRoman script
-	langDutch			= 4,	// smRoman script
-	langSwedish			= 5,	// smRoman script
-	langSpanish			= 6,	// smRoman script
-	langDanish			= 7,	// smRoman script
-	langPortuguese		= 8,	// smRoman script
-	langNorwegian		= 9,	// smRoman script
+    langEnglish         = 0,
+    langFrench          = 1,
+    langGerman          = 2,
+    langItalian         = 3,
+    langDutch           = 4,
+    langSwedish         = 5,
+    langSpanish         = 6,
+    langDanish          = 7,
+    langPortuguese      = 8,
+    langNorwegian       = 9,
 };
 
-//-----------------------------------------------------------------------------
+/*=============================================================================
+ * EVENT ENUMS
+ *============================================================================*/
 
 enum EEvents
 {
     everyEvent = ~0
 };
 
-//-----------------------------------------------------------------------------
-// Memory enums
+/*=============================================================================
+ * MEMORY ENUMS
+ *============================================================================*/
 
 enum EMemory
 {
-    maxSize = 0x7FFFFFF0 // the largest block possible
+    maxSize = 0x7FFFFFF0
 };
 
-//-----------------------------------------------------------------------------
-// Resource types
+/*=============================================================================
+ * RESOURCE TYPE ENUMS
+ *============================================================================*/
 
 enum EResTypes
 {
     rAliasType = 'alis',
 };
 
-//-----------------------------------------------------------------------------
-// Sound Manager enums
+/*=============================================================================
+ * SOUND MANAGER ENUMS
+ *============================================================================*/
 
 enum ESndPitch
 {
@@ -220,82 +246,81 @@ enum ESndPitch
 enum ESndSynth
 {
     squareWaveSynth = 1,
-    waveTableSynth = 3,
-    sampledSynth = 5
+    waveTableSynth  = 3,
+    sampledSynth    = 5
 };
 
 enum ESndInit
 {
-    initChanLeft = 0x0002,    // left stereo channel
-    initChanRight = 0x0003,    // right stereo channel
-    initMono = 0x0080,    // monophonic channel
-    initStereo = 0x00C0,    // stereo channel
-    initMACE3 = 0x0300,    // 3:1 compression
-    initMACE6 = 0x0400,    // 6:1 compression
-    initNoInterp = 0x0004,    // no linear interpolation
-    initNoDrop = 0x0008,    // no drop-sample conversion
+    initChanLeft        = 0x0002,
+    initChanRight       = 0x0003,
+    initMono            = 0x0080,
+    initStereo          = 0x00C0,
+    initMACE3           = 0x0300,
+    initMACE6           = 0x0400,
+    initNoInterp        = 0x0004,
+    initNoDrop          = 0x0008,
 };
 
 enum ESndVolume
 {
-	kFullVolume = 0x0100,
-	kNoVolume = 0,
+    kFullVolume = 0x0100,
+    kNoVolume   = 0,
 };
 
-// Sound commands
 enum ESndCmds
 {
-    nullCmd = 0,
-    initCmd = 1,
-    freeCmd = 2,
-    quietCmd = 3,
-    flushCmd = 4,
-    reInitCmd = 5,
-    waitCmd = 10,
-    pauseCmd = 11,
-    resumeCmd = 12,
-    callBackCmd = 13,
-    syncCmd = 14,
-    availableCmd = 24,
-    versionCmd = 25,
-    totalLoadCmd = 26,
-    loadCmd = 27,
-    freqDurationCmd = 40,
-    restCmd = 41,
-    freqCmd = 42,
-    ampCmd = 43,
-    timbreCmd = 44,
-    getAmpCmd = 45,
-    volumeCmd = 46,       // sound manager 3.0 or later only
-    getVolumeCmd = 47,       // sound manager 3.0 or later only
-    clockComponentCmd = 50,       // sound manager 3.2.1 or later only
-    getClockComponentCmd = 51,       // sound manager 3.2.1 or later only
-    scheduledSoundCmd = 52,       // sound manager 3.3 or later only
-    linkSoundComponentsCmd = 53,       // sound manager 3.3 or later only
-    waveTableCmd = 60,
-    phaseCmd = 61,
-    soundCmd = 80,
-    bufferCmd = 81,
-    rateCmd = 82,
-    continueCmd = 83,
-    doubleBufferCmd = 84,
-    getRateCmd = 85,
-    rateMultiplierCmd = 86,
-    getRateMultiplierCmd = 87,
-    sizeCmd = 90,       // obsolete command
-    convertCmd = 91,        // obsolete MACE command
-    pommeSetLoopCmd = 0x7001,
-    pommePausePlaybackCmd = 0x7002,  // pause playback ('pauseCmd' locks the channel, it doesn't pause playback)
-    pommeResumePlaybackCmd = 0x7003,  // resume playback ('resumeCmd' unlocks the channel, it doesn't unpause playback)
-    // Do not define commands above 0x7FFF -- the high bit means a 'snd ' resource has associated sound data
+    nullCmd                 = 0,
+    initCmd                 = 1,
+    freeCmd                 = 2,
+    quietCmd                = 3,
+    flushCmd                = 4,
+    reInitCmd               = 5,
+    waitCmd                 = 10,
+    pauseCmd                = 11,
+    resumeCmd               = 12,
+    callBackCmd             = 13,
+    syncCmd                 = 14,
+    availableCmd            = 24,
+    versionCmd              = 25,
+    totalLoadCmd            = 26,
+    loadCmd                 = 27,
+    freqDurationCmd         = 40,
+    restCmd                 = 41,
+    freqCmd                 = 42,
+    ampCmd                  = 43,
+    timbreCmd               = 44,
+    getAmpCmd               = 45,
+    volumeCmd               = 46,
+    getVolumeCmd            = 47,
+    clockComponentCmd       = 50,
+    getClockComponentCmd    = 51,
+    scheduledSoundCmd       = 52,
+    linkSoundComponentsCmd  = 53,
+    waveTableCmd            = 60,
+    phaseCmd                = 61,
+    soundCmd                = 80,
+    bufferCmd               = 81,
+    rateCmd                 = 82,
+    continueCmd             = 83,
+    doubleBufferCmd         = 84,
+    getRateCmd              = 85,
+    rateMultiplierCmd       = 86,
+    getRateMultiplierCmd    = 87,
+    sizeCmd                 = 90,
+    convertCmd              = 91,
+    
+    pommeSetLoopCmd         = 0x7001,
+    pommePausePlaybackCmd   = 0x7002,
+    pommeResumePlaybackCmd  = 0x7003,
 };
 
-//-----------------------------------------------------------------------------
-// Keyboard enums
+/*=============================================================================
+ * KEYBOARD ENUMS
+ *============================================================================*/
 
 enum
 {
-    // key positions on US keyboard
     kVK_ANSI_A                    = 0x00,
     kVK_ANSI_S                    = 0x01,
     kVK_ANSI_D                    = 0x02,
@@ -363,7 +388,6 @@ enum
     kVK_ANSI_Keypad9              = 0x5C
 };
 
-// keycodes for keys that are independent of keyboard layout
 enum
 {
     kVK_Return                    = 0x24,
@@ -415,8 +439,9 @@ enum
     kVK_UpArrow                   = 0x7E
 };
 
-//-----------------------------------------------------------------------------
-// QD2D
+/*=============================================================================
+ * QUICKDRAW 2D ENUMS
+ *============================================================================*/
 
 enum
 {
@@ -432,49 +457,51 @@ enum
 
 enum
 {
-	srcCopy = 0,
-	srcOr = 1,
-	srcXor = 2,
-	srcBic = 3,
-	notSrcCopy = 4,
-	notSrcOr = 5,
-	notSrcXor = 6,
-	notSrcBic = 7,
-	patCopy = 8,
-	patOr = 9,
-	patXor = 10,
-	patBic = 11,
-	notPatCopy = 12,
-	notPatOr = 13,
-	notPatXor = 14,
-	notPatBic = 15,
-	grayishTextOr = 49,
-	hilitetransfermode = 50,
-	hilite = 50,
-	blend = 32,
-	addPin = 33,
-	addOver = 34,
-	subPin = 35,
-	addMax = 37,
-	adMax = 37,
-	subOver = 38,
-	adMin = 39,
-	ditherCopy = 64,
-	transparent = 36
+    srcCopy             = 0,
+    srcOr               = 1,
+    srcXor              = 2,
+    srcBic              = 3,
+    notSrcCopy          = 4,
+    notSrcOr            = 5,
+    notSrcXor           = 6,
+    notSrcBic           = 7,
+    patCopy             = 8,
+    patOr               = 9,
+    patXor              = 10,
+    patBic              = 11,
+    notPatCopy          = 12,
+    notPatOr            = 13,
+    notPatXor           = 14,
+    notPatBic           = 15,
+    grayishTextOr       = 49,
+    hilitetransfermode  = 50,
+    hilite              = 50,
+    blend               = 32,
+    addPin              = 33,
+    addOver             = 34,
+    subPin              = 35,
+    addMax              = 37,
+    adMax               = 37,
+    subOver             = 38,
+    adMin               = 39,
+    ditherCopy          = 64,
+    transparent         = 36
 };
 
 enum
 {
-	pmCourteous							= 0x0000,	// Courteous color
-	pmTolerant							= 0x0002,	// Tolerant color
-	pmAnimated							= 0x0004,	// Animated color
-	pmExplicit							= 0x0008,	// Explicit color
-	pmWhite								= 0x0010,	// Use on 1-bit devices
-	pmBlack								= 0x0020,	// Use on 1-bit devices
-	pmInhibitG2							= 0x0100,
-	pmInhibitC2							= 0x0200,
-	pmInhibitG4							= 0x0400,
-	pmInhibitC4							= 0x0800,
-	pmInhibitG8							= 0x1000,
-	pmInhibitC8							= 0x2000,
+    pmCourteous     = 0x0000,
+    pmTolerant      = 0x0002,
+    pmAnimated      = 0x0004,
+    pmExplicit      = 0x0008,
+    pmWhite         = 0x0010,
+    pmBlack         = 0x0020,
+    pmInhibitG2     = 0x0100,
+    pmInhibitC2     = 0x0200,
+    pmInhibitG4     = 0x0400,
+    pmInhibitC4     = 0x0800,
+    pmInhibitG8     = 0x1000,
+    pmInhibitC8     = 0x2000,
 };
+
+#endif /* __MACERRORS__ not defined */
