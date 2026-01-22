@@ -8,7 +8,7 @@
  */
 
 #include "Pomme.h"
-#include <QuickTime/QuickTime.h>
+//#include <QuickTime/QuickTime.h>
 
 #include "mafftypes.h"
 

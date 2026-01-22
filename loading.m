@@ -377,7 +377,7 @@ void LoadGlobalGraphics(void)
     LoadPicture(CFSTR("interfaceClick"), &g->interfaceClick, false);
     LoadPicture(CFSTR("about"), &g->aboutGWorld, false);
     LoadPicture(CFSTR("instructions"), &g->instructionsGWorld, false);
-    LoadPicture(CFSTR("vote"), &g->voteGWorld, false);
+//    LoadPicture(CFSTR("vote"), &g->voteGWorld, false);
     
     LoadPicture(CFSTR("guns"), &g->gunsPictGWorld, false);
     LoadMask(CFSTR("gunsMask"), &g->gunsPictMask, false);

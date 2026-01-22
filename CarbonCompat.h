@@ -4,11 +4,22 @@
  *
  *  Compatibility layer for Carbon APIs that don't exist in modern macOS.
  *  This bridges the gap between the original Carbon code and Cocoa.
+ *
+ *  IMPORTANT: This header includes Pomme headers BEFORE Cocoa to ensure
+ *  Pomme's type definitions take precedence and block system Carbon headers.
  */
 
 #ifndef __CARBONCOMPAT_H__
 #define __CARBONCOMPAT_H__
 
+/*
+ * Include Pomme FIRST - this sets guards that block system Carbon headers
+ * from being pulled in when Cocoa is included below.
+ */
+#include "Pomme/PommeTypes.h"
+#include "Pomme/PommeEnums.h"
+
+/* Now we can safely include Cocoa - the guards will prevent conflicts */
 #import <Cocoa/Cocoa.h>
 #import <CoreFoundation/CoreFoundation.h>
 
@@ -21,6 +32,7 @@ extern "C" {
 // ============================================================================
 
 // Window types - we'll store NSWindow* in these
+// Note: WindowPtr is defined by Pomme as GrafPtr
 typedef void* WindowRef;
 typedef void* ControlRef;
 typedef void* MenuRef;
@@ -33,7 +45,7 @@ typedef void* EventLoopTimerUPP;
 typedef void* EventHandlerCallRef;
 typedef void* EventRef;
 
-// Control types  
+// Control types
 typedef struct {
     OSType signature;
     SInt32 id;
@@ -44,9 +56,6 @@ typedef struct {
     short size;
     short style;
 } ControlFontStyleRec;
-
-// Cursor types
-typedef void* CursHandle;
 
 // Time
 typedef double EventTime;
@@ -316,7 +325,7 @@ static inline EventLoopTimerUPP NewEventLoopTimerUPP(EventLoopTimerProcPtr proc)
 
 // Timer installation - this needs to be replaced with NSTimer
 // See AppDelegate for the actual implementation
-static inline OSStatus InstallEventLoopTimer(EventLoopRef loop, EventTime delay, EventTime interval, 
+static inline OSStatus InstallEventLoopTimer(EventLoopRef loop, EventTime delay, EventTime interval,
                                              EventLoopTimerUPP upp, void* userData, EventLoopTimerRef* outRef) {
     // This is stubbed - actual timer is created in AppDelegate
     if (outRef) *outRef = NULL;
@@ -358,7 +367,7 @@ static inline UInt32 GetCurrentKeyModifiers(void) {
 }
 
 // ============================================================================
-// Cursors
+// Cursors - use Pomme's CursHandle type (already defined in PommeTypes.h)
 // ============================================================================
 
 static inline CursHandle GetCursor(short cursorID) {

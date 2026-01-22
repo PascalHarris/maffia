@@ -171,33 +171,9 @@ void PlaySound(short channel, Handle sound)
             SndDoImmediate(g->sndChannel[channel], &shutUp);
             
             HLock(sound);
-            SndPlay (g->sndChannel [channel], (SndListResource **)sound, true);
+ // pgh - need to add in and fix           SndPlay (g->sndChannel [channel], (SndListResource **)sound, true);
             HUnlock(sound);
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -414,7 +414,7 @@ typedef struct GlobalStuff
     GWorldPtr		interfaceClick;
     GWorldPtr		aboutGWorld;
     GWorldPtr		instructionsGWorld;
-    GWorldPtr		voteGWorld;
+ //   GWorldPtr		voteGWorld;
     
     GWorldPtr		gunsPictGWorld;
     GWorldPtr		gunsPictMask;

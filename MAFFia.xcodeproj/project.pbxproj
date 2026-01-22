@@ -47,9 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		8B55BB932F22A89600B95C2F /* libPomme.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPomme.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7F5C411DB8C41A00A76310 /* Info-MAFFia__Upgraded_.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MAFFia__Upgraded_.plist"; sourceTree = "<group>"; };
 		8B7F5C421DB8C41A00A76310 /* MAFFia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MAFFia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B987B9E2F1FEDAD00CBEF45 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/CustomInfo.plist; sourceTree = "<group>"; };
@@ -65,7 +65,6 @@
 		F513BBD8038354CF014038F8 /* beach.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = beach.plist; sourceTree = "<group>"; };
 		F515944B0381DCED01A81442 /* aliencloister.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = aliencloister.plist; sourceTree = "<group>"; };
 		F52DA42A03803B3E01E9057F /* cloisters.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = cloisters.plist; sourceTree = "<group>"; };
-		F52E3FEB0370C51401F4A231 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
 		F52E407E0370C79A01F4A231 /* eventhandlers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eventhandlers.m; sourceTree = "<group>"; };
 		F52E407F0370C79A01F4A231 /* eventhandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = eventhandlers.h; sourceTree = "<group>"; };
 		F52E40800370C79A01F4A231 /* fire.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fire.m; sourceTree = "<group>"; };
@@ -93,90 +92,108 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8B9DFBAD2F104D6D00FFF56D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		8B55BB8C2F22A7BB00B95C2F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CompilerSupport/CoexistWithCarbon.h,
-				CompilerSupport/filesystem_implementation.hpp,
-				CompilerSupport/filesystem.h,
-				CompilerSupport/span_implementation.hpp,
-				CompilerSupport/span.h,
-				Files/Files.cpp,
-				Files/HostVolume.cpp,
-				Files/HostVolume.h,
-				Files/Resources.cpp,
-				Files/Volume.h,
-				Graphics/ARGBPixmap.cpp,
-				Graphics/Color.cpp,
-				Graphics/ColorManager.cpp,
-				Graphics/Graphics.cpp,
-				Graphics/Icons.cpp,
-				Graphics/PICT.cpp,
-				Graphics/SysFont.h,
-				Graphics/SystemPalettes.cpp,
-				Input/SDLInput.cpp,
-				Memory/Memory.cpp,
-				Platform/Windows/PommeWindows.cpp,
-				Platform/Windows/PommeWindows.h,
-				Pomme.cpp,
-				Pomme.h,
-				PommeDebug.cpp,
-				PommeDebug.h,
-				PommeEnums.h,
-				PommeFiles.h,
-				PommeGraphics.h,
-				PommeInit.h,
-				PommeInput.h,
-				PommeMemory.h,
-				PommeSound.h,
-				PommeTypes.h,
-				PommeVideo.h,
-				QD3D/3DMFInternal.h,
-				QD3D/3DMFParser.cpp,
-				QD3D/QD3D.cpp,
-				QD3D/QD3D.h,
-				QD3D/QD3DMath.cpp,
-				QD3D/QD3DMath.h,
-				SoundFormats/AIFF.cpp,
-				SoundFormats/IMA4.cpp,
-				SoundFormats/MACE.cpp,
-				SoundFormats/Midi.cpp,
-				SoundFormats/minimp3.h,
-				SoundFormats/mp3.cpp,
-				SoundFormats/SoundFormats.cpp,
-				SoundFormats/xlaw.cpp,
-				SoundMixer/ChannelImpl.cpp,
-				SoundMixer/ChannelImpl.h,
-				SoundMixer/cmixer.cpp,
-				SoundMixer/cmixer.h,
-				SoundMixer/SoundManager.cpp,
-				Text/TextUtilities.cpp,
-				Time/TimeManager.cpp,
-				Utilities/bigendianstreams.cpp,
-				Utilities/bigendianstreams.h,
-				Utilities/FixedPool.h,
-				Utilities/GrowablePool.h,
-				Utilities/IEEEExtended.cpp,
-				Utilities/IEEEExtended.h,
-				Utilities/memstream.cpp,
-				Utilities/memstream.h,
-				Utilities/StringUtils.cpp,
-				Utilities/StringUtils.h,
-				Utilities/structpack.cpp,
-				Utilities/structpack.h,
-				Video/Cinepak.cpp,
-				Video/Cinepak.h,
-				Video/moov.cpp,
+				Pomme/CompilerSupport/CoexistWithCarbon.h,
+				Pomme/CompilerSupport/filesystem_implementation.hpp,
+				Pomme/CompilerSupport/filesystem.h,
+				Pomme/CompilerSupport/span_implementation.hpp,
+				Pomme/CompilerSupport/span.h,
+				Pomme/Files/HostVolume.h,
+				Pomme/Files/Volume.h,
+				Pomme/Graphics/SysFont.h,
+				Pomme/Platform/Windows/PommeWindows.cpp,
+				Pomme/Platform/Windows/PommeWindows.h,
+				Pomme/Pomme.h,
+				Pomme/PommeDebug.h,
+				Pomme/PommeFiles.h,
+				Pomme/PommeGraphics.h,
+				Pomme/PommeInit.h,
+				Pomme/PommeInput.h,
+				Pomme/PommeMemory.h,
+				Pomme/PommeSound.h,
+				Pomme/PommeVideo.h,
+				Pomme/QD3D/3DMFInternal.h,
+				Pomme/QD3D/QD3D.h,
+				Pomme/QD3D/QD3DMath.h,
+				Pomme/SoundFormats/minimp3.h,
+				Pomme/SoundMixer/ChannelImpl.h,
+				Pomme/SoundMixer/cmixer.h,
+				Pomme/Utilities/bigendianstreams.h,
+				Pomme/Utilities/FixedPool.h,
+				Pomme/Utilities/GrowablePool.h,
+				Pomme/Utilities/IEEEExtended.h,
+				Pomme/Utilities/memstream.h,
+				Pomme/Utilities/StringUtils.h,
+				Pomme/Utilities/structpack.h,
+				Pomme/Video/Cinepak.h,
+				SDL3.framework,
 			);
 			target = 8B7F5C101DB8C41A00A76310 /* MAFFia */;
+		};
+		8B55BBA02F22A8E400B95C2F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Pomme/Files/Files.cpp,
+				Pomme/Files/HostVolume.cpp,
+				Pomme/Files/Resources.cpp,
+				Pomme/Graphics/ARGBPixmap.cpp,
+				Pomme/Graphics/Color.cpp,
+				Pomme/Graphics/ColorManager.cpp,
+				Pomme/Graphics/Graphics.cpp,
+				Pomme/Graphics/Icons.cpp,
+				Pomme/Graphics/PICT.cpp,
+				Pomme/Graphics/SystemPalettes.cpp,
+				Pomme/Memory/Memory.cpp,
+				Pomme/Pomme.cpp,
+				Pomme/PommeDebug.cpp,
+				Pomme/QD3D/3DMFParser.cpp,
+				Pomme/QD3D/QD3D.cpp,
+				Pomme/QD3D/QD3DMath.cpp,
+				Pomme/SoundFormats/AIFF.cpp,
+				Pomme/SoundFormats/IMA4.cpp,
+				Pomme/SoundFormats/MACE.cpp,
+				Pomme/SoundFormats/Midi.cpp,
+				Pomme/SoundFormats/SoundFormats.cpp,
+				Pomme/SoundFormats/xlaw.cpp,
+				Pomme/SoundMixer/ChannelImpl.cpp,
+				Pomme/SoundMixer/cmixer.cpp,
+				Pomme/SoundMixer/SoundManager.cpp,
+				Pomme/Text/TextUtilities.cpp,
+				Pomme/Time/TimeManager.cpp,
+				Pomme/Utilities/bigendianstreams.cpp,
+				Pomme/Utilities/IEEEExtended.cpp,
+				Pomme/Utilities/memstream.cpp,
+				Pomme/Utilities/StringUtils.cpp,
+				Pomme/Utilities/structpack.cpp,
+				Pomme/Video/Cinepak.cpp,
+				Pomme/Video/moov.cpp,
+			);
+			target = 8B55BB922F22A89600B95C2F /* Pomme */;
+		};
+		8B55BBC22F22A99100B95C2F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Pomme.m,
+			);
+			target = 8B55BB922F22A89600B95C2F /* Pomme */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		8B9DFB102F104D4300FFF56D /* Pomme */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8B9DFBAD2F104D6D00FFF56D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Pomme; sourceTree = "<group>"; };
+		8B55BAED2F22A7A000B95C2F /* extern */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8B55BB8C2F22A7BB00B95C2F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 8B55BBA02F22A8E400B95C2F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = extern; sourceTree = "<group>"; };
+		8B55BB942F22A89600B95C2F /* Pomme */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (8B55BBC22F22A99100B95C2F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Pomme; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8B55BB912F22A89600B95C2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B7F5C371DB8C41A00A76310 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -191,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				8B7F5C421DB8C41A00A76310 /* MAFFia.app */,
+				8B55BB932F22A89600B95C2F /* libPomme.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,10 +216,11 @@
 		20286C29FDCF999611CA2CEA /* MAFFia */ = {
 			isa = PBXGroup;
 			children = (
-				8B9DFB102F104D4300FFF56D /* Pomme */,
+				8B55BAED2F22A7A000B95C2F /* extern */,
 				20286C2AFDCF999611CA2CEA /* Sources */,
 				20286C2CFDCF999611CA2CEA /* Resources */,
 				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				8B55BB942F22A89600B95C2F /* Pomme */,
 				195DF8CFFE9D517E11CA2CBB /* Products */,
 				8B7F5C411DB8C41A00A76310 /* Info-MAFFia__Upgraded_.plist */,
 			);
@@ -255,8 +274,6 @@
 		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				F52E3FEB0370C51401F4A231 /* QuickTime.framework */,
-				20286C33FDCF999611CA2CEA /* Carbon.framework */,
 				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
 				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
 			);
@@ -304,6 +321,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8B55BB922F22A89600B95C2F /* Pomme */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B55BB992F22A89600B95C2F /* Build configuration list for PBXNativeTarget "Pomme" */;
+			buildPhases = (
+				8B55BB902F22A89600B95C2F /* Sources */,
+				8B55BB912F22A89600B95C2F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8B55BB942F22A89600B95C2F /* Pomme */,
+			);
+			name = Pomme;
+			packageProductDependencies = (
+			);
+			productName = Pomme;
+			productReference = 8B55BB932F22A89600B95C2F /* libPomme.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		8B7F5C101DB8C41A00A76310 /* MAFFia */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B7F5C3D1DB8C41A00A76310 /* Build configuration list for PBXNativeTarget "MAFFia" */;
@@ -331,6 +369,11 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					8B55BB922F22A89600B95C2F = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
 			};
 			buildConfigurationList = 8B2D261F1DB8B960004D6FFF /* Build configuration list for PBXProject "MAFFia" */;
 			compatibilityVersion = "Xcode 2.4";
@@ -345,6 +388,7 @@
 			projectRoot = "";
 			targets = (
 				8B7F5C101DB8C41A00A76310 /* MAFFia */,
+				8B55BB922F22A89600B95C2F /* Pomme */,
 			);
 		};
 /* End PBXProject section */
@@ -374,6 +418,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8B55BB902F22A89600B95C2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B7F5C2C1DB8C41A00A76310 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -468,11 +519,13 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7ATZZYL3EC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_SUFFIX = .a;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -485,6 +538,7 @@
 					"$(SRCROOT)/Pomme/CompilerSupport",
 					"$(SRCROOT)/Pomme/SoundFormats",
 				);
+				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -513,10 +567,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7ATZZYL3EC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_SUFFIX = .a;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -529,6 +585,7 @@
 					"$(SRCROOT)/Pomme/CompilerSupport",
 					"$(SRCROOT)/Pomme/SoundFormats",
 				);
+				LIBRARY_STYLE = STATIC;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
@@ -556,10 +613,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CONFIGURATION_BUILD_DIR = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 7ATZZYL3EC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXECUTABLE_SUFFIX = .a;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -572,8 +631,262 @@
 					"$(SRCROOT)/Pomme/CompilerSupport",
 					"$(SRCROOT)/Pomme/SoundFormats",
 				);
+				LIBRARY_STYLE = STATIC;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+			};
+			name = Default;
+		};
+		8B55BB9A2F22A89600B95C2F /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES_NONAGGRESSIVE;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = NO;
+				CLANG_WARN_BOOL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_CONSTANT_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = "$(CLANG_ENABLE_SECURITY_COMPILER_WARNINGS)";
+				CLANG_WARN_ENUM_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_INFINITE_RECURSION = NO;
+				CLANG_WARN_INT_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_PRAGMA_PACK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = NO;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_SUSPICIOUS_MOVE = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7ATZZYL3EC;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = extern;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/extern/Pomme";
+				INSTALL_PATH = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = NO;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"'-std=gnu++20'",
+					"-F$(SRCROOT)/extern",
+					"-fexceptions",
+					"-Wall",
+					"-Wextra",
+					"-Wshadow",
+					"-Wno-multichar",
+					"-Wno-unknown-pragmas",
+					"'-Wstrict-aliasing=2'",
+					"-F",
+					/Users/pascalharris/Downloads/nanobuild/Nanosaur/extern,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+			};
+			name = Development;
+		};
+		8B55BB9B2F22A89600B95C2F /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES_NONAGGRESSIVE;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = NO;
+				CLANG_WARN_BOOL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_CONSTANT_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = "$(CLANG_ENABLE_SECURITY_COMPILER_WARNINGS)";
+				CLANG_WARN_ENUM_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_INFINITE_RECURSION = NO;
+				CLANG_WARN_INT_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_PRAGMA_PACK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = NO;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_SUSPICIOUS_MOVE = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7ATZZYL3EC;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = extern;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/extern/Pomme";
+				INSTALL_PATH = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = NO;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"'-std=gnu++20'",
+					"-F$(SRCROOT)/extern",
+					"-fexceptions",
+					"-Wall",
+					"-Wextra",
+					"-Wshadow",
+					"-Wno-multichar",
+					"-Wno-unknown-pragmas",
+					"'-Wstrict-aliasing=2'",
+					"-F",
+					/Users/pascalharris/Downloads/nanobuild/Nanosaur/extern,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+			};
+			name = Deployment;
+		};
+		8B55BB9C2F22A89600B95C2F /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES_NONAGGRESSIVE;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = NO;
+				CLANG_WARN_BOOL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_COMMA = NO;
+				CLANG_WARN_CONSTANT_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = "$(CLANG_ENABLE_SECURITY_COMPILER_WARNINGS)";
+				CLANG_WARN_ENUM_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_INFINITE_RECURSION = NO;
+				CLANG_WARN_INT_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)";
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_PRAGMA_PACK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = NO;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
+				CLANG_WARN_SUSPICIOUS_MOVE = NO;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES;
+				CLANG_WARN_UNREACHABLE_CODE = NO;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7ATZZYL3EC;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				ENABLE_TESTABILITY = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = extern;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_NO_COMMON_BLOCKS = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_UNDECLARED_SELECTOR = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/extern/Pomme";
+				INSTALL_PATH = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = NO;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = (
+					"'-std=gnu++20'",
+					"-F$(SRCROOT)/extern",
+					"-fexceptions",
+					"-Wall",
+					"-Wextra",
+					"-Wshadow",
+					"-Wno-multichar",
+					"-Wno-unknown-pragmas",
+					"'-Wstrict-aliasing=2'",
+					"-F",
+					/Users/pascalharris/Downloads/nanobuild/Nanosaur/extern,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 			};
 			name = Default;
 		};
@@ -588,13 +901,13 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/extern";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pomme";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/extern/Pomme";
 				INFOPLIST_FILE = "Info-MAFFia__Upgraded_.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -629,11 +942,11 @@
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/extern";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pomme";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/extern/Pomme";
 				INFOPLIST_FILE = "Info-MAFFia__Upgraded_.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -667,11 +980,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/extern";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/Pomme";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/extern/Pomme";
 				INFOPLIST_FILE = "Info-MAFFia__Upgraded_.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.arcade-games";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -703,6 +1016,16 @@
 				8B2D26201DB8B960004D6FFF /* Development */,
 				8B2D26211DB8B960004D6FFF /* Deployment */,
 				8B2D26221DB8B960004D6FFF /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		8B55BB992F22A89600B95C2F /* Build configuration list for PBXNativeTarget "Pomme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B55BB9A2F22A89600B95C2F /* Development */,
+				8B55BB9B2F22A89600B95C2F /* Deployment */,
+				8B55BB9C2F22A89600B95C2F /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;

@@ -58,7 +58,7 @@ void CleanUp(bool instaQuit)
     if (g->interfaceClick) DisposeGWorld(g->interfaceClick);
     if (g->aboutGWorld) DisposeGWorld(g->aboutGWorld);
     if (g->instructionsGWorld) DisposeGWorld(g->instructionsGWorld);
-    if (g->voteGWorld) DisposeGWorld(g->voteGWorld);
+//    if (g->voteGWorld) DisposeGWorld(g->voteGWorld);
     
     if (g->gunsPictGWorld) DisposeGWorld(g->gunsPictGWorld);
     if (g->gunsPictMask) DisposeGWorld(g->gunsPictMask);
